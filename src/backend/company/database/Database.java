@@ -68,9 +68,6 @@ public class Database {
 
 
     // Gets information from "lists"-table
-
-    /* IN NEED OF REVISION!! */
-
     public List<NoteList> getNoteList(){
 
         List<NoteList> noteList = null;
@@ -84,18 +81,31 @@ public class Database {
             NoteList[] resultFromRs = (NoteList[]) Utils.readResultSetToObject(rs, NoteList[].class);
 
             noteList = List.of(resultFromRs);
-
-
-
         } catch (SQLException | JsonProcessingException throwables) {
             throwables.printStackTrace();
         }
-
         return noteList;
-
     }
 
 
+    public void createNoteList(NoteList noteList){
+
+        List<NoteList> noteLists = null;
+
+        try {
+            PreparedStatement stmt = conn.prepareStatement("INSERT INTO lists(id,name) values (?,?)");
+
+            stmt.setInt(1,noteList.getId());
+            stmt.setString(2,noteList.getName());
+
+            stmt.executeUpdate();
+
+
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
+
+    }
 
 
 

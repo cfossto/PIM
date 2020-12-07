@@ -13,6 +13,10 @@ public class NoteList {
         this.name = name;
     }
 
+    public NoteList(String name) {
+        this.name = name;
+    }
+
 
     public int getId() {
         return id;

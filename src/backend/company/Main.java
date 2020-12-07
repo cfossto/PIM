@@ -3,6 +3,7 @@ package backend.company;
 
 import backend.company.database.Database;
 import backend.company.notePack.Note;
+import backend.company.notePack.NoteList;
 
 public class Main {
 
@@ -15,6 +16,10 @@ public class Main {
         //db.createNote(n);
 
         //System.out.println(db.getNotes().toString());
+
+        NoteList g = new NoteList("collections");
+
+        db.createNoteList(g);
 
         System.out.println(db.getNoteList());
 
