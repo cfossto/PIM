@@ -7,15 +7,14 @@ public class NoteList {
     private int id;
     private String title;
     private String description;
-
-
-    // List of Notes
+    private List<Note> notes = null;
 
 
     public NoteList(int id, String title, String description) {
         this.id = id;
         this.title = title;
         this.description = description;
+
     }
 
 
@@ -49,12 +48,21 @@ public class NoteList {
     }
 
 
+    public List<Note> getNotes() {
+        return notes;
+    }
+
+    public void setNotes(List<Note> notes) {
+        this.notes = notes;
+    }
+
     @Override
     public String toString() {
         return "NoteList{" +
                 "id=" + id +
                 ", title='" + title + '\'' +
                 ", description='" + description + '\'' +
+                ", notes=" + notes +
                 '}';
     }
 }
