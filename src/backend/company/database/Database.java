@@ -5,7 +5,6 @@ import backend.company.notePack.Note;
 import backend.company.notePack.NoteList;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import express.utils.Utils;
-
 import java.sql.*;
 import java.time.LocalDateTime;
 import java.util.List;
@@ -22,8 +21,6 @@ Here is the usage:
     createNoteList(noteList)    - creates a note list/group in database from defined noteList
     deleteNoteList(id)          - deletes a note list/group by id
     updateListName(id,name)     - updates the name of a list, identified by id
-
-
  */
 
 
