@@ -10,6 +10,22 @@ import java.sql.*;
 import java.time.LocalDateTime;
 import java.util.List;
 
+
+/*
+Functionality added for CRUD on notes and list.
+Here is the usage:
+
+    getNotes()                  - returns a list of notes from database
+    createNote(note)            - creates a note entry in database from a defined Note
+    deleteNote(id)              - deletes a note identified by id
+    getNoteList()               - returns a list of available lists/groups of notes
+    createNoteList(noteList)    - creates a note list/group in database from defined noteList
+
+ */
+
+
+
+
 public class Database {
 
     private Connection conn;
@@ -94,6 +110,32 @@ public class Database {
             PreparedStatement stmt = conn.prepareStatement("INSERT INTO lists(id,name) values (?,?)");
             stmt.setInt(1,noteList.getId());
             stmt.setString(2,noteList.getName());
+            stmt.executeUpdate();
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
+    }
+
+
+    // Delete note from database by ID
+    public void deleteNote(int id){
+        try {
+            PreparedStatement stmt = conn.prepareStatement("DELETE FROM notes WHERE ID = ?");
+            stmt.setInt(1,id);
+            stmt.executeUpdate();
+
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
+    }
+
+
+    // Delete note list/group list by id
+    public void deleteNoteList(int id){
+
+        try {
+            PreparedStatement stmt = conn.prepareStatement("DELETE FROM lists WHERE ID = ?");
+            stmt.setInt(1, id);
             stmt.executeUpdate();
         } catch (SQLException throwables) {
             throwables.printStackTrace();
