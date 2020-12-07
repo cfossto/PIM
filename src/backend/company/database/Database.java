@@ -20,6 +20,9 @@ Here is the usage:
     deleteNote(id)              - deletes a note identified by id
     getNoteList()               - returns a list of available lists/groups of notes
     createNoteList(noteList)    - creates a note list/group in database from defined noteList
+    deleteNoteList(id)          - deletes a note list/group by id
+    updateListName(id,name)     - updates the name of a list, identified by id
+
 
  */
 
@@ -143,6 +146,21 @@ public class Database {
     }
 
 
+    // Update listname
+    public void updateNotelistName(int id, String name){
+
+        try {
+            PreparedStatement stmt = conn.prepareStatement("UPDATE lists SET name = ? WHERE ID = ?");
+            stmt.setString(1,name);
+            stmt.setInt(2,id);
+            stmt.executeUpdate();
+
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
+
+
+    }
 
 
 
