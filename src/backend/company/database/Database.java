@@ -46,7 +46,7 @@ public class Database {
     }
 
 
-    public void createNoteTest(Note note){
+    public void createNote(Note note){
 
         try {
             PreparedStatement stmt1 = conn.prepareStatement("INSERT INTO notes(id,list_id,title,text) VALUES(?,?,?,?)");
