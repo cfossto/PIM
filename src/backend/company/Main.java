@@ -12,7 +12,7 @@ public class Main {
 
         Note n = new Note(1,"Titel","First");
 
-        db.createNoteTest(n);
+        db.createNote(n);
 
         System.out.println(db.getNotes().toString());
 
