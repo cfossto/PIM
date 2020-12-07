@@ -6,13 +6,16 @@ public class NoteList {
     private int id;
     private String title;
     private String description;
+    private List<Note> notes = null;
 
     public NoteList() {
     }
 
-    public NoteList(String title, String description) {
+    public NoteList(int id, String title, String description) {
+        this.id = id;
         this.title = title;
         this.description = description;
+
     }
 
     public NoteList(int id, String title, String description) {
@@ -45,12 +48,22 @@ public class NoteList {
         this.description = description;
     }
 
+
+    public List<Note> getNotes() {
+        return notes;
+    }
+
+    public void setNotes(List<Note> notes) {
+        this.notes = notes;
+    }
+
     @Override
     public String toString() {
         return "NoteList{" +
                 "id=" + id +
                 ", title='" + title + '\'' +
                 ", description='" + description + '\'' +
+                ", notes=" + notes +
                 '}';
     }
 }
