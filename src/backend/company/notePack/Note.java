@@ -1,9 +1,6 @@
 package backend.company.notePack;
 
-import java.sql.Timestamp;
-import java.time.LocalDateTime;
-import java.util.Date;
-import java.util.List;
+
 
 public class Note {
 
@@ -11,18 +8,7 @@ public class Note {
     private int list_id;
     private String title;
     private String text;
-    private Timestamp created_at;
-    private Timestamp updated_at;
 
-
-    public Note(int id, int list_id, String title, String text, Timestamp created_at, Timestamp updated_at) {
-        this.id = id;
-        this.list_id = list_id;
-        this.title = title;
-        this.text = text;
-        this.created_at = created_at;
-        this.updated_at = updated_at;
-    }
 
     public Note(int id, int list_id, String title, String text) {
         this.id = id;
@@ -30,6 +16,8 @@ public class Note {
         this.title = title;
         this.text = text;
     }
+
+
 
     public int getId() {
         return id;
@@ -63,21 +51,6 @@ public class Note {
         this.text = text;
     }
 
-    public Timestamp getCreated_at() {
-        return created_at;
-    }
-
-    public void setCreated_at(Timestamp created_at) {
-        this.created_at = created_at;
-    }
-
-    public Timestamp getUpdated_at() {
-        return updated_at;
-    }
-
-    public void setUpdated_at(Timestamp updated_at) {
-        this.updated_at = updated_at;
-    }
 
     @Override
     public String toString() {
@@ -86,9 +59,6 @@ public class Note {
                 ", list_id=" + list_id +
                 ", title='" + title + '\'' +
                 ", text='" + text + '\'' +
-                ", created_at=" + created_at +
-                ", updated_at=" + updated_at +
                 '}';
     }
-
 }

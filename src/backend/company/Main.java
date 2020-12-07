@@ -1,12 +1,7 @@
 package backend.company;
 
+
 import backend.company.database.Database;
-import backend.company.notePack.Note;
-
-import java.sql.Timestamp;
-import java.time.LocalDateTime;
-import java.util.Date;
-
 
 public class Main {
 
@@ -14,6 +9,9 @@ public class Main {
 
         Database db = new Database();
 
+
         db.getNotes();
+
+
     }
 }
