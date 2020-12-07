@@ -2,6 +2,7 @@ package backend.company.database;
 
 
 import backend.company.notePack.Note;
+import backend.company.notePack.NoteList;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import express.utils.Utils;
 
@@ -12,6 +13,7 @@ public class Database {
 
     private Connection conn;
 
+    // Database constructor
     public Database(){
 
         try {
@@ -22,8 +24,9 @@ public class Database {
     }
 
 
-    public List<Note> getNotes(){
 
+    // Gets all information from "notes"-table.
+    public List<Note> getNotes(){
         List<Note> notes = null;
 
         try {
@@ -32,20 +35,16 @@ public class Database {
             ResultSet rs = stmt.executeQuery();
 
             Note[] attFromRs = (Note[]) Utils.readResultSetToObject(rs,Note[].class);
-
             notes = List.of(attFromRs);
-
-
 
         } catch (SQLException | JsonProcessingException throwables) {
             throwables.printStackTrace();
         }
-
         return notes;
-
     }
 
 
+    // Creates input in "notes"-table
     public void createNote(Note note){
 
         try {
@@ -63,6 +62,33 @@ public class Database {
             throwables.printStackTrace();
         }
     }
+
+
+
+    // Gets information from "lists"-table
+    public List<NoteList> getNoteList(){
+
+        List<NoteList> noteList = null;
+
+        try {
+
+            PreparedStatement stmt = conn.prepareStatement("SELECT * FROM lists");
+
+            ResultSet rs = stmt.executeQuery();
+
+            NoteList[] resultsFromRS = (NoteList[]) Utils.readResultSetToObject(rs,NoteList[].class);
+
+            noteList.add(resultsFromRS);
+
+
+        } catch (SQLException | JsonProcessingException throwables) {
+            throwables.printStackTrace();
+        }
+
+
+    }
+
+
 
 
 

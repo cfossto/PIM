@@ -10,6 +10,8 @@ public class Note {
     private String text;
 
 
+
+
     Note (){}
 
     public Note(int list_id, String title, String text) {
