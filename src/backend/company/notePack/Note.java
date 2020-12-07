@@ -1,6 +1,7 @@
 package backend.company.notePack;
 
 
+import java.time.LocalDate;
 
 public class Note {
 
@@ -11,11 +12,16 @@ public class Note {
 
 
 
-
     Note (){}
 
-    public Note(int list_id, String title, String text) {
+    public Note(int id, int list_id, String title, String text) {
         this.id = id;
+        this.list_id = list_id;
+        this.title = title;
+        this.text = text;
+    }
+
+    public Note(int list_id, String title, String text) {
         this.list_id = list_id;
         this.title = title;
         this.text = text;

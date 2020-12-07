@@ -4,9 +4,11 @@ package backend.company.database;
 import backend.company.notePack.Note;
 import backend.company.notePack.NoteList;
 import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ser.std.SqlDateSerializer;
 import express.utils.Utils;
 
 import java.sql.*;
+import java.time.LocalDate;
 import java.util.List;
 
 public class Database {
@@ -48,12 +50,12 @@ public class Database {
     public void createNote(Note note){
 
         try {
-            PreparedStatement stmt1 = conn.prepareStatement("INSERT INTO notes(id,list_id,title,text) VALUES(?,?,?,?)");
+            PreparedStatement stmt1 = conn.prepareStatement("INSERT INTO notes(list_id,title,text) VALUES(?,?,?)");
 
-            stmt1.setInt(1,note.getId());
-            stmt1.setInt(2,note.getList_id());
-            stmt1.setString(3,note.getTitle());
-            stmt1.setString(4,note.getText());
+
+            stmt1.setInt(1,note.getList_id());
+            stmt1.setString(2,note.getTitle());
+            stmt1.setString(3,note.getText());
 
             stmt1.executeUpdate();
 
@@ -66,6 +68,9 @@ public class Database {
 
 
     // Gets information from "lists"-table
+
+    /* IN NEED OF REVISION!! */
+
     public List<NoteList> getNoteList(){
 
         List<NoteList> noteList = null;
@@ -76,15 +81,17 @@ public class Database {
 
             ResultSet rs = stmt.executeQuery();
 
-            NoteList[] resultsFromRS = (NoteList[]) Utils.readResultSetToObject(rs,NoteList[].class);
+            NoteList[] resultFromRs = (NoteList[]) Utils.readResultSetToObject(rs, NoteList[].class);
 
-            noteList.add(resultsFromRS);
+            noteList = List.of(resultFromRs);
+
 
 
         } catch (SQLException | JsonProcessingException throwables) {
             throwables.printStackTrace();
         }
 
+        return noteList;
 
     }
 

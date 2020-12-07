@@ -10,11 +10,13 @@ public class Main {
 
         Database db = new Database();
 
-        Note n = new Note(1,"Titel","First");
+        //Note n = new Note(1,"Second","Again");
 
-        db.createNote(n);
+        //db.createNote(n);
 
-        System.out.println(db.getNotes().toString());
+        //System.out.println(db.getNotes().toString());
+
+        System.out.println(db.getNoteList());
 
 
     }
