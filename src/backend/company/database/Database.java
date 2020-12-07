@@ -62,8 +62,6 @@ public class Database {
         } catch (SQLException throwables) {
             throwables.printStackTrace();
         }
-
-
     }
 
 
