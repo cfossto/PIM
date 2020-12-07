@@ -2,6 +2,7 @@ package backend.company;
 
 import backend.company.database.Database;
 import backend.company.notePack.Note;
+import backend.company.notePack.NoteList;
 import express.Express;
 import express.middleware.Middleware;
 
@@ -26,6 +27,24 @@ public class NoteServer {
             List<Note> notes = db.getNotes();
 
             res.json(notes);
+        });
+
+        // Adds note
+        app.post("/rest/notes", (req, res) -> {
+            Note note = (Note) req.getBody(Note.class);
+            db.createNote();
+        });
+
+        // Gets lists
+        app.get("/rest/lists", (req, res) -> {
+            List<NoteList> lists = db.getLists();
+
+            res.json(lists);
+        });
+
+        app.post("/rest/lists", (req, res) -> {
+            NoteList noteList = (NoteList) req.getBody(List.class);
+            db.createList();
         });
 
 
