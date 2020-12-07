@@ -9,8 +9,7 @@ public class Main {
 
         Database db = new Database();
 
-
-        db.getNotes();
+        System.out.println(db.getNotes().toString());
 
 
     }

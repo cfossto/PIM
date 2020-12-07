@@ -10,14 +10,14 @@ public class Note {
     private String text;
 
 
+    Note (){}
+
     public Note(int id, int list_id, String title, String text) {
         this.id = id;
         this.list_id = list_id;
         this.title = title;
         this.text = text;
     }
-
-
 
     public int getId() {
         return id;

@@ -10,7 +10,6 @@ import java.util.List;
 
 public class Database {
 
-
     private Connection conn;
 
     public Database(){
@@ -25,22 +24,25 @@ public class Database {
 
     public List<Note> getNotes(){
 
-        List<Note> noteList = null;
+        List<Note> notes = null;
 
         try {
             PreparedStatement stmt = conn.prepareStatement("SELECT * FROM notes");
 
             ResultSet rs = stmt.executeQuery();
 
-            Note[] resultFromrs = (Note[]) Utils.readResultSetToObject(rs,List[].class);
+            Note[] attFromRs = (Note[]) Utils.readResultSetToObject(rs,Note[].class);
 
-            noteList = List.of(resultFromrs);
+            notes = List.of(attFromRs);
+
+
 
         } catch (SQLException | JsonProcessingException throwables) {
             throwables.printStackTrace();
         }
 
-        return noteList;
+        return notes;
+
     }
 
 
