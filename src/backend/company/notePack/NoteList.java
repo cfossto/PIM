@@ -3,23 +3,20 @@ package backend.company.notePack;
 import java.util.List;
 
 public class NoteList {
-
     private int id;
     private String title;
     private String description;
 
+    public NoteList() {
+    }
 
-    // List of Notes
-
-
-    public NoteList(int id, String title, String description) {
-        this.id = id;
+    public NoteList(String title, String description) {
         this.title = title;
         this.description = description;
     }
 
-
-    public NoteList(String title, String description) {
+    public NoteList(int id, String title, String description) {
+        this.id = id;
         this.title = title;
         this.description = description;
     }
@@ -47,7 +44,6 @@ public class NoteList {
     public void setDescription(String description) {
         this.description = description;
     }
-
 
     @Override
     public String toString() {
