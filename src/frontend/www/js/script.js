@@ -25,6 +25,18 @@ let notes = [
     }
 ];
 
+let lists = [
+    {
+        name: "Snabbanteckning"
+    },
+    {
+        name: "List Namn 1"
+    },
+    {
+        name: "List Namn 2"
+    }
+];
+
 
 function displayNotes() {
     let allNotes = $("#all-notes");
@@ -40,4 +52,19 @@ function displayNotes() {
     }
 }
 
+function displayLists() {
+    let allLists = $("#all-lists");
+    allLists.empty();
+
+    for (let list of lists) {
+        allLists.append(`
+            <div class="list-item">
+                <div class="list-name">${list.name}</div>
+                <div class="notes-in-list">5</div>
+            </div>
+        `);
+    }
+}
+
 displayNotes();
+displayLists();
