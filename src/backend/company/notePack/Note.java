@@ -5,9 +5,9 @@ import java.util.List;
 
 public class Note {
 
-    int id;
-    String description;
-    String title;
+    private int id;
+    private String description;
+    private String title;
 
     // List<File> files = new File();
 
@@ -49,6 +49,12 @@ public class Note {
     }
 
 
-
-
+    @Override
+    public String toString() {
+        return "Note{" +
+                "id=" + id +
+                ", description='" + description + '\'' +
+                ", title='" + title + '\'' +
+                '}';
+    }
 }
