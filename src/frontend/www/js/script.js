@@ -130,46 +130,58 @@ function displayLists() {
     }
 }
 
-// Under development. Missing: Add update to array. //
 
-function updateNotes(id){
+// Example id. Real id from call from other page?
+id = 1;
 
-    id = 1;
+// Loads notes on opening of page
+function loadNoteFromId(id){
+
 
     for (let note of notes){
 
         if (id == note.id){
 
-            let index = notes.indexOf(note)
-            let noteId = id;
-            let titleField = $("#note-title-input").val(note.title);
-            let noteListValue = $("#note-pick-list").val(note.list_id);
-            let noteBody = $("#note-text-input").append(note.text);
-
-            newNote = {
-                id: noteId,
-                text: noteBody,
-                title: titleField,
-                list_id: noteListValue
-            }
-
-            $(".editNote").click(
-
-
-            );
+            $("#note-title-input").val(note.title);
+            $("#note-pick-list").val(note.list_id);
+            $("#note-text-input").append(note.text);
         }
-        
     }
+}
 
 
 
-    console.log(notes);
+// Selects all fields and updates to list
+function updateNote(id){
 
+    $("#add-note-button").click(function (){
+
+
+        let noteId = id;
+        let noteTitle = $("#note-title-input").val();
+        let noteList_id = $("#note-pick-list").val();
+        let noteText = $("#note-text-input").val();
+
+        newNote = { 
+            id: noteId,
+            title: noteTitle,
+            list_id:noteList_id,
+            text: noteText
+         }
+
+        // Takes the id from note, affects only one object, replaces with newNote
+        notes.splice(id,1,newNote)
+        
+        console.log(notes)
+
+    })
 
 }
+
 
 
 displayNotes();
 displayLists();
 showListsInCreateNote()
-updateNotes(1);
+loadNoteFromId(id);
+updateNote(id);
