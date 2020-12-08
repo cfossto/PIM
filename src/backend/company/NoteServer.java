@@ -51,7 +51,7 @@ public class NoteServer {
 
 
         try {
-            app.use(Middleware.statics(Paths.get("src/frontend.www").toString()));
+            app.use(Middleware.statics(Paths.get("src/frontend/www").toString()));
         } catch (IOException e) {
             e.printStackTrace();
         }
