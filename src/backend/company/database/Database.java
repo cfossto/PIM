@@ -212,4 +212,19 @@ public class Database {
             throwables.printStackTrace();
         }
     }
+
+
+    // dummy data for stupid database sync problem
+    public void populate(){
+        for (int g = 0; g<20; g++) {
+
+            String ett = "Titel " + String.valueOf(g);
+            String tva = "Body " + String.valueOf(g);
+
+            Note n = new Note(ett, tva);
+            createNote(n);
+        }
+    }
+
+
 }
