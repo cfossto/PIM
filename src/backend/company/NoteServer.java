@@ -32,19 +32,19 @@ public class NoteServer {
         // Adds note
         app.post("/rest/notes", (req, res) -> {
             Note note = (Note) req.getBody(Note.class);
-            db.createNote();
+            db.createNote(note);
         });
 
         // Gets lists
         app.get("/rest/lists", (req, res) -> {
-            List<NoteList> lists = db.getLists();
+            List<NoteList> lists = db.getNoteList();
 
             res.json(lists);
         });
 
         app.post("/rest/lists", (req, res) -> {
             NoteList noteList = (NoteList) req.getBody(List.class);
-            db.createList();
+            db.createNoteList(noteList);
         });
 
 
