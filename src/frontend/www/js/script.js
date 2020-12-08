@@ -1,6 +1,8 @@
 let notes = [
     {
+        id: 1,
         title: "Anteckning Titel 1",
+        list_id: 1,
         text: "Phasellus gravida semper nisi. Aenean ut eros et nisl sagittis vestibulum. Integer ante arcu, accumsan a, consectetuer eget, posuere ut, mauris.\n" +
         "\n" +
         "Mauris sollicitudin fermentum libero. Etiam rhoncus. Vestibulum facilisis, purus nec pulvinar iaculis, ligula mi congue nunc, vitae euismod ligula urna in dolor.\n" +
@@ -8,6 +10,7 @@ let notes = [
         "Phasellus blandit leo ut odio. Nullam sagittis.."
     },
     {
+        id: 2,
         title: "Anteckning Titel 2",
         text: "Phasellus gravida semper nisi. Aenean ut eros et nisl sagittis vestibulum. Integer ante arcu, accumsan a, consectetuer eget, posuere ut, mauris.\n" +
         "\n" +
@@ -16,6 +19,7 @@ let notes = [
         "Phasellus blandit leo ut odio. Nullam sagittis.."
     },
     {
+        id: 3,
         title: "Anteckning Titel 2",
         text: "Phasellus gravida semper nisi. Aenean ut eros et nisl sagittis vestibulum. Integer ante arcu, accumsan a, consectetuer eget, posuere ut, mauris.\n" +
         "\n" +
@@ -126,6 +130,46 @@ function displayLists() {
     }
 }
 
+// Under development. Missing: Add update to array. //
+
+function updateNotes(id){
+
+    id = 1;
+
+    for (let note of notes){
+
+        if (id == note.id){
+
+            let index = notes.indexOf(note)
+            let noteId = id;
+            let titleField = $("#note-title-input").val(note.title);
+            let noteListValue = $("#note-pick-list").val(note.list_id);
+            let noteBody = $("#note-text-input").append(note.text);
+
+            newNote = {
+                id: noteId,
+                text: noteBody,
+                title: titleField,
+                list_id: noteListValue
+            }
+
+            $(".editNote").click(
+
+
+            );
+        }
+        
+    }
+
+
+
+    console.log(notes);
+
+
+}
+
+
 displayNotes();
 displayLists();
 showListsInCreateNote()
+updateNotes(1);
