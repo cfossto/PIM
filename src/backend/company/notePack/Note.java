@@ -11,7 +11,7 @@ import java.time.LocalTime;
 
 public class Note {
 
-    private int id;
+    private int id = 1;
     private int list_id;
     private String title;
     private String text;
@@ -33,6 +33,12 @@ public class Note {
         this.list_id = list_id;
         this.title = title;
         this.text = text;
+    }
+
+    public Note(String title, String text) {
+        this.title = title;
+        this.text = text;
+        list_id = 1;
     }
 
     public int getId() {
@@ -93,6 +99,6 @@ public class Note {
                 ", text='" + text + '\'' +
                 ", created_at=" + created_at +
                 ", modified_at=" + updated_at +
-                '}';
+                '}' + '\n';
     }
 }
