@@ -5,6 +5,7 @@ public class NoteList {
     int id;
     String name;
 
+    // Ful kommentar.
 
     public NoteList(){}
 
