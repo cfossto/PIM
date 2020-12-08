@@ -155,11 +155,30 @@ public class Database {
         } catch (SQLException throwables) {
             throwables.printStackTrace();
         }
-
-
     }
 
 
+    // Sort-by-method
+    public List <Note> sortNoteBy(String sqlSortArg, String sqlOrder){
+
+        List<Note> notes = null;
+        try {
+            PreparedStatement stmt = conn.prepareStatement("SELECT * FROM notes ORDER BY ? ?");
+            stmt.setString(1,sqlSortArg);
+            stmt.setString(2,sqlOrder);
+
+            ResultSet rs = stmt.executeQuery();
+
+            Note[] resultFromRs = (Note[]) Utils.readResultSetToObject(rs,Note[].class);
+
+            notes = List.of(resultFromRs);
+
+        } catch (SQLException | JsonProcessingException throwables) {
+            throwables.printStackTrace();
+        }
+
+        return notes;
+    }
 
 
 }

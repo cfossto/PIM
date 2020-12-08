@@ -15,19 +15,24 @@ public class Note {
     private String title;
     private String text;
     private Timestamp created_at;
-    private Timestamp modified_at;
+    private Timestamp updated_at;
 
 
     public Note(){}
 
-    public Note(int list_id, String title, String text, Timestamp created_at, Timestamp modified_at) {
+    public Note(int list_id, String title, String text, Timestamp created_at, Timestamp updated_at_at) {
         this.list_id = list_id;
         this.title = title;
         this.text = text;
         this.created_at = Timestamp.valueOf(LocalDateTime.now());
-        this.modified_at = Timestamp.valueOf(LocalDateTime.now());
+        this.updated_at = Timestamp.valueOf(LocalDateTime.now());
     }
 
+    public Note(int list_id, String title, String text) {
+        this.list_id = list_id;
+        this.title = title;
+        this.text = text;
+    }
 
     public int getId() {
         return id;
@@ -69,12 +74,12 @@ public class Note {
         this.created_at = created_at;
     }
 
-    public Timestamp getModified_at() {
-        return modified_at;
+    public Timestamp getUpdated_at() {
+        return updated_at;
     }
 
-    public void setModified_at(Timestamp modified_at) {
-        this.modified_at = modified_at;
+    public void setUpdated_at(Timestamp updated_at) {
+        this.updated_at = updated_at;
     }
 
 
@@ -86,7 +91,7 @@ public class Note {
                 ", title='" + title + '\'' +
                 ", text='" + text + '\'' +
                 ", created_at=" + created_at +
-                ", modified_at=" + modified_at +
+                ", modified_at=" + updated_at +
                 '}';
     }
 }
