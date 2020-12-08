@@ -36,6 +36,8 @@ public class Database {
 
     private Connection conn;
 
+
+
     // Database constructor
     public Database(){
 
@@ -142,7 +144,7 @@ public class Database {
     public void deleteNoteList(int id){
 
         try {
-            PreparedStatement stmt = conn.prepareStatement("DELETE FROM lists WHERE id = ?");
+            PreparedStatement stmt = conn.prepareStatement("DELETE FROM lists WHERE id = ?;");
             stmt.setInt(1, id);
             stmt.executeUpdate();
         } catch (SQLException throwables) {
@@ -171,13 +173,13 @@ public class Database {
 
 
     // Sort-by-method
-    public List <Note> sortNoteBy(String sqlSortArg, String sqlOrder){
+    public List <Note> sortNoteBy(String sqlSortArg, String sqlAscDesc){
 
         List<Note> notes = null;
         try {
             PreparedStatement stmt = conn.prepareStatement("SELECT * FROM notes ORDER BY ? ?");
             stmt.setString(1,sqlSortArg);
-            stmt.setString(2,sqlOrder);
+            stmt.setString(2,sqlAscDesc);
 
             ResultSet rs = stmt.executeQuery();
 
@@ -210,7 +212,4 @@ public class Database {
             throwables.printStackTrace();
         }
     }
-
-
-
 }

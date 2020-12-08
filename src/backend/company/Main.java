@@ -18,10 +18,12 @@ public class Main {
 
         Database db = new Database();
 
+        db.deleteNote(2);
 
-        db.updateNotelistName(0,"Coll");
+        System.out.println(db.getNotes());
 
-        System.out.println(db.getNoteList());
+
+
 
 
     }
