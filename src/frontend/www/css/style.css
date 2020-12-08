@@ -120,3 +120,8 @@ CREATE NOTES FORM
 #add-note-button {
     align-self: flex-end;
 }
+
+.errorMessage {
+    color: #9d3737;
+    font-size: 14px;
+}

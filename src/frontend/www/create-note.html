@@ -16,14 +16,10 @@
             <div class="form" id="create-notes">
                 <label for="note-title-input"></label>
                 <input placeholder="Titel..." type="text" id="note-title-input">
+                <div class="error-no-title errorMessage"></div>
                 <label for="note-pick-list"></label>
-                <select id="note-pick-list">
-                    <option value="" disabled selected>Välj Lista...</option>
-                    <option value="thing-1">Thing 1</option>
-                    <option value="thing-2">Thing 2</option>
-                    <option value="thing-3">Thing 3</option>
-                    <option value="thing-4">Thing 4</option>
-                </select>
+                <select id="note-pick-list"></select>
+                <div class="error-no-list errorMessage"></div>
 
 <!--                <label class="custom-file-label" for="file-to-upload">Lägg Till Fil</label>-->
 <!--                <input type="file" class="custom-file-input file-input" name="file-to-upload" id="file-to-upload">-->
@@ -33,8 +29,9 @@
 
                 <label for="note-text-input"></label>
                 <textarea id="note-text-input" placeholder="Anteckning..."></textarea>
+                <div class="error-no-text errorMessage"></div>
 
-                <button id="add-note-button">Add</button>
+                <button id="add-note-button" onclick="addNote()">Add</button>
             </div>
             
         </section>
