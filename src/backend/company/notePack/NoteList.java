@@ -1,28 +1,23 @@
 package backend.company.notePack;
 
-import java.util.List;
-
 public class NoteList {
-    private int id;
-    private String title;
-    private String description;
-    private List<Note> notes = null;
 
-    public NoteList() {
-    }
+    int id;
+    String name;
 
-    public NoteList(int id, String title, String description) {
+    // Ful kommentar.
+
+    public NoteList(){}
+
+    public NoteList(int id, String name) {
         this.id = id;
-        this.title = title;
-        this.description = description;
-
+        this.name = name;
     }
 
-    public NoteList(int id, String title, String description) {
-        this.id = id;
-        this.title = title;
-        this.description = description;
+    public NoteList(String name) {
+        this.name = name;
     }
+
 
     public int getId() {
         return id;
@@ -32,38 +27,19 @@ public class NoteList {
         this.id = id;
     }
 
-    public String getTitle() {
-        return title;
+    public String getName() {
+        return name;
     }
 
-    public void setTitle(String title) {
-        this.title = title;
-    }
-
-    public String getDescription() {
-        return description;
-    }
-
-    public void setDescription(String description) {
-        this.description = description;
-    }
-
-
-    public List<Note> getNotes() {
-        return notes;
-    }
-
-    public void setNotes(List<Note> notes) {
-        this.notes = notes;
+    public void setName(String name) {
+        this.name = name;
     }
 
     @Override
     public String toString() {
         return "NoteList{" +
                 "id=" + id +
-                ", title='" + title + '\'' +
-                ", description='" + description + '\'' +
-                ", notes=" + notes +
+                ", name='" + name + '\'' +
                 '}';
     }
 }

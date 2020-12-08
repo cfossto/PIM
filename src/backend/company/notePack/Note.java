@@ -1,28 +1,39 @@
 package backend.company.notePack;
 
-import java.io.File;
-import java.util.List;
+// Ännu fulare kommentar.
+
+import java.sql.Time;
+import java.sql.Timestamp;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.LocalTime;
+
 
 public class Note {
 
     private int id;
-    private String description;
+    private int list_id;
     private String title;
+    private String text;
+    private Timestamp created_at;
+    private Timestamp updated_at;
 
-    // List<File> files = new File();
 
+    public Note(){}
 
-    public Note(int id, String description, String title) {
-        this.id = id;
-        this.description = description;
+    public Note(int list_id, String title, String text, Timestamp created_at, Timestamp updated_at_at) {
+        this.list_id = list_id;
         this.title = title;
+        this.text = text;
+        this.created_at = Timestamp.valueOf(LocalDateTime.now());
+        this.updated_at = Timestamp.valueOf(LocalDateTime.now());
     }
 
-    public Note(String description, String title) {
-        this.description = description;
+    public Note(int list_id, String title, String text) {
+        this.list_id = list_id;
         this.title = title;
+        this.text = text;
     }
-
 
     public int getId() {
         return id;
@@ -32,12 +43,12 @@ public class Note {
         this.id = id;
     }
 
-    public String getDescription() {
-        return description;
+    public int getList_id() {
+        return list_id;
     }
 
-    public void setDescription(String description) {
-        this.description = description;
+    public void setList_id(int list_id) {
+        this.list_id = list_id;
     }
 
     public String getTitle() {
@@ -48,13 +59,40 @@ public class Note {
         this.title = title;
     }
 
+    public String getText() {
+        return text;
+    }
+
+    public void setText(String text) {
+        this.text = text;
+    }
+
+    public Timestamp getCreated_at() {
+        return created_at;
+    }
+
+    public void setCreated_at(Timestamp created_at) {
+        this.created_at = created_at;
+    }
+
+    public Timestamp getUpdated_at() {
+        return updated_at;
+    }
+
+    public void setUpdated_at(Timestamp updated_at) {
+        this.updated_at = updated_at;
+    }
+
 
     @Override
     public String toString() {
         return "Note{" +
                 "id=" + id +
-                ", description='" + description + '\'' +
+                ", list_id=" + list_id +
                 ", title='" + title + '\'' +
+                ", text='" + text + '\'' +
+                ", created_at=" + created_at +
+                ", modified_at=" + updated_at +
                 '}';
     }
 }
