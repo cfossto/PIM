@@ -72,7 +72,7 @@ function addNote() {
 }
 
 function showListsInCreateNote() {
-    let allLists = $("#note-pick-list");
+    let allLists = $("#note-pick-list-edit");
     allLists.empty();
 
     allLists.append('<option disabled selected>Välj Lista...</option>');
@@ -113,7 +113,7 @@ function displayNotes() {
 
         allNotes.append(`
             <article class="note">
-                <a href="edit-note.html" onclick="saveId(${note.id})"><h2>${note.title}</h2>
+                <a href="edit-note.html" onclick="saveId(${note.id},${note.list_id})"><h2>${note.title}</h2>
                 <p>${note.text}</p></a>
             </article>
         `);
@@ -136,63 +136,35 @@ function displayLists() {
 }
 
 
-function saveId(id){
+function saveId(id,listId){
 
     localStorage.setItem("id",id)
+    localStorage.setItem("listid",listId);
 
 }
 
 
-// Example id. Real id from call from other page?
+function updateNote(){
 
-// Loads notes on opening of page
-function loadNoteFromId(){
-
-    let id = localStorage.getItem("id")
+    let LocalStorageid = localStorage.getItem("id");
+    let id = parseInt(LocalStorageid);
 
     for (let note of notes){
 
-        // Checks loop for post with correct id
-        if (id == note.id){
+        if (id === note.id){
+            let titleField = $("#note-title-input-edit").val(note.title);
+            let noteListValue = $("#note-pick-list-edit").val(note.list_id);
+            let noteBody = $("#note-text-input-edit").append(note.text);
 
-            // Displays note values in the right fields
-            $("#note-title-input").val(note.title);
-            $("#note-pick-list").val(note.list_id);
-            $("#note-text-input").append(note.text);
+
+            $("#add-note-button").click(function () {
+                note.title = titleField.val();
+                note.list_id = parseInt(noteListValue.val());
+                note.text = noteBody.val();
+                console.log(notes);
+            });
         }
     }
-}
-
-
-
-// Selects all fields and updates to list
-function updateNote(){
-
-    $("#add-note-button").click(function (){
-
-        let id = localStorage.getItem("id");
-
-        // Get note info from fields
-        let noteId = id;
-        let noteTitle = $("#note-title-input").val();
-        let noteList_id = $("#note-pick-list").val();
-        let noteText = $("#note-text-input").val();
-
-        // Story in new note
-        newNote = { 
-            id: noteId,
-            title: noteTitle,
-            list_id:noteList_id,
-            text: noteText
-         }
-
-        // Takes the id from note, affects only one object, replaces with newNote
-        notes.splice(id,1,newNote)
-        
-        console.log(notes)
-
-    })
-
 }
 
 
@@ -200,5 +172,4 @@ function updateNote(){
 displayNotes();
 displayLists();
 showListsInCreateNote()
-loadNoteFromId();
 updateNote();
