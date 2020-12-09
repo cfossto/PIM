@@ -14,7 +14,7 @@
 /*******************
 BUTTONS
 *******************/
-button {
+button, .link-button {
     background-color: var(--primary);
     color: white;
     padding: 4px;
@@ -73,8 +73,22 @@ MAIN NOTES
     display: flex;
     align-items: center;
     flex-direction: column;
-
 }
+
+.main-section-header {
+    display: flex;
+    justify-content: center;
+    width: 100%;
+}
+.main-section-header h1 {
+    width: 85%;
+}
+
+/*.main-section-header button {*/
+/*    !*display: flex;*!*/
+/*    !*justify-self: flex-end;*!*/
+/*    float: right;*/
+/*}*/
 
 .all-notes {
     display: flex;
