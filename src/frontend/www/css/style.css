@@ -50,6 +50,8 @@ NAV ALL LISTS
     width: 15%;
     color: var(--text);
     padding: 10px;
+    display: flex;
+    flex-direction: column;
 }
 
 .list-item {
@@ -59,6 +61,12 @@ NAV ALL LISTS
     border-radius: 20px;
     display: flex;
     justify-content: space-between;
+}
+
+.create-list-button {
+    display: flex;
+    align-self: center;
+    margin: 10px;
 }
 
 /*******************
