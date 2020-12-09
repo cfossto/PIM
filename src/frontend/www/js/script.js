@@ -166,9 +166,11 @@ function loadNoteFromId(){
 
 
 // Selects all fields and updates to list
-function updateNote(id){
+function updateNote(){
 
     $("#add-note-button").click(function (){
+
+        let id = localStorage.getItem("id");
 
         // Get note info from fields
         let noteId = id;
@@ -199,4 +201,4 @@ displayNotes();
 displayLists();
 showListsInCreateNote()
 loadNoteFromId();
-// updateNote(id);
+updateNote();
