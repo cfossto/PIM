@@ -12,6 +12,15 @@
 }
 
 /*******************
+BUTTONS
+*******************/
+button {
+    background-color: var(--primary);
+    color: white;
+    padding: 4px;
+}
+
+/*******************
 HEADER
 *******************/
 header {
@@ -61,6 +70,10 @@ MAIN NOTES
     width: 85%;
     padding: 40px;
     color: var(--text);
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+
 }
 
 .all-notes {
@@ -79,4 +92,36 @@ MAIN NOTES
 
 .note h2 {
     padding-bottom: 20px;
+}
+
+/*******************
+CREATE NOTES FORM
+*******************/
+.form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 20px;
+    width: 40%;
+}
+
+.form input, select {
+    margin: 20px;
+    height: 30px;
+    width: 100%;
+}
+
+.form textarea {
+    margin: 20px;
+    height: 100px;
+    width: 100%;
+}
+
+#add-note-button {
+    align-self: flex-end;
+}
+
+.errorMessage {
+    color: #9d3737;
+    font-size: 14px;
 }

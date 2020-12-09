@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>PIMER - Ändra i Anteckning</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <header>
+        <h1>PIMER</h1>
+    </header>
+    <main>
+        <nav class="all-lists" id="all-lists"></nav>
+        <section class="main-section">
+            <h1>Skapa Anteckning</h1>
+            <div class="form" id="create-notes">
+                <label for="note-title-input"></label>
+                <input placeholder="Titel..." type="text" id="note-title-input">
+                <div class="error-no-title errorMessage"></div>
+                <label for="note-pick-list"></label>
+                <select id="note-pick-list"></select>
+                <div class="error-no-list errorMessage"></div>
+
+<!--                <label class="custom-file-label" for="file-to-upload">Lägg Till Fil</label>-->
+<!--                <input type="file" class="custom-file-input file-input" name="file-to-upload" id="file-to-upload">-->
+
+<!--                <label class="custom-file-label" for="image-to-uplad">Lägg Till Bild</label>-->
+<!--                <input type="file" class="custom-file-input image-input" name="image-to-uplad" id="image-to-uplad">-->
+
+                <label for="note-text-input"></label>
+                <textarea id="note-text-input" placeholder="Anteckning..."></textarea>
+                <div class="error-no-text errorMessage"></div>
+
+                <button id="add-note-button">Add</button>
+            </div>
+            
+        </section>
+    </main>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script src="js/script.js"></script>
+</body>
+</html>
