@@ -4,6 +4,8 @@
 async function getNotes() {
     let result = await fetch("/rest/notes");
     notes = await result.json();
+    displayNotes();
+    updateNote();
 }
 
 async function createNote(note) {
@@ -14,7 +16,7 @@ async function createNote(note) {
     });
 }
 
-async function updateNote(note) {
+async function update_note(note) {
 
     let result = await fetch("/rest/notes/id", {
         method: "PUT",
@@ -60,3 +62,7 @@ async function deleteNoteList(noteList) {
         body: JSON.stringify(noteList)
     });
 }
+
+getNoteLists();
+getNotes();
+updateNote();

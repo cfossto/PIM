@@ -1,33 +1,4 @@
-let notes = [
-    {
-        id: 1,
-        title: "Anteckning Titel 1",
-        list_id: 1,
-        text: "Phasellus gravida semper nisi. Aenean ut eros et nisl sagittis vestibulum. Integer ante arcu, accumsan a, consectetuer eget, posuere ut, mauris.\n" +
-        "\n" +
-        "Mauris sollicitudin fermentum libero. Etiam rhoncus. Vestibulum facilisis, purus nec pulvinar iaculis, ligula mi congue nunc, vitae euismod ligula urna in dolor.\n" +
-        "\n" +
-        "Phasellus blandit leo ut odio. Nullam sagittis.."
-    },
-    {
-        id: 2,
-        title: "Anteckning Titel 2",
-        text: "Phasellus gravida semper nisi. Aenean ut eros et nisl sagittis vestibulum. Integer ante arcu, accumsan a, consectetuer eget, posuere ut, mauris.\n" +
-        "\n" +
-        "Mauris sollicitudin fermentum libero. Etiam rhoncus. Vestibulum facilisis, purus nec pulvinar iaculis, ligula mi congue nunc, vitae euismod ligula urna in dolor.\n" +
-        "\n" +
-        "Phasellus blandit leo ut odio. Nullam sagittis.."
-    },
-    {
-        id: 3,
-        title: "Anteckning Titel 2",
-        text: "Phasellus gravida semper nisi. Aenean ut eros et nisl sagittis vestibulum. Integer ante arcu, accumsan a, consectetuer eget, posuere ut, mauris.\n" +
-        "\n" +
-        "Mauris sollicitudin fermentum libero. Etiam rhoncus. Vestibulum facilisis, purus nec pulvinar iaculis, ligula mi congue nunc, vitae euismod ligula urna in dolor.\n" +
-        "\n" +
-        "Phasellus blandit leo ut odio. Nullam sagittis.."
-    }
-];
+let notes = [];
 
 let lists = [
     {
@@ -68,7 +39,6 @@ function addNote() {
         console.log("Fält får ej vara tomt");
     }
 
-    console.log(notes);
 }
 
 function showListsInCreateNote() {
@@ -108,6 +78,7 @@ function errorMessage(noteTitleInput, notePickList, noteTextInput) {
 function displayNotes() {
     let allNotes = $("#all-notes");
     allNotes.empty();
+
 
     for (let note of notes) {
 
@@ -149,19 +120,27 @@ function updateNote(){
     let LocalStorageid = localStorage.getItem("id");
     let id = parseInt(LocalStorageid);
 
+
+
     for (let note of notes){
+        console.log(id);
+        console.log(note.id);
 
         if (id === note.id){
             let titleField = $("#note-title-input-edit").val(note.title);
             let noteListValue = $("#note-pick-list-edit").val(note.list_id);
             let noteBody = $("#note-text-input-edit").append(note.text);
 
+            console.log(notes);
+
 
             $("#add-note-button").click(function () {
+                console.log("button");
                 note.title = titleField.val();
                 note.list_id = parseInt(noteListValue.val());
                 note.text = noteBody.val();
                 console.log(notes);
+                // update_note();
             });
         }
     }
@@ -171,5 +150,5 @@ function updateNote(){
 
 displayNotes();
 displayLists();
-showListsInCreateNote()
-updateNote();
+showListsInCreateNote();
+
