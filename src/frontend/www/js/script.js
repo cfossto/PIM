@@ -44,6 +44,9 @@ let lists = [
     }
 ];
 
+
+
+
 function addNote() {
     let noteTitleInput = $("#note-title-input").val();
     let notePickList = $("#note-pick-list").val();
@@ -107,13 +110,15 @@ function displayNotes() {
     allNotes.empty();
 
     for (let note of notes) {
+
         allNotes.append(`
             <article class="note">
-                <h2>${note.title}</h2>
-                <p>${note.text}</p>
+                <a href="edit-note.html" onclick="saveId(${note.id})"><h2>${note.title}</h2>
+                <p>${note.text}</p></a>
             </article>
         `);
     }
+
 }
 
 function displayLists() {
@@ -131,12 +136,19 @@ function displayLists() {
 }
 
 
+function saveId(id){
+
+    localStorage.setItem("id",id)
+
+}
+
+
 // Example id. Real id from call from other page?
-id = 1;
 
 // Loads notes on opening of page
-function loadNoteFromId(id){
+function loadNoteFromId(){
 
+    let id = localStorage.getItem("id")
 
     for (let note of notes){
 
@@ -186,5 +198,5 @@ function updateNote(id){
 displayNotes();
 displayLists();
 showListsInCreateNote()
-loadNoteFromId(id);
-updateNote(id);
+loadNoteFromId();
+// updateNote(id);
