@@ -125,3 +125,8 @@ CREATE NOTES FORM
     color: #9d3737;
     font-size: 14px;
 }
+
+a {
+    text-decoration: none;
+    color: inherit;
+}
