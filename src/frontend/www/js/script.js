@@ -140,8 +140,10 @@ function loadNoteFromId(id){
 
     for (let note of notes){
 
+        // Checks loop for post with correct id
         if (id == note.id){
 
+            // Displays note values in the right fields
             $("#note-title-input").val(note.title);
             $("#note-pick-list").val(note.list_id);
             $("#note-text-input").append(note.text);
@@ -156,12 +158,13 @@ function updateNote(id){
 
     $("#add-note-button").click(function (){
 
-
+        // Get note info from fields
         let noteId = id;
         let noteTitle = $("#note-title-input").val();
         let noteList_id = $("#note-pick-list").val();
         let noteText = $("#note-text-input").val();
 
+        // Story in new note
         newNote = { 
             id: noteId,
             title: noteTitle,
