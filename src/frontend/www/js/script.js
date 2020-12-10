@@ -148,7 +148,6 @@ function updateNote(){
                 update_note(note);
             });
         }
-        return true;
     }
 }
 

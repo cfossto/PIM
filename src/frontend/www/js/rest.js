@@ -61,6 +61,6 @@ async function delete_note_list(noteList) {
     });
 }
 
-getNoteLists();
-getNotes();
+get_note_lists();
+get_notes();
 updateNote();
