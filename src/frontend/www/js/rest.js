@@ -15,11 +15,16 @@ async function create_note(note) {
 
 async function update_note(note) {
 
+    let edit_note = {
+        id: note.id,
+        title: note.title,
+        list_id: note.list_id,
+        text: note.text
+    }
     let result = await fetch("/rest/notes/id", {
         method: "PUT",
-        body: JSON.stringify(note)
+        body: JSON.stringify(edit_note)
     });
-
 }
 
 async function delete_note(note) {
@@ -63,4 +68,4 @@ async function delete_note_list(noteList) {
 
 get_note_lists();
 get_notes();
-updateNote();
+update_note();
