@@ -32,7 +32,7 @@ async function delete_note(note) {
 
 async function get_note_lists() {
     let result = await fetch("/rest/lists");
-    noteLists = await result.json();
+    lists = await result.json();
     displayLists();	
 }
 
