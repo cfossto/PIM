@@ -140,10 +140,10 @@ function updateNote(){
                 note.list_id = parseInt(noteListValue.val());
                 note.text = noteBody.val();
                 console.log(notes);
-                // update_note();
-                window.location.href="index.html";
+                update_note(note);
             });
         }
+        return true;
     }
 }
 
