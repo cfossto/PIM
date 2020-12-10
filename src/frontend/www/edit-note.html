@@ -7,13 +7,16 @@
 </head>
 <body>
     <header>
-        <h1>PIMER</h1>
+        <h1><a href="index.html">PIMER</a></h1>
     </header>
     <main>
-        <nav class="all-lists" id="all-lists"></nav>
+        <nav class="all-lists">
+            <a class="link-button create-list-button" href="create-list.html">Skapa Lista</a>
+            <div id="all-lists"></div>
+        </nav>
         <section class="main-section">
-            <h1>Skapa Anteckning</h1>
-            <div class="form" id="create-notes">
+            <h1>Redigera Anteckning</h1>
+            <div class="form" id="edit-notes">
                 <label for="note-title-input-edit"></label>
                 <input placeholder="Titel..." type="text" id="note-title-input-edit">
                 <div class="error-no-title errorMessage"></div>
@@ -31,7 +34,7 @@
                 <textarea id="note-text-input-edit" placeholder="Anteckning..."></textarea>
                 <div class="error-no-text errorMessage"></div>
 
-                <button id="add-note-button">Add</button>
+                <button id="edit-note-button">Redigera</button>
             </div>
             
         </section>

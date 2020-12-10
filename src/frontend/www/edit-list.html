@@ -2,9 +2,8 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>PIMER</title>
+    <title>PIMER - Redigera Lista</title>
     <link rel="stylesheet" href="css/style.css">
-
 </head>
 <body>
     <header>
@@ -16,11 +15,12 @@
             <div id="all-lists"></div>
         </nav>
         <section class="main-section">
-            <div class="main-section-header">
-                <h1>Snabbanteckningar</h1>
-                <a class="link-button" type="button" href="create-note.html">Skapa Anteckning</a>
-            </div>
-            <div class="all-notes" id="all-notes">
+            <h1>Redigera Lista</h1>
+            <div class="form" id="edit-lists">
+                <label for="list-name-input-edit"></label>
+                <input placeholder="List Namn..." type="text" id="list-name-input-edit">
+                <div class="error-no-name errorMessage"></div>
+                <button id="edit-list-button" onclick="editList()">Redigera</button>
             </div>
         </section>
     </main>
