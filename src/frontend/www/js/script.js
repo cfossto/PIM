@@ -20,11 +20,11 @@ let lists = [
 
 function addNote() {
     let noteTitleInput = $("#note-title-input").val();
-    let notePickList = $("#note-pick-list").val();
+    let notePickList = $("#note-pick-list-edit").val();
     let noteTextInput = $("#note-text-input").val();
     let newNote = {};
 
-    errorMessage(noteTitleInput, notePickList, noteTextInput)
+    // errorMessage(noteTitleInput, notePickList, noteTextInput);
 
     if(noteTitleInput && notePickList && noteTextInput) {
         newNote = {
@@ -32,9 +32,14 @@ function addNote() {
             list_id: notePickList,
             text: noteTextInput
         }
-        notes.push(newNote);
 
-        $("#userInput").val("");
+
+        $("#note-title-input").val("");
+        $("#note-text-input").val("");
+        notes.push(newNote);
+        createNote(newNote);
+        window.location.pathname = "/index.html";
+
     } else {
         console.log("Fält får ej vara tomt");
     }
@@ -140,7 +145,7 @@ function updateNote(){
                 note.list_id = parseInt(noteListValue.val());
                 note.text = noteBody.val();
                 console.log(notes);
-                // update_note();
+                update_note(note);
             });
         }
     }
