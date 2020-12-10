@@ -32,13 +32,13 @@ async function deleteNote(note) {
 }
 
 async function getNoteLists() {
-    let result = await fetch("/rest/noteLists");
+    let result = await fetch("/rest/lists");
     noteLists = await result.json();
 }
 
 async function createNoteList(noteList) {
 
-    let result = await fetch("/rest/noteLists", {
+    let result = await fetch("/rest/lists", {
         method: "POST",
         body: JSON.stringify(noteList)
     });
@@ -46,7 +46,7 @@ async function createNoteList(noteList) {
 
 async function updateNoteList(noteList) {
 
-    let result = await fetch("/rest/noteLists/id", {
+    let result = await fetch("/rest/lists/id", {
         method: "PUT",
         body: JSON.stringify(noteList)
     });
@@ -55,7 +55,7 @@ async function updateNoteList(noteList) {
 
 async function deleteNoteList(noteList) {
 
-    let result = await fetch("/rest/noteLists/id", {
+    let result = await fetch("/rest/lists/id", {
         method: "DELETE",
         body: JSON.stringify(noteList)
     });
