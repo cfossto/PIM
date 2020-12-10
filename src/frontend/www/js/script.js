@@ -141,6 +141,7 @@ function updateNote(){
                 note.text = noteBody.val();
                 console.log(notes);
                 // update_note();
+                window.location.href="index.html";
             });
         }
     }
