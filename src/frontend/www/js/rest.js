@@ -1,14 +1,11 @@
-// För att använda följande funktioner kan följande användas:
-// exempel: $.getScript("js/rest.js", function(){getNotes(); displayNotes()});
-
-async function getNotes() {
+async function get_notes() {
     let result = await fetch("/rest/notes");
     notes = await result.json();
     displayNotes();
     updateNote();
 }
 
-async function createNote(note) {
+async function create_note(note) {
 
     let result = await fetch("/rest/notes", {
         method: "POST",
@@ -25,7 +22,7 @@ async function update_note(note) {
 
 }
 
-async function deleteNote(note) {
+async function delete_note(note) {
 
     let result = await fetch("/rest/notes/id", {
         method: "DELETE",
@@ -33,12 +30,13 @@ async function deleteNote(note) {
     });
 }
 
-async function getNoteLists() {
+async function get_note_lists() {
     let result = await fetch("/rest/lists");
-    noteLists = await result.json();
+    lists = await result.json();
+    displayLists();	
 }
 
-async function createNoteList(noteList) {
+async function create_note_list(noteList) {
 
     let result = await fetch("/rest/lists", {
         method: "POST",
@@ -46,7 +44,7 @@ async function createNoteList(noteList) {
     });
 }
 
-async function updateNoteList(noteList) {
+async function update_note_list(noteList) {
 
     let result = await fetch("/rest/lists/id", {
         method: "PUT",
@@ -55,7 +53,7 @@ async function updateNoteList(noteList) {
 
 }
 
-async function deleteNoteList(noteList) {
+async function delete_note_list(noteList) {
 
     let result = await fetch("/rest/lists/id", {
         method: "DELETE",

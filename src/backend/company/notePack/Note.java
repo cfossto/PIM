@@ -11,7 +11,7 @@ import java.time.LocalTime;
 
 public class Note {
 
-    private int id = 1;
+    private int id;
     private int list_id;
     private String title;
     private String text;
