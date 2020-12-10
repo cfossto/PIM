@@ -134,7 +134,7 @@ function updateNote(){
             console.log(notes);
 
 
-            $("#add-note-button").click(function () {
+            $("#edit-note-button").click(function () {
                 console.log("button");
                 note.title = titleField.val();
                 note.list_id = parseInt(noteListValue.val());
