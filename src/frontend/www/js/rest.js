@@ -21,19 +21,27 @@ async function update_note(note) {
         list_id: note.list_id,
         text: note.text
     }
+    
     let result = await fetch("/rest/notes/id", {
         method: "PUT",
         body: JSON.stringify(edit_note)
     });
+
+
 }
 
-async function delete_note(note) {
+async function delete_note(noteid) {
+
+    deleteNote = parseInt(noteid);
 
     let result = await fetch("/rest/notes/id", {
         method: "DELETE",
-        body: JSON.stringify(note)
+        body: JSON.stringify(deleteNote)
     });
+
 }
+
+
 
 async function get_note_lists() {
     let result = await fetch("/rest/lists");
