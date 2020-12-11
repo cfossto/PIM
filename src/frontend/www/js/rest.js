@@ -77,4 +77,4 @@ async function delete_note_list(noteList) {
 
 get_notes();
 get_note_lists();
-// update_note();
+get_notes();
