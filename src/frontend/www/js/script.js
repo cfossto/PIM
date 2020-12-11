@@ -165,10 +165,11 @@ function updateNote(){
 
 
 
+function changeWindow(){
 
+    window.location=document.referrer;
 
-
-
+}
 
 
 
@@ -178,10 +179,12 @@ function deleteNoteFunctionalty(){
     let LocalStorageid = localStorage.getItem("id");
     let id = parseInt(LocalStorageid);    
 
+    // On click - deletes entry in database
     $("#delete-note-button").click(function () {
 
-        delete_note(id);
-
+        // REST-call
+        delete_note(id)
+        changeWindow()
 
     })
 
