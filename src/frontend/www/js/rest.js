@@ -38,7 +38,8 @@ async function delete_note(note) {
 async function get_note_lists() {
     let result = await fetch("/rest/lists");
     lists = await result.json();
-    displayLists();	
+    displayLists();
+    showListsInCreateNote();
 }
 
 async function create_note_list(noteList) {
