@@ -1,7 +1,5 @@
 package backend.company.notePack;
 
-// Ännu fulare kommentar.
-
 import java.sql.Time;
 import java.sql.Timestamp;
 import java.time.LocalDate;

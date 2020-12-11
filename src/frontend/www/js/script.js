@@ -167,8 +167,8 @@ function updateNote(){
 
 function changeWindow(){
 
-    window.location=document.referrer;
-
+    confirm("Du tar nu bort anteckningen").
+    window.location.href="index.html"
 }
 
 
@@ -183,11 +183,9 @@ function deleteNoteFunctionalty(){
     $("#delete-note-button").click(function () {
 
         // REST-call
-        delete_note(id)
-        changeWindow()
-
+        delete_note(id);
+        changeWindow();
     })
-
 }
 
 displayNotes();
