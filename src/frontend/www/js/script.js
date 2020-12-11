@@ -128,15 +128,15 @@ function updateNote(){
 
 
     for (let note of notes){
-        console.log(id);
-        console.log(note.id);
+        //console.log(id);
+        //console.log(note.id);
 
         if (id === note.id){
             let titleField = $("#note-title-input-edit").val(note.title);
             let noteListValue = $("#note-pick-list-edit").val(note.list_id);
             let noteBody = $("#note-text-input-edit").append(note.text);
 
-            console.log(notes);
+            //console.log(notes);
 
 
             $("#edit-note-button").click(function () {
@@ -144,16 +144,48 @@ function updateNote(){
                 note.title = titleField.val();
                 note.list_id = parseInt(noteListValue.val());
                 note.text = noteBody.val();
-                console.log(notes);
+                //console.log(notes);
                 update_note(note);
             });
         }
+        return true;
     }
 }
 
+//Uppdatera listnamn
+function editList(){
 
+
+    let localStorageListId = localStorage.getItem("listid");
+    let listId = parseInt(localStorageListId);
+    // let listId = $("#note-pick-list-edit").val();
+
+
+
+    for (let everylist of lists){
+
+        if (listId === everylist.id) {
+            let listName = $("#list-name-input-edit").val(everylist.name);
+            // let listId = $("#note-pick-list-edit").val(everylist.id);
+            
+            
+        $("#edit-list-button").click(function() {
+            console.log("edit list clicked");
+            everylist.name = listName.val();
+           
+            console.log(everylist.name);
+            update_note_list(everylist);
+        });
+
+        }
+        
+        
+        
+    }
+}
 
 displayNotes();
 displayLists();
 showListsInCreateNote();
+editList();
 
