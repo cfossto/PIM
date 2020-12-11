@@ -167,7 +167,7 @@ function updateNote(){
 
 function changeWindow(){
 
-    confirm("Du tar nu bort anteckningen").
+    alert("Anteckningen borttagen")
     window.location.href="index.html"
 }
 
