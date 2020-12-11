@@ -1,19 +1,6 @@
 let notes = [];
 
-let lists = [
-    {
-        id: 1,
-        name: "Snabbanteckning"
-    },
-    {
-        id: 2,
-        name: "List Namn 1"
-    },
-    {
-        id: 3,
-        name: "List Namn 2"
-    }
-];
+let lists = [];
 
 
 
@@ -37,7 +24,7 @@ function addNote() {
         $("#note-title-input").val("");
         $("#note-text-input").val("");
         notes.push(newNote);
-        createNote(newNote);
+        create_note(newNote);
         window.location.pathname = "/index.html";
 
     } else {
@@ -80,19 +67,29 @@ function errorMessage(noteTitleInput, notePickList, noteTextInput) {
 }
 
 
-function displayNotes() {
+function displayNotes(pickedListId = 1) {
     let allNotes = $("#all-notes");
     allNotes.empty();
+    let listTitle = $("#list-title-fronpage");
+
+    for (let list  of lists) {
+        if (pickedListId === list.id) {
+            listTitle.empty();
+            listTitle.append(list.name);
+        }
+    }
 
 
     for (let note of notes) {
 
-        allNotes.append(`
+        if(pickedListId === note.list_id) {
+            allNotes.append(`
             <article class="note">
                 <a href="edit-note.html" onclick="saveId(${note.id},${note.list_id})"><h2>${note.title}</h2>
                 <p>${note.text}</p></a>
             </article>
         `);
+        }
     }
 
 }
@@ -103,12 +100,24 @@ function displayLists() {
 
     for (let list of lists) {
         allLists.append(`
-            <div class="list-item">
-                <div class="list-name">${list.name}</div>
-                <div class="notes-in-list">5</div>
+            <a onclick="displayNotes(${list.id})">
+                <div class="list-item">
+                    <div class="list-name">${list.name}</div>
+                <div class="notes-in-list">${countNotesInList(list.id)}</div>
             </div>
+            </a>
         `);
     }
+}
+
+function countNotesInList(listId) {
+    let count = 0;
+    for (let note of notes) {
+        if(note.list_id === listId) {
+            count++;
+        }
+    }
+    return count;
 }
 
 
@@ -128,8 +137,6 @@ function updateNote(){
 
 
     for (let note of notes){
-        console.log(id);
-        console.log(note.id);
 
         if (id === note.id){
             let titleField = $("#note-title-input-edit").val(note.title);
@@ -153,7 +160,7 @@ function updateNote(){
 
 
 
-displayNotes();
 displayLists();
+displayNotes();
 showListsInCreateNote();
 

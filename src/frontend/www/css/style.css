@@ -63,6 +63,16 @@ NAV ALL LISTS
     justify-content: space-between;
 }
 
+.list-item:hover {
+    background-color: var(--primary);
+    color: white;
+}
+
+.list-item-picked {
+    background-color: var(--primary);
+    color: white;
+}
+
 .create-list-button {
     display: flex;
     align-self: center;
@@ -107,6 +117,7 @@ MAIN NOTES
 .note {
     background-color: white;
     width: 30%;
+    min-width: 200px;
     margin: 10px;
     padding: 40px 10px 80px 10px;
     border-radius: 20px;
