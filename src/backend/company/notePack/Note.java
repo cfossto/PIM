@@ -21,6 +21,10 @@ public class Note {
 
     public Note(){}
 
+    public Note(int id) {
+        this.id = id;
+    }
+
     public Note(int list_id, String title, String text, Timestamp created_at, Timestamp updated_at_at) {
         this.list_id = list_id;
         this.title = title;

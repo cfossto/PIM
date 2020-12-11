@@ -119,32 +119,32 @@ function saveId(id,listId){
 
 }
 
-
+// Updates notes in database
 function updateNote(){
 
+    // Takes the stored id and parses it correctly
     let LocalStorageid = localStorage.getItem("id");
     let id = parseInt(LocalStorageid);
 
 
-
+    // Loops through notes
     for (let note of notes){
-        console.log(id);
-        console.log(note.id);
 
+        // Selects all info alredy in the fields
         if (id === note.id){
             let titleField = $("#note-title-input-edit").val(note.title);
             let noteListValue = $("#note-pick-list-edit").val(note.list_id);
             let noteBody = $("#note-text-input-edit").append(note.text);
 
-            console.log(notes);
-
-
+            // On click: update note to changed values
             $("#edit-note-button").click(function () {
                 console.log("button");
                 note.title = titleField.val();
                 note.list_id = parseInt(noteListValue.val());
                 note.text = noteBody.val();
                 console.log(notes);
+
+                // Back-end-call
                 update_note(note);
             });
         }
@@ -153,7 +153,41 @@ function updateNote(){
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+function deleteNoteFunctionalty(){
+
+    // Takes the stored id and parses it correctly
+    let LocalStorageid = localStorage.getItem("id");
+    let id = parseInt(LocalStorageid);    
+
+    $("#delete-note-button").click(function () {
+
+        delete_note(id);
+
+
+    })
+
+}
+
 displayNotes();
 displayLists();
 showListsInCreateNote();
-
+deleteNoteFunctionalty();

@@ -27,11 +27,13 @@ async function update_note(note) {
     });
 }
 
-async function delete_note(note) {
+async function delete_note(noteid) {
+
+    deleteNote = parseInt(noteid);
 
     let result = await fetch("/rest/notes/id", {
         method: "DELETE",
-        body: JSON.stringify(note)
+        body: JSON.stringify(deleteNote)
     });
 }
 
