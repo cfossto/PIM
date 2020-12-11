@@ -94,7 +94,7 @@ function errorMessage(noteTitleInput, notePickList, noteTextInput) {
 function displayNotes(pickedListId = 1) {
     let allNotes = $("#all-notes");
     allNotes.empty();
-    let listTitle = $("#list-title-fronpage");
+    let listTitle = $("#list-title-frontpage");
 
     for (let list  of lists) {
         if (pickedListId === list.id) {
