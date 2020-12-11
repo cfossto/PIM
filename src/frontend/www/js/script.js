@@ -46,6 +46,30 @@ function addNote() {
 
 }
 
+function addList() {
+    let noteListNameInput = $("#list-name-input").val();
+    
+    let newNote = {};
+
+    // errorMessage(noteListNameInput);
+
+    if(noteListNameInput) {
+        newList = {
+            name: noteListNameInput
+        }
+
+
+        $("#list-name-input").val("");
+        lists.push(newList);
+        create_note_list(newList);
+        window.location.pathname = "/index.html";
+
+    } else {
+        console.log("Fält får ej vara tomt");
+    }
+
+}
+
 function showListsInCreateNote() {
     let allLists = $("#note-pick-list-edit");
     allLists.empty();

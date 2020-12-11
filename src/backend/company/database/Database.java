@@ -117,9 +117,8 @@ public class Database {
         List<NoteList> noteLists = null;
 
         try {
-            PreparedStatement stmt = conn.prepareStatement("INSERT INTO lists(id,name) values (?,?)");
-            stmt.setInt(1,noteList.getId());
-            stmt.setString(2,noteList.getName());
+            PreparedStatement stmt = conn.prepareStatement("INSERT INTO lists(name) values (?)");
+            stmt.setString(1,noteList.getName());
             stmt.executeUpdate();
         } catch (SQLException throwables) {
             throwables.printStackTrace();

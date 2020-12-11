@@ -68,4 +68,3 @@ async function delete_note_list(noteList) {
 
 get_note_lists();
 get_notes();
-update_note();
