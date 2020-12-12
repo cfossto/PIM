@@ -36,7 +36,7 @@ function addNote() {
 function addList() {
     let noteListNameInput = $("#list-name-input").val();
     
-    let newNote = {};
+    let newList = {};
 
     // errorMessage(noteListNameInput);
 
@@ -124,7 +124,7 @@ function displayLists() {
 
     for (let list of lists) {
         allLists.append(`
-            <a onclick="displayNotes(${list.id})">
+            <a onclick="displayNotes(${list.id}), saveId(1, ${list.id})">
                 <div class="list-item">
                     <div class="list-name">${list.name}</div>
                 <div class="notes-in-list">${countNotesInList(list.id)}</div>
@@ -132,6 +132,33 @@ function displayLists() {
             </a>
         `);
     }
+}
+
+
+function editList() {
+    // Takes the stored id and parses it correctly
+    let LocalStorageListId = localStorage.getItem("listid");
+    let listId = parseInt(LocalStorageListId);
+    let noteListNameInput = $("#list-name-input-edit").val();
+    let newList = {};
+    
+    // errorMessage(noteListNameInput);
+
+    if(noteListNameInput) {
+        newList = {
+            id: listId,
+            name: noteListNameInput
+        }
+       
+        update_note_list(newList);
+        $("#list-name-input-edit").val("");
+        console.log(newList);
+        window.location.pathname = "/index.html";
+
+    } else {
+        console.log("Fält får ej vara tomt");
+    }
+
 }
 
 function countNotesInList(listId) {

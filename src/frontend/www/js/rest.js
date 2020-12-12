@@ -59,7 +59,7 @@ async function create_note_list(noteList) {
 }
 
 async function update_note_list(noteList) {
-
+    
     let result = await fetch("/rest/lists/id", {
         method: "PUT",
         body: JSON.stringify(noteList)
