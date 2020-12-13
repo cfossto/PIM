@@ -48,6 +48,7 @@ async function get_note_lists() {
     lists = await result.json();
     displayLists();
     showListsInCreateNote();
+    updateListName();
 }
 
 async function create_note_list(noteList) {

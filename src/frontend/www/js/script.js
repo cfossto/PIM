@@ -211,6 +211,27 @@ function updateNote(){
     }
 }
 
+// Updates notes in database
+function updateListName(){
+
+    // Takes the stored id and parses it correctly
+    let listId = parseInt(localStorage.getItem("listid"));
+    // Loops through lists
+    for (let list of lists){
+        // Selects all info already in the fields
+        if (listId === list.id){
+            let noteListName = $("#list-name-input-edit").val(list.name);
+
+            // On click: update lists to changed values
+            $("#edit-list-button").click(function () {
+                list.name = noteListName.val();
+                update_note_list(list);
+                window.location.pathname = "/index.html";
+            });
+        }
+    }
+}
+
 
 
 
