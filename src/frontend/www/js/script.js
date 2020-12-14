@@ -11,9 +11,9 @@ function addNote() {
     let noteTextInput = $("#note-text-input").val();
     let newNote = {};
 
-    // errorMessage(noteTitleInput, notePickList, noteTextInput);
-
+    //errorMessage(noteTitleInput, notePickList, noteTextInput);
     if(noteTitleInput && notePickList && noteTextInput) {
+        
         newNote = {
             title: noteTitleInput,
             list_id: notePickList,
@@ -32,30 +32,30 @@ function addNote() {
 
 }
 
-function addList() {
-    
-    // errorMessage(noteListNameInput);
-    
-    $("#add-list-button").click(function() {
 
-        let noteListNameInput = $("#list-name-input").val();
-        
-        let newList = {};
-        
-        if(noteListNameInput) {
-            newList = {
-                name: noteListNameInput
-            }
-     
-            lists.push(newList);
-            create_note_list(newList);
-           
-        } else {
-            console.log("Fält får ej vara tomt");
+function addList() {
+    let noteListNameInput = $("#list-name-input").val();
+    
+    let newNote = {};
+
+    // errorMessage(noteListNameInput);
+
+    if(noteListNameInput) {
+        newList = {
+            name: noteListNameInput
         }
-    })
+
+
+        $("#list-name-input").val("");
+        lists.push(newList);
+        create_note_list(newList);
+
+    } else {
+        console.log("Fält får ej vara tomt");
+    }
 
 }
+
 
 function showListsInCreateNote() {
     let allLists = $("#note-pick-list-edit");
@@ -69,6 +69,7 @@ function showListsInCreateNote() {
         `);
     }
 }
+
 
 function errorMessage(noteTitleInput, notePickList, noteTextInput) {
     // Error message
@@ -94,7 +95,7 @@ function errorMessage(noteTitleInput, notePickList, noteTextInput) {
 function displayNotes(pickedListId = 1) {
     let allNotes = $("#all-notes");
     allNotes.empty();
-    let listTitle = $("#list-title-frontpage");
+    let listTitle = $("#list-title-fronpage");
 
     for (let list  of lists) {
         if (pickedListId === list.id) {
@@ -118,13 +119,14 @@ function displayNotes(pickedListId = 1) {
 
 }
 
+
 function displayLists() {
     let allLists = $("#all-lists");
     allLists.empty();
 
     for (let list of lists) {
         allLists.append(`
-            <a onclick="displayNotes(${list.id}), saveId(1, ${list.id})">
+            <a onclick="displayNotes(${list.id})">
                 <div class="list-item">
                     <div class="list-name">${list.name}</div>
                 <div class="notes-in-list">${countNotesInList(list.id)}</div>
@@ -133,6 +135,7 @@ function displayLists() {
         `);
     }
 }
+
 
 function countNotesInList(listId) {
     let count = 0;
@@ -151,6 +154,7 @@ function saveId(id,listId){
     localStorage.setItem("listid",listId);
 
 }
+
 
 // Updates notes in database
 function updateNote(){
@@ -171,11 +175,11 @@ function updateNote(){
 
             // On click: update note to changed values
             $("#edit-note-button").click(function () {
-                //console.log("button");
+                console.log("button");
                 note.title = titleField.val();
                 note.list_id = parseInt(noteListValue.val());
                 note.text = noteBody.val();
-                //console.log(notes);
+                console.log(notes);
 
                 // Back-end-call
                 update_note(note);
@@ -184,37 +188,12 @@ function updateNote(){
     }
 }
 
-// Updates notes in database
-function updateListName(){
 
-    // Takes the stored id and parses it correctly
-    let listId = parseInt(localStorage.getItem("listid"));
-    // Loops through lists
-    for (let list of lists){
-        // Selects all info already in the fields
-        if (listId === list.id){
-            let noteListName = $("#list-name-input-edit").val(list.name);
-
-            // On click: update lists to changed values
-            $("#edit-list-button").click(function () {
-                list.name = noteListName.val();
-                update_note_list(list);
-                console.log("Uppdaterat");
-
-            });
-        }
-    }
-}
-
-
-
-
-function changeWindow(){
+function deleteAlert(){
 
     alert("Anteckningen borttagen")
     window.location.href="index.html"
 }
-
 
 
 function deleteNoteFunctionalty(){
@@ -228,7 +207,7 @@ function deleteNoteFunctionalty(){
 
         // REST-call
         delete_note(id);
-        changeWindow();
+        deleteAlert();
     })
 }
 
@@ -236,4 +215,3 @@ displayLists();
 displayNotes();
 showListsInCreateNote();
 deleteNoteFunctionalty();
-addList();
