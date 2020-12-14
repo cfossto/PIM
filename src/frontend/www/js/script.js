@@ -134,33 +134,6 @@ function displayLists() {
     }
 }
 
-
-function editList() {
-    // Takes the stored id and parses it correctly
-    let LocalStorageListId = localStorage.getItem("listid");
-    let listId = parseInt(LocalStorageListId);
-    let noteListNameInput = $("#list-name-input-edit").val();
-    let newList = {};
-    
-    // errorMessage(noteListNameInput);
-
-    if(noteListNameInput) {
-        newList = {
-            id: listId,
-            name: noteListNameInput
-        }
-       
-        update_note_list(newList);
-        $("#list-name-input-edit").val("");
-        console.log(newList);
-        window.location.pathname = "/index.html";
-
-    } else {
-        console.log("Fält får ej vara tomt");
-    }
-
-}
-
 function countNotesInList(listId) {
     let count = 0;
     for (let note of notes) {
@@ -226,6 +199,7 @@ function updateListName(){
             $("#edit-list-button").click(function () {
                 list.name = noteListName.val();
                 update_note_list(list);
+                console.log("Uppdaterat");
                 window.location.pathname = "/index.html";
             });
         }
