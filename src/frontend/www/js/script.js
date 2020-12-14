@@ -32,6 +32,7 @@ function addNote() {
 
 }
 
+
 function addList() {
     let noteListNameInput = $("#list-name-input").val();
     
@@ -48,13 +49,13 @@ function addList() {
         $("#list-name-input").val("");
         lists.push(newList);
         create_note_list(newList);
-        //window.location.pathname = "/index.html";
 
     } else {
         console.log("Fält får ej vara tomt");
     }
 
 }
+
 
 function showListsInCreateNote() {
     let allLists = $("#note-pick-list-edit");
@@ -68,6 +69,7 @@ function showListsInCreateNote() {
         `);
     }
 }
+
 
 function errorMessage(noteTitleInput, notePickList, noteTextInput) {
     // Error message
@@ -117,6 +119,7 @@ function displayNotes(pickedListId = 1) {
 
 }
 
+
 function displayLists() {
     let allLists = $("#all-lists");
     allLists.empty();
@@ -132,6 +135,7 @@ function displayLists() {
         `);
     }
 }
+
 
 function countNotesInList(listId) {
     let count = 0;
@@ -150,6 +154,7 @@ function saveId(id,listId){
     localStorage.setItem("listid",listId);
 
 }
+
 
 // Updates notes in database
 function updateNote(){
@@ -184,14 +189,11 @@ function updateNote(){
 }
 
 
-
-
-function changeWindow(){
+function deleteAlert(){
 
     alert("Anteckningen borttagen")
     window.location.href="index.html"
 }
-
 
 
 function deleteNoteFunctionalty(){
@@ -205,7 +207,7 @@ function deleteNoteFunctionalty(){
 
         // REST-call
         delete_note(id);
-        changeWindow();
+        deleteAlert();
     })
 }
 

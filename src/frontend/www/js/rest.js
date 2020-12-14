@@ -52,9 +52,10 @@ async function delete_note(noteid) {
 
 async function get_note_lists() {
     let result = await fetch("/rest/lists");
-    lists = await result.json();
+    lists = await result.json()
     displayLists();
     showListsInCreateNote();
+
 }
 
 async function create_note_list(noteList) {
@@ -63,6 +64,7 @@ async function create_note_list(noteList) {
         method: "POST",
         body: JSON.stringify(noteList)
     })
+    .then(get_note_lists())
 }
 
 async function update_note_list(noteList) {
