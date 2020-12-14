@@ -55,7 +55,6 @@ async function get_note_lists() {
     lists = await result.json()
     displayLists();
     showListsInCreateNote();
-
 }
 
 async function create_note_list(noteList) {
@@ -64,16 +63,17 @@ async function create_note_list(noteList) {
         method: "POST",
         body: JSON.stringify(noteList)
     })
-    .then(get_note_lists())
+    .then(function() {window.location.href="index.html"})
 }
 
 async function update_note_list(noteList) {
-
+    
     let result = await fetch("/rest/lists/id", {
         method: "PUT",
         body: JSON.stringify(noteList)
     })
-    .then(function(){window.location.href="index.html"})
+    .then(function(){window.location.href="index.html"});
+    
 }
 
 async function delete_note_list(noteList) {

@@ -48,22 +48,29 @@ public class NoteServer {
 
         app.post("/rest/lists", (req, res) -> {
             NoteList noteList = (NoteList) req.getBody(NoteList.class);
+
+            System.out.println(noteList.toString());
+
             db.createNoteList(noteList);
+            res.send("ok");
         });
 
         app.put("/rest/lists/:id", (request, response) -> {
             NoteList list = (NoteList) request.getBody(NoteList.class);
             db.updateNotelistName(list.getId(), list.getName());
+            response.send("ok");
         });
 
         app.delete("/rest/notes/:id", (request, response) -> {
             Note note = (Note) request.getBody(Note.class);
             db.deleteNote(note.getId());
+            response.send("ok");
         });
 
         app.delete("/rest/lists/:id", (request, response) -> {
             NoteList list = (NoteList) request.getBody(NoteList.class);
             db.deleteNoteList(list.getId());
+            response.send("ok");
         });
 
         app.put("/rest/notes", (request, response) -> {
