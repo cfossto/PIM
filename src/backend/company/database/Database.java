@@ -1,10 +1,15 @@
 package backend.company.database;
 
 
+import backend.company.files.File;
 import backend.company.notePack.Note;
 import backend.company.notePack.NoteList;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import express.utils.Utils;
+import org.apache.commons.fileupload.FileItem;
+
+import java.io.FileOutputStream;
+import java.nio.file.Paths;
 import java.sql.*;
 import java.time.LocalDateTime;
 import java.util.List;
@@ -26,7 +31,8 @@ Here is the usage:
     deleteNoteList(id)          - deletes a note list/group by id
     updateListName(id,name)     - updates the name of a list, identified by id
 
-
+    -- Files --
+    uploadImage()               - uploads a image to file system
  */
 
 
@@ -204,6 +210,36 @@ public class Database {
             stmt1.setString(2,body);
             stmt1.setTimestamp(3,timestamp);
             stmt1.setInt(4,id);
+            stmt1.executeUpdate();
+
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
+    }
+
+    // Add file in uploads
+    public String uploadImage(FileItem image) {
+        String imageUrl = "/uploads/" + image.getName();
+
+        try (var os = new FileOutputStream(Paths.get("src/frontend/www" + imageUrl).toString())) {
+            os.write(image.get());
+        } catch (Exception e) {
+            e.printStackTrace();
+            return null;
+        }
+
+        return imageUrl;
+    }
+
+    // Creates input in "files"-table
+    public void createFile(File file){
+
+        try {
+            PreparedStatement stmt1 = conn.prepareStatement("INSERT INTO files(note_id,category_id,name) VALUES(?,?,?)");
+
+            stmt1.setInt(1,file.getNote_id());
+            stmt1.setInt(2,file.getCategory_id());
+            stmt1.setString(3,file.getName());
             stmt1.executeUpdate();
 
         } catch (SQLException throwables) {

@@ -2,7 +2,7 @@ let notes = [];
 
 let lists = [];
 
-
+let files = [];
 
 
 function addNote() {
@@ -171,6 +171,7 @@ function updateNote(){
 
             // On click: update note to changed values
             $("#edit-note-button").click(function () {
+                addImage(note.id);
                 //console.log("button");
                 note.title = titleField.val();
                 note.list_id = parseInt(noteListValue.val());
@@ -206,7 +207,17 @@ function updateListName(){
     }
 }
 
+// Adding Images
+function addImage(noteId) {
+    if( document.querySelector("#image-to-upload").files.length === 0 ){
+        console.log("no files selected");
+        return;
+    }
+    let files = document.querySelector('input[type=file]').files;
+    let formData = new FormData();
 
+    addImageRest(formData, files, noteId);
+}
 
 
 function changeWindow(){

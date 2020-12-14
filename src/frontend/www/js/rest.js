@@ -80,6 +80,50 @@ async function delete_note_list(noteList) {
     });
 }
 
-get_notes();
+// Sends file to be added in the uploads folder
+async function uploadFileRest(formData, files) {
+    for(let file of files) {
+        formData.append('files', file, file.name);
+    }
+
+    let uploadResult = await fetch('/rest/file-upload', {
+        method: 'POST',
+        body: formData
+    });
+
+    return await uploadResult.text();
+}
+
+// Adding Images in uploads and in database
+async function addImageRest(formData, files, noteId) {
+
+    for(let file of files) {
+        formData.append('files', file, Date.now() + "-" + file.name);
+    }
+
+    // Sends file to be added in uploads folder
+    let uploadResult = await fetch('/rest/file-upload', {
+        method: 'POST',
+        body: formData
+    });
+
+    let imageUrl = await uploadResult.text();
+    let file = {
+        note_id: noteId,
+        category_id: 1,
+        name: imageUrl
+    }
+
+    // Sends file name for the database
+    let result = await fetch("/rest/files", {
+        method: "POST",
+        body: JSON.stringify(file)
+    });
+
+    files.push(file);
+    console.log(await result.text());
+}
+
+// get_notes(); // creates problem for image create not sure if used in other place
 get_note_lists();
 get_notes();
