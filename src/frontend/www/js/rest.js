@@ -39,7 +39,8 @@ async function delete_note(noteid) {
     let result = await fetch("/rest/notes/id", {
         method: "DELETE",
         body: JSON.stringify(deleteNote)
-    });
+    })
+    .then(function(){window.location.href="index.html"});
 
 }
 
@@ -59,7 +60,7 @@ async function create_note_list(noteList) {
         method: "POST",
         body: JSON.stringify(noteList)
     })
-    .then(function() {window.location.href="index.html"})
+    .then(function() {window.location.href="index.html"});
 }
 
 async function update_note_list(noteList) {
@@ -72,12 +73,17 @@ async function update_note_list(noteList) {
     
 }
 
-async function delete_note_list(noteList) {
+async function delete_note_list(listId) {
+
+    //let deleteList = parseInt(listId);
 
     let result = await fetch("/rest/lists/id", {
         method: "DELETE",
-        body: JSON.stringify(noteList)
-    });
+        body: JSON.stringify(parseInt(listId))
+
+    })
+    
+    .then(function(){window.location.href="index.html"});
 }
 
 get_notes();

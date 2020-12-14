@@ -209,11 +209,11 @@ function updateListName(){
 
 
 
-function changeWindow(){
+// function changeWindow(){
 
-    alert("Anteckningen borttagen")
-    window.location.href="index.html"
-}
+//     alert("Anteckningen borttagen")
+//     window.location.href="index.html"
+// }
 
 
 
@@ -228,8 +228,22 @@ function deleteNoteFunctionalty(){
 
         // REST-call
         delete_note(id);
-        changeWindow();
+        //changeWindow();
     })
+}
+
+function deleteListFunctionality () {
+    
+    // Takes the stored id and parses it correctly
+    let LocalStorageListid = localStorage.getItem("listId");
+    let listId = parseInt(LocalStorageListid);
+
+    // On click - should delete list from db
+    $("#delete-list-button").click(function () {
+        console.log("pressed button")
+        delete_note_list(listId);
+    })
+
 }
 
 displayLists();
@@ -237,3 +251,4 @@ displayNotes();
 showListsInCreateNote();
 deleteNoteFunctionalty();
 addList();
+deleteListFunctionality();
