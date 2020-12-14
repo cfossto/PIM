@@ -3,6 +3,7 @@ async function get_notes() {
     notes = await result.json();
     displayNotes();
     updateNote();
+    displayLists();
 }
 
 async function create_note(note) {
