@@ -22,7 +22,7 @@ async function update_note(note) {
         text: note.text
     }
     
-    let result = await fetch("/rest/notes/id", {
+    let result = await fetch("/rest/notes", {
         method: "PUT",
         body: JSON.stringify(edit_note)
     });

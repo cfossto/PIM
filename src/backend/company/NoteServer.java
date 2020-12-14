@@ -65,10 +65,10 @@ public class NoteServer {
             db.deleteNoteList(list.getId());
         });
 
-        app.put("/rest/notes/:id", (request, response) -> {
+        app.put("/rest/notes", (request, response) -> {
             Note note = (Note) request.getBody(Note.class);
             // funktionen måste göras om när vi lägger till filer
-            db.updateNote(note.getId(), note.getTitle(), note.getText());
+            db.updateNote(note.getId(), note.getTitle(), note.getText(),note.getList_id());
         });
 
 
