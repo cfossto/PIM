@@ -117,7 +117,7 @@ public class Database {
         List<NoteList> noteLists = null;
 
         try {
-            PreparedStatement stmt = conn.prepareStatement("INSERT INTO lists(name) values (?)");
+            PreparedStatement stmt = conn.prepareStatement("INSERT INTO lists(name) values (?);");
             stmt.setString(1,noteList.getName());
             stmt.executeUpdate();
         } catch (SQLException throwables) {
@@ -159,10 +159,9 @@ public class Database {
 
             Timestamp timestamp = Timestamp.valueOf(LocalDateTime.now());
 
-            PreparedStatement stmt = conn.prepareStatement("UPDATE lists SET name = ?, updated_at WHERE id = ?");
+            PreparedStatement stmt = conn.prepareStatement("UPDATE lists SET name = ? WHERE id = ?");
             stmt.setString(1,name);
-            stmt.setTimestamp(2,timestamp);
-            stmt.setInt(3,id);
+            stmt.setInt(2,id);
             stmt.executeUpdate();
 
         } catch (SQLException throwables) {
@@ -194,17 +193,19 @@ public class Database {
 
 
     // Update body of note and returns the new note
-    public void updateNote(int id,String title,String body){
+    public void updateNote(int id,String title,String body,int list_id){
 
         try {
 
             Timestamp timestamp = Timestamp.valueOf(LocalDateTime.now());
 
-            PreparedStatement stmt1 = conn.prepareStatement("UPDATE notes SET title= ?, text = ?, updated_at = ? WHERE id = ?");
+            PreparedStatement stmt1 = conn.prepareStatement("UPDATE notes SET title= ?, text = ?, updated_at = ?, list_id = ? WHERE id = ?");
             stmt1.setString(1,title);
             stmt1.setString(2,body);
             stmt1.setTimestamp(3,timestamp);
-            stmt1.setInt(4,id);
+            stmt1.setInt(4,list_id);
+            stmt1.setInt(5,id);
+
             stmt1.executeUpdate();
 
         } catch (SQLException throwables) {
