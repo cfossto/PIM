@@ -25,7 +25,6 @@ function addNote() {
         $("#note-text-input").val("");
         notes.push(newNote);
         create_note(newNote);
-        window.location.pathname = "/index.html";
 
     } else {
         console.log("Fält får ej vara tomt");
@@ -34,26 +33,27 @@ function addNote() {
 }
 
 function addList() {
-    let noteListNameInput = $("#list-name-input").val();
     
-    let newNote = {};
-
     // errorMessage(noteListNameInput);
+    
+    $("#add-list-button").click(function() {
 
-    if(noteListNameInput) {
-        newList = {
-            name: noteListNameInput
+        let noteListNameInput = $("#list-name-input").val();
+        
+        let newList = {};
+        
+        if(noteListNameInput) {
+            newList = {
+                name: noteListNameInput
+            }
+     
+            lists.push(newList);
+            create_note_list(newList);
+           
+        } else {
+            console.log("Fält får ej vara tomt");
         }
-
-
-        $("#list-name-input").val("");
-        lists.push(newList);
-        create_note_list(newList);
-        window.location.pathname = "/index.html";
-
-    } else {
-        console.log("Fält får ej vara tomt");
-    }
+    })
 
 }
 
@@ -94,7 +94,7 @@ function errorMessage(noteTitleInput, notePickList, noteTextInput) {
 function displayNotes(pickedListId = 1) {
     let allNotes = $("#all-notes");
     allNotes.empty();
-    let listTitle = $("#list-title-fronpage");
+    let listTitle = $("#list-title-frontpage");
 
     for (let list  of lists) {
         if (pickedListId === list.id) {
@@ -124,7 +124,7 @@ function displayLists() {
 
     for (let list of lists) {
         allLists.append(`
-            <a onclick="displayNotes(${list.id})">
+            <a onclick="displayNotes(${list.id}), saveId(1, ${list.id})">
                 <div class="list-item">
                     <div class="list-name">${list.name}</div>
                 <div class="notes-in-list">${countNotesInList(list.id)}</div>
@@ -171,14 +171,36 @@ function updateNote(){
 
             // On click: update note to changed values
             $("#edit-note-button").click(function () {
-                console.log("button");
+                //console.log("button");
                 note.title = titleField.val();
                 note.list_id = parseInt(noteListValue.val());
                 note.text = noteBody.val();
-                console.log(notes);
+                //console.log(notes);
 
                 // Back-end-call
                 update_note(note);
+            });
+        }
+    }
+}
+
+// Updates notes in database
+function updateListName(){
+
+    // Takes the stored id and parses it correctly
+    let listId = parseInt(localStorage.getItem("listid"));
+    // Loops through lists
+    for (let list of lists){
+        // Selects all info already in the fields
+        if (listId === list.id){
+            let noteListName = $("#list-name-input-edit").val(list.name);
+
+            // On click: update lists to changed values
+            $("#edit-list-button").click(function () {
+                list.name = noteListName.val();
+                update_note_list(list);
+                console.log("Uppdaterat");
+
             });
         }
     }
@@ -214,3 +236,4 @@ displayLists();
 displayNotes();
 showListsInCreateNote();
 deleteNoteFunctionalty();
+addList();
