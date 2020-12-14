@@ -17,6 +17,8 @@ public class Main {
 
         Database db = new Database();
 
+        db.populate();
+
         NoteServer ns = new NoteServer();
 
 
