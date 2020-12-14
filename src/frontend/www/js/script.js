@@ -25,7 +25,6 @@ function addNote() {
         $("#note-text-input").val("");
         notes.push(newNote);
         create_note(newNote);
-        window.location.pathname = "/index.html";
 
     } else {
         console.log("Fält får ej vara tomt");
@@ -34,26 +33,27 @@ function addNote() {
 }
 
 function addList() {
-    let noteListNameInput = $("#list-name-input").val();
     
-    let newList = {};
-
     // errorMessage(noteListNameInput);
+    
+    $("#add-list-button").click(function() {
 
-    if(noteListNameInput) {
-        newList = {
-            name: noteListNameInput
+        let noteListNameInput = $("#list-name-input").val();
+        
+        let newList = {};
+        
+        if(noteListNameInput) {
+            newList = {
+                name: noteListNameInput
+            }
+     
+            lists.push(newList);
+            create_note_list(newList);
+           
+        } else {
+            console.log("Fält får ej vara tomt");
         }
-
-
-        $("#list-name-input").val("");
-        lists.push(newList);
-        create_note_list(newList);
-        window.location.pathname = "/index.html";
-
-    } else {
-        console.log("Fält får ej vara tomt");
-    }
+    })
 
 }
 
@@ -171,11 +171,11 @@ function updateNote(){
 
             // On click: update note to changed values
             $("#edit-note-button").click(function () {
-                console.log("button");
+                //console.log("button");
                 note.title = titleField.val();
                 note.list_id = parseInt(noteListValue.val());
                 note.text = noteBody.val();
-                console.log(notes);
+                //console.log(notes);
 
                 // Back-end-call
                 update_note(note);
@@ -200,7 +200,7 @@ function updateListName(){
                 list.name = noteListName.val();
                 update_note_list(list);
                 console.log("Uppdaterat");
-                window.location.pathname = "/index.html";
+
             });
         }
     }
@@ -236,3 +236,4 @@ displayLists();
 displayNotes();
 showListsInCreateNote();
 deleteNoteFunctionalty();
+addList();

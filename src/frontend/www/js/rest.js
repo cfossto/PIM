@@ -10,7 +10,8 @@ async function create_note(note) {
     let result = await fetch("/rest/notes", {
         method: "POST",
         body: JSON.stringify(note)
-    });
+    })
+    .then(function() {window.location.href="index.html"});
 }
 
 async function update_note(note) {
@@ -25,8 +26,8 @@ async function update_note(note) {
     let result = await fetch("/rest/notes/id", {
         method: "PUT",
         body: JSON.stringify(edit_note)
-    });
-
+    })
+    .then(function() {window.location.href="index.html"});
 
 }
 
@@ -56,7 +57,8 @@ async function create_note_list(noteList) {
     let result = await fetch("/rest/lists", {
         method: "POST",
         body: JSON.stringify(noteList)
-    });
+    })
+    .then(function() {window.location.href="index.html"})
 }
 
 async function update_note_list(noteList) {
@@ -64,8 +66,9 @@ async function update_note_list(noteList) {
     let result = await fetch("/rest/lists/id", {
         method: "PUT",
         body: JSON.stringify(noteList)
-    });
-
+    })
+    .then(function(){window.location.href="index.html"});
+    
 }
 
 async function delete_note_list(noteList) {
