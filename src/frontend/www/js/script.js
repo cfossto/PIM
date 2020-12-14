@@ -11,9 +11,9 @@ function addNote() {
     let noteTextInput = $("#note-text-input").val();
     let newNote = {};
 
-    // errorMessage(noteTitleInput, notePickList, noteTextInput);
-
+    //errorMessage(noteTitleInput, notePickList, noteTextInput);
     if(noteTitleInput && notePickList && noteTextInput) {
+        
         newNote = {
             title: noteTitleInput,
             list_id: notePickList,
@@ -25,7 +25,6 @@ function addNote() {
         $("#note-text-input").val("");
         notes.push(newNote);
         create_note(newNote);
-        window.location.pathname = "/index.html";
 
     } else {
         console.log("Fält får ej vara tomt");
@@ -49,7 +48,7 @@ function addList() {
         $("#list-name-input").val("");
         lists.push(newList);
         create_note_list(newList);
-        window.location.pathname = "/index.html";
+        //window.location.pathname = "/index.html";
 
     } else {
         console.log("Fält får ej vara tomt");

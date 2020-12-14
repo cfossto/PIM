@@ -36,6 +36,7 @@ public class NoteServer {
         app.post("/rest/notes", (req, res) -> {
             Note note = (Note) req.getBody(Note.class);
             db.createNote(note);
+            res.send("ok");
         });
 
         // Gets lists
