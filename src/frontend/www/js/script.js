@@ -171,12 +171,10 @@ function updateNote(){
 
             // On click: update note to changed values
             $("#edit-note-button").click(function () {
-                //console.log("button");
                 note.title = titleField.val();
                 note.list_id = parseInt(noteListValue.val());
                 note.text = noteBody.val();
-                //console.log(notes);
-
+                
                 // Back-end-call
                 update_note(note);
             });
@@ -206,17 +204,6 @@ function updateListName(){
     }
 }
 
-
-
-
-// function changeWindow(){
-
-//     alert("Anteckningen borttagen")
-//     window.location.href="index.html"
-// }
-
-
-
 function deleteNoteFunctionalty(){
 
     // Takes the stored id and parses it correctly
@@ -228,7 +215,7 @@ function deleteNoteFunctionalty(){
 
         // REST-call
         delete_note(id);
-        //changeWindow();
+        
     })
 }
 
