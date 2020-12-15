@@ -44,8 +44,6 @@ async function delete_note(noteid) {
 
 }
 
-
-
 async function get_note_lists() {
     let result = await fetch("/rest/lists");
     lists = await result.json();
@@ -75,17 +73,13 @@ async function update_note_list(noteList) {
 
 async function delete_note_list(listId) {
 
-    //let deleteList = parseInt(listId);
-
     let result = await fetch("/rest/lists/id", {
         method: "DELETE",
-        body: JSON.stringify(parseInt(listId))
-
+        body: JSON.stringify(listId)
+        
     })
-    
     .then(function(){window.location.href="index.html"});
 }
 
 get_notes();
 get_note_lists();
-get_notes();

@@ -235,12 +235,12 @@ function deleteNoteFunctionalty(){
 function deleteListFunctionality () {
     
     // Takes the stored id and parses it correctly
-    let LocalStorageListid = localStorage.getItem("listId");
+    let LocalStorageListid = localStorage.getItem("listid");
     let listId = parseInt(LocalStorageListid);
 
-    // On click - should delete list from db
+    // On click - delete list from db
     $("#delete-list-button").click(function () {
-        console.log("pressed button")
+
         delete_note_list(listId);
     })
 
