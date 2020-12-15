@@ -171,12 +171,10 @@ function updateNote(){
 
             // On click: update note to changed values
             $("#edit-note-button").click(function () {
-                //console.log("button");
                 note.title = titleField.val();
                 note.list_id = parseInt(noteListValue.val());
                 note.text = noteBody.val();
-                //console.log(notes);
-
+                
                 // Back-end-call
                 update_note(note);
             });
@@ -206,34 +204,50 @@ function updateListName(){
     }
 }
 
-
-
-
-function changeWindow(){
-
-    alert("Anteckningen borttagen")
-    window.location.href="index.html"
-}
-
-
-
-function deleteNoteFunctionalty(){
+function deleteNoteFunctionality(){
 
     // Takes the stored id and parses it correctly
     let LocalStorageid = localStorage.getItem("id");
     let id = parseInt(LocalStorageid);
 
-    // On click - deletes entry in database
-    $("#delete-note-button").click(function () {
+    // Show confirmation window 
+    let confirmWindow = confirm("Är du säker?");
+
+    // If user clicks ok - deletes entry in database
+    if (confirmWindow){
 
         // REST-call
         delete_note(id);
-        changeWindow();
-    })
+
+    // If user clicks cancel show an alert  
+    } else {
+        alert("Avbröt borttagning");
+    }
 }
+
+function deleteListFunctionality () {
+    
+    // Takes the stored id and parses it correctly
+    let LocalStorageListid = localStorage.getItem("listid");
+    let listId = parseInt(LocalStorageListid);
+
+    // Shows confirmation window
+
+    let confirmWindow = confirm("Är du säker?");
+    // If user clicks ok - list is removed from db.
+    if (confirmWindow){
+
+        delete_note_list(listId);
+
+    // If user clicks cancel show an alert  
+    } else {
+        alert("Avbröt borttagning");
+    }
+    
+}
+
 
 displayLists();
 displayNotes();
 showListsInCreateNote();
-deleteNoteFunctionalty();
 addList();
