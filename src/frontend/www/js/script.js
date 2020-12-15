@@ -238,17 +238,24 @@ function deleteListFunctionality () {
     let LocalStorageListid = localStorage.getItem("listid");
     let listId = parseInt(LocalStorageListid);
 
-    // On click - delete list from db
-    $("#delete-list-button").click(function () {
+    // Shows confirmation window
+
+    let confirmWindow = confirm("Är du säker?");
+    // If user clicks ok - list is removed from db.
+    if (confirmWindow){
 
         delete_note_list(listId);
-    })
 
+    // If user clicks cancel show an alert  
+    } else {
+        alert("Avbröt borttagning");
+    }
+    
 }
+
 
 displayLists();
 displayNotes();
 showListsInCreateNote();
 deleteNoteFunctionalty();
 addList();
-deleteListFunctionality();

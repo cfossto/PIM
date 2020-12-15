@@ -78,7 +78,8 @@ async function delete_note_list(listId) {
         body: JSON.stringify(listId)
         
     })
-    .then(function(){window.location.href="index.html"});
+    .then(function(){window.location.href="index.html"})
+    .then(alert("Listan borttagen."))
 }
 
 get_notes();
