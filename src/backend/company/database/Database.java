@@ -193,17 +193,18 @@ public class Database {
 
 
     // Update body of note and returns the new note
-    public void updateNote(int id,String title,String body){
+    public void updateNote(int id,String title,int list_id, String body){
 
         try {
 
             Timestamp timestamp = Timestamp.valueOf(LocalDateTime.now());
 
-            PreparedStatement stmt1 = conn.prepareStatement("UPDATE notes SET title= ?, text = ?, updated_at = ? WHERE id = ?");
+            PreparedStatement stmt1 = conn.prepareStatement("UPDATE notes SET title= ?, text = ?, list_id = ?, updated_at = ? WHERE id = ?");
             stmt1.setString(1,title);
             stmt1.setString(2,body);
-            stmt1.setTimestamp(3,timestamp);
-            stmt1.setInt(4,id);
+            stmt1.setInt(3,list_id);
+            stmt1.setTimestamp(4,timestamp);
+            stmt1.setInt(5,id);
             stmt1.executeUpdate();
 
         } catch (SQLException throwables) {

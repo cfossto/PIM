@@ -115,7 +115,7 @@ function displayNotes(pickedListId = 1) {
         `);
         }
     }
-
+   // searchFunction()
 }
 
 function displayLists() {
@@ -231,6 +231,32 @@ function deleteNoteFunctionalty(){
         changeWindow();
     })
 }
+
+
+function searchField(){
+
+
+
+}
+
+/*function searchFunction(){
+
+    console.log(notes)
+    console.log(lists)
+
+    let searchfield = document.querySelector("#searchfield");
+
+    searchfield.addEventListener("onchange", function(){ alert("hello") })
+
+    let que = "Body 1"
+
+    let res = notes.filter(t => t.text == que)
+
+    console.log(res)
+}
+*/
+
+
 
 displayLists();
 displayNotes();
