@@ -40,7 +40,8 @@ async function delete_note(noteid) {
         method: "DELETE",
         body: JSON.stringify(deleteNote)
     })
-    .then(function(){window.location.href="index.html"});
+    .then(function(){window.location.href="index.html"})
+    .then(alert("Anteckningen borttagen."));
 
 }
 
@@ -79,7 +80,7 @@ async function delete_note_list(listId) {
         
     })
     .then(function(){window.location.href="index.html"})
-    .then(alert("Listan borttagen."))
+    .then(alert("Listan borttagen."));
 }
 
 get_notes();
