@@ -247,8 +247,7 @@ function deleteListFunctionality () {
 }
 
 
-
-
-
+displayLists();
+displayNotes();
 showListsInCreateNote();
 addList();
