@@ -31,6 +31,13 @@ public class Note {
         this.updated_at = Timestamp.valueOf(LocalDateTime.now());
     }
 
+    public Note(int id, int list_id, String title, String text) {
+        this.id = id;
+        this.list_id = list_id;
+        this.title = title;
+        this.text = text;
+    }
+
     public Note(int list_id, String title, String text) {
         this.list_id = list_id;
         this.title = title;
