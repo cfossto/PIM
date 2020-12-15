@@ -247,6 +247,21 @@ function deleteListFunctionality () {
 }
 
 
+function searchFunction(){
+
+    console.log(notes)
+
+    let question = "Body 2"
+
+    let textsearch = notes.filter(n => n.text == question)
+    let titlesearch = notes.filter(n => n.title == question)
+
+    console.log(textsearch)
+    console.log(titlesearch)
+
+}
+
+
 
 
 
