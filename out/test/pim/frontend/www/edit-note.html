@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>PIMER - Ändra i Anteckning</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <header>
+        <h1><a href="index.html">PIMER</a></h1>
+    </header>
+    <main>
+        <nav class="all-lists">
+            <a class="link-button create-list-button" href="create-list.html">Skapa Lista</a>
+            <a class="link-button create-list-button" href="index.html">Anteckningar</a>
+        </nav>
+        <section class="main-section">
+            <h1>Redigera Anteckning</h1>
+            <div class="form" id="edit-notes">
+                <label for="note-title-input-edit"></label>
+                <input placeholder="Titel..." type="text" id="note-title-input-edit">
+                <div class="error-no-title errorMessage"></div>
+                <label for="note-pick-list-edit"></label>
+                <select id="note-pick-list-edit"></select>
+                <div class="error-no-list errorMessage"></div>
+
+<!--                <label class="custom-file-label" for="file-to-upload">Lägg Till Fil</label>-->
+<!--                <input type="file" class="custom-file-input file-input" name="file-to-upload" id="file-to-upload">-->
+
+<!--                <label class="custom-file-label" for="image-to-uplad">Lägg Till Bild</label>-->
+<!--                <input type="file" class="custom-file-input image-input" name="image-to-uplad" id="image-to-uplad">-->
+
+                <label for="note-text-input-edit"></label>
+                <textarea id="note-text-input-edit" placeholder="Anteckning..."></textarea>
+                <div class="error-no-text errorMessage"></div>
+
+                <button id="edit-note-button">Spara</button>
+                <button id="delete-note-button">Ta bort</button>
+            </div>
+            
+        </section>
+    </main>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script src="js/script.js"></script>
+    <script src="js/rest.js"></script>
+</body>
+</html>
