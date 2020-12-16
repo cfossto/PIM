@@ -3,8 +3,10 @@ let notes = [];
 let lists = [];
 
 function isUrl(txtStr) {
-    // The following regex will give a good enough answer.
-    var patt = /^((https:\/\/)|(www))(\.)?(www)?([A-z]+)\.([A-z]{2,})/gi;
+
+    // The following regex will give a good enough answer for our assignment. Also 
+    // allow a String without the 'https://' beginning (so strictly not a url in that case).
+    var patt = /^((https:\/\/)|(www))(\.)?(www)?(\w+)\.([A-z]{2,})/gi;
     if (txtStr.match(patt)) {
         return true;
     }
@@ -18,7 +20,7 @@ function addHyperLinks(noteText) {
     strArr.forEach(str => {
         let temp = "";
         // check if 'str' is a url and if it starts with https.
-        if (isUrl(str) && str.match(/^https:\/\/.+/i)) {
+        if (isUrl(str) && str.match(/^https?:\/\/.+/i)) {
             temp = `<a href=${str} class="hyper-link">${str}</a> `;
         }
         // make sure url starts with 'https://' inside the tag. Won't be seen in the notes.
