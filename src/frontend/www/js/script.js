@@ -263,10 +263,12 @@ function searchFunction(){
 
     // Get value from textfield
     let question = document.querySelector("#textfield").value
+    question = question+"$";
 
     // Filter notes 
-    let textsearch = notes.filter(n => n.text == question)
-    let titlesearch = notes.filter(n => n.title == question)
+    var re = new RegExp(question, 'ig');
+    let textsearch = notes.filter(n => n.text.match(re)) // regex and match() with help of Konstantin 
+    let titlesearch = notes.filter(n => n.title.match(re))
 
     console.log(textsearch)
     console.log(titlesearch)
@@ -289,9 +291,15 @@ function searchFunction(){
             searchResult.push(titlesearch[i])
         }  
     }
+
 }
 
+function searchDropdown(){
 
+
+
+
+}
 
 
 
