@@ -2,8 +2,37 @@ let notes = [];
 
 let lists = [];
 
+function isUrl(txtStr) {
+    // The following regex will give a good enough answer.
+    var patt = /^((https:\/\/)|(www))(\.)?(www)?([A-z]+)\.([A-z]{2,})/gi;
+    if (txtStr.match(patt)) {
+        return true;
+    }
 
+    return false;
+}
 
+function addHyperLinks(noteText) {
+    var strArr = noteText.split(" ");
+    let noteTextAltered = "";
+    strArr.forEach(str => {
+        let temp = "";
+        // check if 'str' is a url and if it starts with https.
+        if (isUrl(str) && str.match(/^https:\/\/.+/i)) {
+            temp = `<a href=${str} class="hyper-link">${str}</a> `;
+        }
+        // make sure url starts with 'https://' inside the tag. Won't be seen in the notes.
+        else if (isUrl(str)) {
+            temp = `<a href=https://${str} class="hyper-link">${str}</a> `;
+        }
+        else {
+            temp = str + " ";
+        }
+
+        noteTextAltered = noteTextAltered + temp;
+    });
+    return noteTextAltered;
+}
 
 function addNote() {
     let noteTitleInput = $("#note-title-input").val();
@@ -110,7 +139,7 @@ function displayNotes(pickedListId = 1) {
             allNotes.append(`
             <article class="note">
                 <a href="edit-note.html" onclick="saveId(${note.id},${note.list_id})"><h2>${note.title}</h2>
-                <p>${note.text}</p></a>
+                <p>${addHyperLinks(note.text)}</p></a>
             </article>
         `);
         }
