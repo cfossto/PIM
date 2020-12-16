@@ -233,10 +233,18 @@ function deleteListFunctionality () {
 
     // Shows confirmation window
 
-    let confirmWindow = confirm("Är du säker?");
+    let confirmWindow = confirm("Är du säker? \nOBS! Detta tar även bort alla anteckningar i listan.");
     // If user clicks ok - list is removed from db.
     if (confirmWindow){
 
+        // loops through all notes 
+        for (allNotes of notes){
+            // finds all notes with current list_id
+            if (listId === allNotes.list_id){
+                
+                delete_note(allNotes.id)
+            }
+        }
         delete_note_list(listId);
 
     // If user clicks cancel show an alert  
