@@ -252,12 +252,14 @@ function searchTextField(){
 let field = document.querySelector("#textfield")
 
         field.addEventListener("keyup",function(){
-            
-            if (field.value == ""){return true;}else{
-
-            searchFunction() }
+            searchFunction()
         })
-}
+
+        field.addEventListener("keydown",function (){
+            document.querySelector(".drop-down-list").innerHTML=""
+        })
+
+    }
 
 
 function searchFunction(){
@@ -265,15 +267,13 @@ function searchFunction(){
     // Empty search result
     let searchResult = [];
 
-    let list = document.querySelector(".drop-down-list")
-
     // Get value from textfield
     let question = document.querySelector("#textfield").value
     question = question;
 
     // Filter notes 
     var re = new RegExp(question, 'ig');
-    let textsearch = notes.filter(n => n.text.match(re)); // regex and match() with help of Konstantin 
+    let textsearch = notes.filter(n => n.text.match(re)); // regex and match() with help of Konstantin
     let titlesearch = notes.filter(n => n.title.match(re));
 
     console.log(textsearch);
@@ -288,8 +288,6 @@ function searchFunction(){
             console.log("Textresult " + (searchResult.length+1)+" "+textsearch[i].text)
 
             searchResult.push(textsearch[i])
-
-        list.append("<li>"+searchResult[i].text+"</li>")
         }
     }else{
         // Loop through titles in notes
@@ -297,19 +295,8 @@ function searchFunction(){
     
             console.log("Titelseach: "+textsearch[i].text)
             searchResult.push(titlesearch[i])
-        
-
-        list.append("<li>"+searchResult[i].title+"</li>")
         }  
     }
-
-}
-
-function searchDropdown(){
-
-
-
-
 }
 
 
