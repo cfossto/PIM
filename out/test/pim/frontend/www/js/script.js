@@ -252,9 +252,9 @@ function searchTextField(){
 let field = document.querySelector("#textfield")
 
         field.addEventListener("keyup",function(){searchFunction()})
-
 }
 
+/*
 
 function searchFunction(){
 
@@ -262,7 +262,7 @@ function searchFunction(){
     let searchResult = [];
 
     // Get value from textfield
-    let question = document.querySelector("#textfield").value
+    let question = document.querySelector("#textfield").value;
 
     // Filter notes 
     let textsearch = notes.filter(n => n.text == question)
@@ -295,12 +295,7 @@ function searchFunction(){
     
     }
 
-    
-        
-
-
-
-}
+}*/
 
 
 

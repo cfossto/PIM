@@ -256,30 +256,6 @@ let field = document.querySelector("#textfield")
 }
 
 
-<<<<<<< HEAD
-/*
-function searchFunction(){
-
-    console.log(notes)
-    console.log(lists)
-
-    let searchfield = document.querySelector("#searchfield");
-
-    searchfield.addEventListener("click", function(){ alert("hello") })
-
-    let que = "Body 1"
-
-    let res = notes.filter(t => t.text == que)
-
-    console.log(res)
-}
-*/
-
-
-
-displayLists();
-displayNotes();
-=======
 function searchFunction(){
 
     // Empty search result
@@ -330,6 +306,5 @@ function searchFunction(){
 
 
 
->>>>>>> ee2851e3a8309467b22f7adf4abb474f408b1d19
 showListsInCreateNote();
 addList();
