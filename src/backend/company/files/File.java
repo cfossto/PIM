@@ -21,6 +21,9 @@ public class File {
         this.name = name;
     }
 
+    public File(int id) {
+        this.id = id;
+    }
 
     public int getId() {
         return id;

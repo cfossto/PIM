@@ -115,10 +115,21 @@ async function getFilesRest() {
     files = await result.json();
 }
 
+async function deleteFileRest(fileId) {
+
+    fileIdInt = parseInt(fileId);
+
+    let result = await fetch("/rest/files/id", {
+        method: "DELETE",
+        body: JSON.stringify(fileIdInt)
+    });
+}
+
 getFilesRest();
 get_note_lists();
 get_notes();
 
+deleteImageFunctionality();
 displayLists();
 displayNotes();
 showListsInCreateNote();

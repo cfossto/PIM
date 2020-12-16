@@ -9,6 +9,9 @@ import express.utils.Utils;
 import org.apache.commons.fileupload.FileItem;
 
 import java.io.FileOutputStream;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.sql.*;
 import java.time.LocalDateTime;
@@ -34,6 +37,9 @@ Here is the usage:
     -- Files --
     uploadImage()               - uploads a image to file system
     getFiles()                  - return a list of files
+    getFileById()               - returns a file by id
+    deleteFile()                - deletes a file by id
+
  */
 
 
@@ -262,6 +268,51 @@ public class Database {
             throwables.printStackTrace();
         }
         return files;
+    }
+
+    // Gets file by id
+    public File getFileById(int id) {
+        File file = null;
+        String query = "SELECT * FROM Files WHERE id = ?";
+        try {
+            PreparedStatement stmt = conn.prepareStatement(query);
+            stmt.setInt(1, id);
+            ResultSet resultSet = stmt.executeQuery();
+
+            while (resultSet.next()) {
+                int fileId = resultSet.getInt("id");
+                int fileNoteId = resultSet.getInt("note_id");
+                int fileCategoryId = resultSet.getInt("category_id");
+                String fileName = resultSet.getString("name");
+                file = new File(fileId, fileNoteId, fileCategoryId, fileName);
+            }
+        } catch(Exception e) {
+            e.printStackTrace();
+        }
+        return file;
+    }
+
+    // Delete file
+    public void deleteFile(int id){
+
+        File file = getFileById(id);
+        String filepath = file.getName();
+        Path fullFilePath = Path.of("src/frontend/www" + filepath);
+
+        try {
+            Files.deleteIfExists(fullFilePath);
+        }
+        catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        try {
+            PreparedStatement stmt = conn.prepareStatement("DELETE FROM files WHERE id = ?");
+            stmt.setInt(1, id);
+            stmt.executeUpdate();
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
     }
 
 

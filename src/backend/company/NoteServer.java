@@ -110,6 +110,13 @@ public class NoteServer {
             res.json(files);
         });
 
+        // Delete file
+        app.delete("/rest/files/:id", (request, response) -> {
+            File file = (File) request.getBody(File.class);
+            db.deleteFile(file.getId());
+            response.send("ok");
+        });
+
 
         try {
             app.use(Middleware.statics(Paths.get("src/frontend/www").toString()));

@@ -231,7 +231,20 @@ function displayImagesEditNote(noteId) {
         let imagesInEditNote = $(".images-in-edit-note");
         imagesInEditNote.empty();
         imagesInEditNote.append(`<div class="note-images-${noteId}"></div>`);
-        displayImages(noteId);
+
+        for (let file of files) {
+            if(file.note_id === noteId) {
+                let splitImageName = file.name.split("/").join(".").split(".").join("-").split("-");
+                let altText = splitImageName[3];
+
+                $('.note-images-' + noteId).append(`
+                    <div class="img-wrap">
+                        <span class="delete-image-button close">&times;</span>
+                        <img src="${file.name}" height="200px" width="200px" alt="${altText}" id="${file.id}">
+                    </div>
+                `);
+            }
+        }
     }
 }
 
@@ -245,6 +258,17 @@ function displayImages(noteId) {
             $('.note-images-' + noteId).append(`<img src="${file.name}" height="200px" width="200px" alt="${altText}">`);
         }
     }
+}
+
+function deleteImageFunctionality() {
+
+    $(document).on('click', '.delete-image-button', function(){
+        let imgWrap = this.parentElement;
+        console.log(imgWrap.children[1].id);
+        let fileIdToRemove = imgWrap.children[1].id;
+        imgWrap.parentElement.removeChild(imgWrap);
+        deleteFileRest(fileIdToRemove);
+    });
 }
 
 
