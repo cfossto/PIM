@@ -247,17 +247,58 @@ function deleteListFunctionality () {
 }
 
 
+function searchTextField(){
+
+let field = document.querySelector("#textfield")
+
+        field.addEventListener("keyup",function(){searchFunction()})
+
+}
+
+
 function searchFunction(){
 
-    console.log(notes)
+    // Empty search result
+    let searchResult = [];
 
-    let question = "Body 2"
+    // Get value from textfield
+    let question = document.querySelector("#textfield").value
 
+    // Filter notes 
     let textsearch = notes.filter(n => n.text == question)
     let titlesearch = notes.filter(n => n.title == question)
 
     console.log(textsearch)
     console.log(titlesearch)
+
+
+    // Switch if title or text result
+    if (titlesearch.length != null){
+
+        // Loop through text in notes
+         for (let i = 0; i<textsearch.length; i++){
+    
+            console.log("Textresult " + (searchResult.length+1)+" "+textsearch[i].text)
+
+            searchResult.push(textsearch[i])
+        }
+
+
+    }else{
+        // Loop through titles in notes
+        for (let i = 0; i<titlesearch.length; i++){
+    
+            console.log("Titelseach: "+textsearch[i].text)
+            searchResult.push(titlesearch[i])
+        }
+    
+    
+    }
+
+    
+        
+
+
 
 }
 
