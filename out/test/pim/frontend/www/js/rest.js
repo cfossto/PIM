@@ -4,6 +4,7 @@ async function get_notes() {
     displayNotes();
     updateNote();
     displayLists();
+    searchTextField()
     searchFunction();
 }
 
@@ -25,12 +26,12 @@ async function update_note(note) {
         text: note.text
     }
     
-    let result = await fetch("/rest/notes/id", {
+    let sender = await fetch("/rest/notes/id", {
         method: "PUT",
         body: JSON.stringify(edit_note)
     })
     .then(function() {window.location.href="index.html"});
-
+    
 }
 
 async function delete_note(noteid) {
