@@ -115,7 +115,11 @@ function displayNotes(pickedListId = 1) {
         `);
         }
     }
+<<<<<<< HEAD
    // searchFunction()
+=======
+
+>>>>>>> ee2851e3a8309467b22f7adf4abb474f408b1d19
 }
 
 function displayLists() {
@@ -171,12 +175,10 @@ function updateNote(){
 
             // On click: update note to changed values
             $("#edit-note-button").click(function () {
-                //console.log("button");
                 note.title = titleField.val();
                 note.list_id = parseInt(noteListValue.val());
                 note.text = noteBody.val();
-                //console.log(notes);
-
+                
                 // Back-end-call
                 update_note(note);
             });
@@ -206,60 +208,66 @@ function updateListName(){
     }
 }
 
-
-
-
-function changeWindow(){
-
-    alert("Anteckningen borttagen")
-    window.location.href="index.html"
-}
-
-
-
-function deleteNoteFunctionalty(){
+function deleteNoteFunctionality(){
 
     // Takes the stored id and parses it correctly
     let LocalStorageid = localStorage.getItem("id");
     let id = parseInt(LocalStorageid);
 
-    // On click - deletes entry in database
-    $("#delete-note-button").click(function () {
+    // Show confirmation window 
+    let confirmWindow = confirm("Är du säker?");
+
+    // If user clicks ok - deletes entry in database
+    if (confirmWindow){
 
         // REST-call
         delete_note(id);
-        changeWindow();
-    })
+
+    // If user clicks cancel show an alert  
+    } else {
+        alert("Avbröt borttagning");
+    }
+}
+
+function deleteListFunctionality () {
+    
+    // Takes the stored id and parses it correctly
+    let LocalStorageListid = localStorage.getItem("listid");
+    let listId = parseInt(LocalStorageListid);
+
+    // Shows confirmation window
+
+    let confirmWindow = confirm("Är du säker?");
+    // If user clicks ok - list is removed from db.
+    if (confirmWindow){
+
+        delete_note_list(listId);
+
+    // If user clicks cancel show an alert  
+    } else {
+        alert("Avbröt borttagning");
+    }
+    
 }
 
 
-function searchField(){
-
-
-
-}
-
-/*function searchFunction(){
+function searchFunction(){
 
     console.log(notes)
-    console.log(lists)
 
-    let searchfield = document.querySelector("#searchfield");
+    let question = "Body 2"
 
-    searchfield.addEventListener("onchange", function(){ alert("hello") })
+    let textsearch = notes.filter(n => n.text == question)
+    let titlesearch = notes.filter(n => n.title == question)
 
-    let que = "Body 1"
+    console.log(textsearch)
+    console.log(titlesearch)
 
-    let res = notes.filter(t => t.text == que)
-
-    console.log(res)
 }
-*/
 
 
 
-displayLists();
-displayNotes();
+
+
 showListsInCreateNote();
-deleteNoteFunctionalty();
 addList();

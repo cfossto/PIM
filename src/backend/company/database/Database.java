@@ -117,7 +117,7 @@ public class Database {
         List<NoteList> noteLists = null;
 
         try {
-            PreparedStatement stmt = conn.prepareStatement("INSERT INTO lists(name) values (?);");
+            PreparedStatement stmt = conn.prepareStatement("INSERT INTO lists(name) values (?)");
             stmt.setString(1,noteList.getName());
             stmt.executeUpdate();
         } catch (SQLException throwables) {
@@ -193,7 +193,7 @@ public class Database {
 
 
     // Update body of note and returns the new note
-    public void updateNote(int id,String title,int list_id, String body){
+    public void updateNote(int id,String title,int list_id ,String body){
 
         try {
 

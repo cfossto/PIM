@@ -2,11 +2,15 @@ package backend.company.notePack;
 
 public class NoteList {
 
-    int id;
-    String name;
+    private int id;
+    private String name;
 
 
     public NoteList(){}
+
+    public NoteList(int id) {
+        this.id = id;
+    }
 
     public NoteList(int id, String name) {
         this.id = id;
