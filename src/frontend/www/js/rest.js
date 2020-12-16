@@ -80,20 +80,6 @@ async function delete_note_list(noteList) {
     });
 }
 
-// Sends file to be added in the uploads folder
-async function uploadFileRest(formData, files) {
-    for(let file of files) {
-        formData.append('files', file, file.name);
-    }
-
-    let uploadResult = await fetch('/rest/file-upload', {
-        method: 'POST',
-        body: formData
-    });
-
-    return await uploadResult.text();
-}
-
 // Adding Images in uploads and in database
 async function addImageRest(formData, files, noteId) {
 
@@ -124,6 +110,18 @@ async function addImageRest(formData, files, noteId) {
     console.log(await result.text());
 }
 
-// get_notes(); // creates problem for image create not sure if used in other place
+async function getFilesRest() {
+    let result = await fetch("/rest/files");
+    files = await result.json();
+}
+
+getFilesRest();
 get_note_lists();
 get_notes();
+
+displayLists();
+displayNotes();
+showListsInCreateNote();
+deleteNoteFunctionalty();
+addList();
+

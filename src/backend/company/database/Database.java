@@ -33,6 +33,7 @@ Here is the usage:
 
     -- Files --
     uploadImage()               - uploads a image to file system
+    getFiles()                  - return a list of files
  */
 
 
@@ -245,6 +246,22 @@ public class Database {
         } catch (SQLException throwables) {
             throwables.printStackTrace();
         }
+    }
+
+    // Gets all information from "files"-table.
+    public List<File> getFiles(){
+        List<File> files = null;
+
+        try {
+            PreparedStatement stmt = conn.prepareStatement("SELECT * FROM files");
+            ResultSet rs = stmt.executeQuery();
+            File[] attFromRs = (File[]) Utils.readResultSetToObject(rs,File[].class);
+            files = List.of(attFromRs);
+
+        } catch (SQLException | JsonProcessingException throwables) {
+            throwables.printStackTrace();
+        }
+        return files;
     }
 
 

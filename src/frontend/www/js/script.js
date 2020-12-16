@@ -108,11 +108,15 @@ function displayNotes(pickedListId = 1) {
 
         if(pickedListId === note.list_id) {
             allNotes.append(`
-            <article class="note">
-                <a href="edit-note.html" onclick="saveId(${note.id},${note.list_id})"><h2>${note.title}</h2>
-                <p>${note.text}</p></a>
-            </article>
-        `);
+                <article class="note">
+                    <a href="edit-note.html" onclick="saveId(${note.id},${note.list_id})">
+                        <h2>${note.title}</h2>
+                        <p>${note.text}</p>
+                        <div class="note-images-${note.id}"></div>
+                    </a>
+                </article>
+            `);
+            displayImages(note.id);
         }
     }
 
@@ -169,6 +173,8 @@ function updateNote(){
             let noteListValue = $("#note-pick-list-edit").val(note.list_id);
             let noteBody = $("#note-text-input-edit").append(note.text);
 
+            displayImagesEditNote(note.id);
+
             // On click: update note to changed values
             $("#edit-note-button").click(function () {
                 addImage(note.id);
@@ -219,6 +225,28 @@ function addImage(noteId) {
     addImageRest(formData, files, noteId);
 }
 
+// creates place where images is shown on edit-note then calls displayImages()
+function displayImagesEditNote(noteId) {
+    if (window.location.href.indexOf("edit-note") > -1) {
+        let imagesInEditNote = $(".images-in-edit-note");
+        imagesInEditNote.empty();
+        imagesInEditNote.append(`<div class="note-images-${noteId}"></div>`);
+        displayImages(noteId);
+    }
+}
+
+// displays image
+function displayImages(noteId) {
+    for (let file of files) {
+        if(file.note_id === noteId) {
+            let splitImageName = file.name.split("/").join(".").split(".").join("-").split("-");
+            let altText = splitImageName[3];
+
+            $('.note-images-' + noteId).append(`<img src="${file.name}" height="200px" width="200px" alt="${altText}">`);
+        }
+    }
+}
+
 
 function changeWindow(){
 
@@ -243,8 +271,5 @@ function deleteNoteFunctionalty(){
     })
 }
 
-displayLists();
-displayNotes();
-showListsInCreateNote();
-deleteNoteFunctionalty();
-addList();
+
+

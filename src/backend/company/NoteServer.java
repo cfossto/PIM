@@ -104,7 +104,11 @@ public class NoteServer {
             res.send("ok");
         });
 
-
+        // Get files from database
+        app.get("/rest/files", (req, res) -> {
+            List<File> files = db.getFiles();
+            res.json(files);
+        });
 
 
         try {
