@@ -4,18 +4,25 @@ let lists = [];
 
 function isUrl(txtStr) {
 
-    // The following regex will give a good enough answer for our assignment. Also 
-    // allow a String without the 'https://' beginning (so strictly not a url in that case).
-    var patt = /^((https:\/\/)|(www))(\.)?(www)?(\w+)\.([A-z]{2,})/gi;
-    if (txtStr.match(patt)) {
-        return true;
-    }
+    // The most popular domain extensions
+    var topDomains = ["com", "de", "org", "net", "us", "c", "edu", "gov", "biz", "za", "info", "cc", "ca", "cn", "fr", "ch", "au", "in", "jp", "be", "it", "nl", "uk", "mx", "no", "ru", "br", "se", "es", "at", "dk", "eu", "il"];
 
+    // The following will give a good enough answer for our assignment. We 
+    // allow a String without the 'http(s)://' beginning and also allowing 'http(s)://' 
+    // without a following 'www.'(so not strictly url:s in those cases).
+
+    for (domExt of topDomains) {
+        var pattStr = `^((https?:\\/\\/(((www)\\.)?)|((www)\\.))(\\w[-\\w]*\\w)\\.)${domExt}($|\\/)`;
+        patt = new RegExp(pattStr, "i")
+            if (txtStr.match(patt)) {
+                return true;
+            }    
+        }
     return false;
 }
 
 function addHyperLinks(noteText) {
-    var strArr = noteText.split(" ");
+    var strArr = noteText.split(/\s/);
     let noteTextAltered = "";
     strArr.forEach(str => {
         let temp = "";
