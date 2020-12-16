@@ -271,7 +271,6 @@ function searchFunction(){
     console.log(textsearch)
     console.log(titlesearch)
 
-
     // Switch if title or text result
     if (titlesearch.length != null){
 
@@ -282,24 +281,14 @@ function searchFunction(){
 
             searchResult.push(textsearch[i])
         }
-
-
     }else{
         // Loop through titles in notes
         for (let i = 0; i<titlesearch.length; i++){
     
             console.log("Titelseach: "+textsearch[i].text)
             searchResult.push(titlesearch[i])
-        }
-    
-    
+        }  
     }
-
-    
-        
-
-
-
 }
 
 
