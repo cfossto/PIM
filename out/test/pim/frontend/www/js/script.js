@@ -300,15 +300,18 @@ function searchTextField(){
 
         // Eventlistener on keyup - trigger search function
         field.addEventListener("keyup",function(){
+            $(".searchListElem").remove()
+            searchResult = []
             searchFunction()
         })
 
-        // Clear dropdown on key-down for refresh of search
-        field.addEventListener("keydown",function (){
-            document.querySelector(".drop-li").innerHTML=""
-        })
+            field.addEventListener("keydown", function (){
 
-    }
+               $(".listRow").remove()
+               searchResult = []
+            })
+
+}
 
 
 function searchFunction(){
@@ -323,38 +326,32 @@ function searchFunction(){
     // Define list-field
     let dropDown = document.querySelector(".drop-down-list");
 
+
+    // Search field cannot be empty
+    if (question != "" && question != " "){
+
     // Filter notes with RegExp
     var re = new RegExp(question, 'ig');
     let textsearch = notes.filter(n => n.text.match(re)); // regex and match() with help of Konstantin
     let titlesearch = notes.filter(n => n.title.match(re));
 
-    // Switch if title or text result
-    if (question != ""){
+    totalResult = [...textsearch,...titlesearch]
 
-        if (textsearch != ""){
+    searchResult = [...new Set(totalResult)]
 
-        // Loop through text in notes
-         for (let i = 0; i<textsearch.length; i++){
-    
-            console.log("Textresult " + (searchResult.length+1)+" "+textsearch[i].text)
+        for (let result of searchResult){
+                /*$("searchListElem").remove()
+                dropDown.insertAdjacentHTML("afterend",`<a class="listRow" href="edit-note.html" onclick="saveId(${result.id},${result.list_id})">
+                <h2 class="searchListElem">Titel: ${result.title}</h2> <p><b>Note:</b> ${result.text}</p></a>`)*/
 
-            searchResult.push(textsearch[i]) // push for experimental usage
-            dropDown.insertAdjacentHTML("afterend",`<li class="drop-li">${textsearch[i].text}</li>`)
+                let f = document.querySelector("#dataList")
+
+                f.insertAdjacentHTML("afterend", `<option value="test">`)
+
+                searchResult = []
         }
-    }else{
-        // Loop through titles in notes
-        for (let i = 0; i<titlesearch.length; i++){
-    
-            console.log("Titelseach: "+titlesearch[i].title)
-            searchResult.push(titlesearch[i]) // push for experimental usage
-
-            dropDown.insertAdjacentHTML("afterend",`<li class="drop-li">${titlesearch[i].text}</li>`)
-        }  
     }
 }
-
-}
-
 
 
 showListsInCreateNote();

@@ -339,10 +339,20 @@ function searchFunction(){
 
     searchResult = [...new Set(totalResult)]
 
+        // Loop through list and get each result
         for (let result of searchResult){
+
+                // Resets list-rows and prints it out on screen.
                 $("searchListElem").remove()
                 dropDown.insertAdjacentHTML("afterend",`<a class="listRow" href="edit-note.html" onclick="saveId(${result.id},${result.list_id})">
                 <h2 class="searchListElem">Titel: ${result.title}</h2> <p><b>Note:</b> ${result.text}</p></a>`)
+
+                /*
+                    Here, you can reach each filtered post through 'result' in the for-loop.
+                    You can then send this to the proper <input>-instance.
+                */
+            
+
                 searchResult = []
         }
     }
