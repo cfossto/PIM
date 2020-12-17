@@ -300,14 +300,19 @@ function searchTextField(){
 
         // Eventlistener on keyup - trigger search function
         field.addEventListener("keyup",function(){
+            $(".searchListElem").remove()
+            searchResult = []
             searchFunction()
         })
 
-        field.addEventListener("keydown",function(){
+        field.addEventListener("keydown", function (){
 
-            
+            $(".searchListElem").remove()
+            searchResult = []
+
 
         })
+
 
     }
 
@@ -324,20 +329,28 @@ function searchFunction(){
     // Define list-field
     let dropDown = document.querySelector(".drop-down-list");
 
+    if (question != ""){
+        
     // Filter notes with RegExp
     var re = new RegExp(question, 'ig');
     let textsearch = notes.filter(n => n.text.match(re)); // regex and match() with help of Konstantin
     let titlesearch = notes.filter(n => n.title.match(re));
 
-    searchResult = textsearch.concat(titlesearch)
+    totalResult = [...textsearch,...titlesearch]
 
-    console.log(searchResult)
+    searchResult = [...new Set(totalResult)]
 
-    if (question != ""){
+    console.log("Search" +searchResult)
+
         for (let result of searchResult){
+                $("searchListElem").remove()
                 dropDown.insertAdjacentHTML("afterend",`<a href=""><h2 class="searchListElem">Titel: ${result.title}</h2> <p><b>Note:</b> ${result.text}</p></a>`)
+                searchResult = []
+
         }
-    } 
+    }
+           
+
 }
 
 
