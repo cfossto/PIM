@@ -326,7 +326,8 @@ function searchFunction(){
     // Define list-field
     let dropDown = document.querySelector(".drop-down-list");
 
-    if (question != ""){
+
+    if (question != "" && question != " "){
 
     // Filter notes with RegExp
     var re = new RegExp(question, 'ig');
@@ -339,7 +340,7 @@ function searchFunction(){
 
         for (let result of searchResult){
                 $("searchListElem").remove()
-                dropDown.insertAdjacentHTML("afterend",`<a class="listRow" href=""><h2 class="searchListElem">Titel: ${result.title}</h2> <p><b>Note:</b> ${result.text}</p></a>`)
+                dropDown.insertAdjacentHTML("afterend",`<a class="listRow" href="edit-note.html" onclick="saveId(${result.id},${result.listId})"><h2 class="searchListElem">Titel: ${result.title}</h2> <p><b>Note:</b> ${result.text}</p></a>`)
                 searchResult = []
         }
     }
