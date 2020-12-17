@@ -1,10 +1,12 @@
 package backend.company;
 
 import backend.company.database.Database;
+import backend.company.files.File;
 import backend.company.notePack.Note;
 import backend.company.notePack.NoteList;
 import express.Express;
 import express.middleware.Middleware;
+import org.apache.commons.fileupload.FileItem;
 
 import java.io.IOException;
 import java.nio.file.Paths;
@@ -80,7 +82,40 @@ public class NoteServer {
             response.send("ok");
         });
 
+        // Adding image in uploads folder
+        app.post("/rest/file-upload", (req, res) -> {
+            String imageUrl = null;
 
+            try{
+                List<FileItem> files = req.getFormData("files");
+                imageUrl = db.uploadImage(files.get(0));
+            } catch (Exception e) {
+                System.out.println("No Image Uploaded");
+            }
+
+
+            res.send(imageUrl);
+        });
+
+        // Adding file to db
+        app.post("/rest/files", (req, res) -> {
+            File file = (File) req.getBody(File.class);
+            db.createFile(file);
+            res.send("ok");
+        });
+
+        // Get files from database
+        app.get("/rest/files", (req, res) -> {
+            List<File> files = db.getFiles();
+            res.json(files);
+        });
+
+        // Delete file
+        app.delete("/rest/files/:id", (request, response) -> {
+            File file = (File) request.getBody(File.class);
+            db.deleteFile(file.getId());
+            response.send("ok");
+        });
 
 
         try {
