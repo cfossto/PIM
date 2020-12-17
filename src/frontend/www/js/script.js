@@ -146,11 +146,13 @@ function displayNotes(pickedListId = 1) {
 
         if(pickedListId === note.list_id) {
             allNotes.append(`
-            <article class="note">
-                <a href="edit-note.html" onclick="saveId(${note.id},${note.list_id})"><h2>${note.title}</h2>
-                <p>${addHyperLinks(note.text)}</p></a>
-            </article>
-        `);
+                <article class="note">
+                    <a href="edit-note.html" onclick="saveId(${note.id},${note.list_id})">
+                        <h2>${note.title}</h2>
+                        <p>${addHyperLinks(note.text)}</p>
+                    </a>
+                </article>
+            `);
         }
     }
    //searchFunction()
@@ -296,20 +298,25 @@ function deleteListFunctionality () {
 function searchTextField(){
 
         // Select textfield
-        let field = document.querySelector("#textfield")
+        let field = document.querySelector("#textfield");
+
+        // Returns if no textfield
+        if(!field) {
+            return;
+        }
 
         // Eventlistener on keyup - trigger search function
         field.addEventListener("keyup",function(){
-            $(".searchListElem").remove()
+            $(".searchListElem").remove();
             searchResult = []
             searchFunction()
         })
 
-            field.addEventListener("keydown", function (){
+        field.addEventListener("keydown", function (){
 
-               $(".listRow").remove()
-               searchResult = []
-            })
+           $(".listRow").remove()
+           searchResult = []
+        })
 
 }
 
@@ -319,31 +326,39 @@ function searchFunction(){
     // Empty search result
     let searchResult = [];
 
+    // Return if no textfield
+    if(!document.querySelector("#textfield")) {
+        return;
+    }
+
     // Get value from textfield
-    let question = document.querySelector("#textfield").value
+    let question = document.querySelector("#textfield").value;
     question = question;
 
     // Define list-field
-    let dropDown = document.querySelector(".drop-down-list");
+    let dropDown = document.querySelector(".drop-down");
 
 
     // Search field cannot be empty
     if (question != "" && question != " "){
 
-    // Filter notes with RegExp
-    var re = new RegExp(question, 'ig');
-    let textsearch = notes.filter(n => n.text.match(re)); // regex and match() with help of Konstantin
-    let titlesearch = notes.filter(n => n.title.match(re));
+        // Filter notes with RegExp
+        var re = new RegExp(question, 'ig');
+        let textsearch = notes.filter(n => n.text.match(re)); // regex and match() with help of Konstantin
+        let titlesearch = notes.filter(n => n.title.match(re));
 
-    totalResult = [...textsearch,...titlesearch]
+        totalResult = [...textsearch,...titlesearch]
 
-    searchResult = [...new Set(totalResult)]
+        searchResult = [...new Set(totalResult)]
 
         for (let result of searchResult){
-                $("searchListElem").remove()
-                dropDown.insertAdjacentHTML("afterend",`<a class="listRow" href="edit-note.html" onclick="saveId(${result.id},${result.list_id})">
-                <h2 class="searchListElem">Titel: ${result.title}</h2> <p><b>Note:</b> ${result.text}</p></a>`)
-                searchResult = []
+            $("searchListElem").remove()
+            dropDown.insertAdjacentHTML("afterend",`
+                <a class="listRow" href="edit-note.html" onclick="saveId(${result.id},${result.list_id})">
+                    <h2 class="searchListElem">${result.title}</h2>
+                </a>
+            `)
+            searchResult = []
         }
     }
 }

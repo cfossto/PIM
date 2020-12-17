@@ -18,6 +18,7 @@ button, .link-button {
     background-color: var(--primary);
     color: white;
     padding: 4px;
+    margin: 0 4px;
 }
 
 /*******************
@@ -170,4 +171,27 @@ CREATE NOTES FORM
 a {
     text-decoration: none;
     color: inherit;
+}
+
+/*******************
+SEARCH FIELD
+*******************/
+.dropdown {
+    position: absolute;
+    border: 1px solid var(--primary);
+    background: white;
+}
+
+input:focus + .dropdown {
+    display: block;
+}
+
+#textfield {
+    height: 42px;
+    width: 200px;
+    border: 1px solid var(--primary);
+}
+
+.dropdown {
+    width: 200px;
 }
