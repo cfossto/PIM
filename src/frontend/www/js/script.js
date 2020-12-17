@@ -327,6 +327,7 @@ function searchFunction(){
     let dropDown = document.querySelector(".drop-down-list");
 
 
+    // Search field cannot be empty
     if (question != "" && question != " "){
 
     // Filter notes with RegExp
@@ -340,7 +341,8 @@ function searchFunction(){
 
         for (let result of searchResult){
                 $("searchListElem").remove()
-                dropDown.insertAdjacentHTML("afterend",`<a class="listRow" href="edit-note.html" onclick="saveId(${result.id},${result.listId})"><h2 class="searchListElem">Titel: ${result.title}</h2> <p><b>Note:</b> ${result.text}</p></a>`)
+                dropDown.insertAdjacentHTML("afterend",`<a class="listRow" href="edit-note.html" onclick="saveId(${result.id},${result.list_id})">
+                <h2 class="searchListElem">Titel: ${result.title}</h2> <p><b>Note:</b> ${result.text}</p></a>`)
                 searchResult = []
         }
     }
