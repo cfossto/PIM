@@ -4,7 +4,7 @@ async function get_notes() {
     displayNotes();
     updateNote();
     displayLists();
-    searchTextField()
+    searchTextField();
     searchFunction();
 }
 

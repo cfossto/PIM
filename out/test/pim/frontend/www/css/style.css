@@ -18,6 +18,7 @@ button, .link-button {
     background-color: var(--primary);
     color: white;
     padding: 4px;
+    margin: 0 4px;
 }
 
 /*******************
@@ -200,4 +201,26 @@ IMAGES IN EDIT-NOTE WITH DELETE
 }
 .img-wrap:hover .close {
     opacity: 1;
+}
+/*******************
+SEARCH FIELD
+*******************/
+.dropdown {
+    position: absolute;
+    border: 1px solid var(--primary);
+    background: white;
+}
+
+input:focus + .dropdown {
+    display: block;
+}
+
+#textfield {
+    height: 42px;
+    width: 200px;
+    border: 1px solid var(--primary);
+}
+
+.dropdown {
+    width: 200px;
 }

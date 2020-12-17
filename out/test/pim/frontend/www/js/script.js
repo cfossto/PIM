@@ -222,7 +222,7 @@ function updateNote(){
                 note.title = titleField.val();
                 note.list_id = parseInt(noteListValue.val());
                 note.text = noteBody.val();
-
+                
                 // Back-end-call
                 update_note(note);
             });
@@ -325,7 +325,7 @@ function deleteNoteFunctionalty(){
     let LocalStorageid = localStorage.getItem("id");
     let id = parseInt(LocalStorageid);
 
-    // Show confirmation window
+    // Show confirmation window 
     let confirmWindow = confirm("Är du säker?");
 
     // If user clicks ok - deletes entry in database
@@ -373,20 +373,25 @@ function deleteListFunctionality () {
 function searchTextField(){
 
         // Select textfield
-        let field = document.querySelector("#textfield")
+        let field = document.querySelector("#textfield");
+
+        // Returns if no textfield
+        if(!field) {
+            return;
+        }
 
         // Eventlistener on keyup - trigger search function
         field.addEventListener("keyup",function(){
-            $(".searchListElem").remove()
+            $(".searchListElem").remove();
             searchResult = []
             searchFunction()
         })
 
-            field.addEventListener("keydown", function (){
+        field.addEventListener("keydown", function (){
 
-               $(".listRow").remove()
-               searchResult = []
-            })
+           $(".listRow").remove()
+           searchResult = []
+        })
 
 }
 
@@ -396,41 +401,40 @@ function searchFunction(){
     // Empty search result
     let searchResult = [];
 
+    // Return if no textfield
+    if(!document.querySelector("#textfield")) {
+        return;
+    }
+
     // Get value from textfield
-    let question = document.querySelector("#textfield").value
+    let question = document.querySelector("#textfield").value;
     question = question;
 
     // Define list-field
-    let dropDown = document.querySelector(".drop-down-list");
+    let dropDown = document.querySelector(".drop-down");
 
 
     // Search field cannot be empty
     if (question != "" && question != " "){
 
-    // Filter notes with RegExp
-    var re = new RegExp(question, 'ig');
-    let textsearch = notes.filter(n => n.text.match(re)); // regex and match() with help of Konstantin
-    let titlesearch = notes.filter(n => n.title.match(re));
+        // Filter notes with RegExp
+        var re = new RegExp(question, 'ig');
+        let textsearch = notes.filter(n => n.text.match(re)); // regex and match() with help of Konstantin
+        let titlesearch = notes.filter(n => n.title.match(re));
 
-    totalResult = [...textsearch,...titlesearch]
+        totalResult = [...textsearch,...titlesearch]
 
-    searchResult = [...new Set(totalResult)]
+        searchResult = [...new Set(totalResult)]
 
         // Loop through list and get each result
         for (let result of searchResult){
-
-                // Resets list-rows and prints it out on screen.
-                $("searchListElem").remove()
-                dropDown.insertAdjacentHTML("afterend",`<a class="listRow" href="edit-note.html" onclick="saveId(${result.id},${result.list_id})">
-                <h2 class="searchListElem">Titel: ${result.title}</h2> <p><b>Note:</b> ${result.text}</p></a>`)
-
-                /*
-                    Here, you can reach each filtered post through 'result' in the for-loop.
-                    You can then send this to the proper <input>-instance.
-                */
-
-
-                searchResult = []
+            $("searchListElem").remove()
+            dropDown.insertAdjacentHTML("afterend",`
+                <a class="listRow" href="edit-note.html" onclick="saveId(${result.id},${result.list_id})">
+                    <h2 class="searchListElem">${result.title}</h2>
+                </a>
+            `)
+            searchResult = []
         }
     }
 }
