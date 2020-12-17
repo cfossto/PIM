@@ -78,7 +78,7 @@ public class NoteServer {
         app.put("/rest/notes/:id", (request, response) -> {
             Note note = (Note) request.getBody(Note.class);
             // funktionen måste göras om när vi lägger till filer
-            db.updateNote(note.getId(), note.getTitle(), note.getText());
+            db.updateNote(note.getId(), note.getTitle(), note.getList_id(), note.getText());
             response.send("ok");
         });
 

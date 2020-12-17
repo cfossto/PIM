@@ -4,6 +4,47 @@ let lists = [];
 
 let files = [];
 
+function isUrl(txtStr) {
+
+    // The most popular domain extensions
+    var topDomains = ["com", "de", "org", "net", "us", "c", "edu", "gov", "biz", "za", "info", "cc", "ca", "cn", "fr", "ch", "au", "in", "jp", "be", "it", "nl", "uk", "mx", "no", "ru", "br", "se", "es", "at", "dk", "eu", "il"];
+
+    // The following will give a good enough answer for our assignment. We
+    // allow a String without the 'http(s)://' beginning and also allowing 'http(s)://'
+    // without a following 'www.'(so not strictly url:s in those cases).
+
+
+    for (domExt of topDomains) {
+        var pattStr = `^((https?:\\/\\/(((www)\\.)?)|((www)\\.))(\\w[-\\w]*\\w)\\.)${domExt}($|\\/)`;
+        patt = new RegExp(pattStr, "i")
+            if (txtStr.match(patt)) {
+                return true;
+            }
+        }
+    return false;
+}
+
+function addHyperLinks(noteText) {
+    var strArr = noteText.split(/\s/);
+    let noteTextAltered = "";
+    strArr.forEach(str => {
+        let temp = "";
+        // check if 'str' is a url and if it starts with https.
+        if (isUrl(str) && str.match(/^https?:\/\/.+/i)) {
+            temp = `<a href=${str} class="hyper-link">${str}</a> `;
+        }
+        // make sure url starts with 'https://' inside the tag. Won't be seen in the notes.
+        else if (isUrl(str)) {
+            temp = `<a href=https://${str} class="hyper-link">${str}</a> `;
+        }
+        else {
+            temp = str + " ";
+        }
+
+        noteTextAltered = noteTextAltered + temp;
+    });
+    return noteTextAltered;
+}
 
 function addNote() {
     let noteTitleInput = $("#note-title-input").val();
@@ -111,7 +152,7 @@ function displayNotes(pickedListId = 1) {
                 <article class="note">
                     <a href="edit-note.html" onclick="saveId(${note.id},${note.list_id})">
                         <h2>${note.title}</h2>
-                        <p>${note.text}</p>
+                        <p>${addHyperLinks(note.text)}</p>
                         <div class="note-images-${note.id}"></div>
                     </a>
                 </article>
@@ -178,11 +219,9 @@ function updateNote(){
             // On click: update note to changed values
             $("#edit-note-button").click(function () {
                 addImage(note.id);
-                //console.log("button");
                 note.title = titleField.val();
                 note.list_id = parseInt(noteListValue.val());
                 note.text = noteBody.val();
-                //console.log(notes);
 
                 // Back-end-call
                 update_note(note);
@@ -286,14 +325,53 @@ function deleteNoteFunctionalty(){
     let LocalStorageid = localStorage.getItem("id");
     let id = parseInt(LocalStorageid);
 
-    // On click - deletes entry in database
-    $("#delete-note-button").click(function () {
+    // Show confirmation window
+    let confirmWindow = confirm("Är du säker?");
+
+    // If user clicks ok - deletes entry in database
+    if (confirmWindow){
 
         // REST-call
         delete_note(id);
-        changeWindow();
-    })
+
+    // If user clicks cancel show an alert
+    } else {
+        alert("Avbröt borttagning");
+    }
+}
+
+function deleteListFunctionality () {
+
+    // Takes the stored id and parses it correctly
+    let LocalStorageListid = localStorage.getItem("listid");
+    let listId = parseInt(LocalStorageListid);
+
+    // Shows confirmation window
+
+    let confirmWindow = confirm("Är du säker? \nOBS! Detta tar även bort alla anteckningar i listan.");
+    // If user clicks ok - list is removed from db.
+    if (confirmWindow){
+
+        // loops through all notes
+        for (allNotes of notes){
+            // finds all notes with current list_id
+            if (listId === allNotes.list_id){
+
+                delete_note(allNotes.id)
+            }
+        }
+        delete_note_list(listId);
+
+    // If user clicks cancel show an alert
+    } else {
+        alert("Avbröt borttagning");
+    }
+
 }
 
 
 
+displayLists();
+displayNotes();
+showListsInCreateNote();
+addList();
