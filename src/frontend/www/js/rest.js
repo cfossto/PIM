@@ -43,7 +43,6 @@ async function delete_note(noteid) {
         body: JSON.stringify(deleteNote)
     })
     .then(function(){window.location.href="index.html"})
-    .then(alert("Anteckningen borttagen."));
 
 }
 
