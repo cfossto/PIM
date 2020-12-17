@@ -2,8 +2,46 @@ let notes = [];
 
 let lists = [];
 
+function isUrl(txtStr) {
 
+    // The most popular domain extensions
+    var topDomains = ["com", "de", "org", "net", "us", "c", "edu", "gov", "biz", "za", "info", "cc", "ca", "cn", "fr", "ch", "au", "in", "jp", "be", "it", "nl", "uk", "mx", "no", "ru", "br", "se", "es", "at", "dk", "eu", "il"];
 
+    // The following will give a good enough answer for our assignment. We 
+    // allow a String without the 'http(s)://' beginning and also allowing 'http(s)://' 
+    // without a following 'www.'(so not strictly url:s in those cases).
+
+    for (domExt of topDomains) {
+        var pattStr = `^((https?:\\/\\/(((www)\\.)?)|((www)\\.))(\\w[-\\w]*\\w)\\.)${domExt}($|\\/)`;
+        patt = new RegExp(pattStr, "i")
+            if (txtStr.match(patt)) {
+                return true;
+            }    
+        }
+    return false;
+}
+
+function addHyperLinks(noteText) {
+    var strArr = noteText.split(/\s/);
+    let noteTextAltered = "";
+    strArr.forEach(str => {
+        let temp = "";
+        // check if 'str' is a url and if it starts with https.
+        if (isUrl(str) && str.match(/^https?:\/\/.+/i)) {
+            temp = `<a href=${str} class="hyper-link">${str}</a> `;
+        }
+        // make sure url starts with 'https://' inside the tag. Won't be seen in the notes.
+        else if (isUrl(str)) {
+            temp = `<a href=https://${str} class="hyper-link">${str}</a> `;
+        }
+        else {
+            temp = str + " ";
+        }
+
+        noteTextAltered = noteTextAltered + temp;
+    });
+    return noteTextAltered;
+}
 
 function addNote() {
     let noteTitleInput = $("#note-title-input").val();
@@ -110,7 +148,7 @@ function displayNotes(pickedListId = 1) {
             allNotes.append(`
             <article class="note">
                 <a href="edit-note.html" onclick="saveId(${note.id},${note.list_id})"><h2>${note.title}</h2>
-                <p>${note.text}</p></a>
+                <p>${addHyperLinks(note.text)}</p></a>
             </article>
         `);
         }
