@@ -24,7 +24,7 @@ function isUrl(txtStr) {
 function addHyperLinks(noteText) {
     var strArr = noteText.split(/\s/);
     let noteTextAltered = "";
-    strArr.forEach(str => {
+    for (str of strArr) {
         let temp = "";
         // check if 'str' is a url and if it starts with https.
         if (isUrl(str) && str.match(/^https?:\/\/.+/i)) {
@@ -39,9 +39,10 @@ function addHyperLinks(noteText) {
         }
 
         noteTextAltered = noteTextAltered + temp;
-    });
+    }
     return noteTextAltered;
 }
+
 
 function addNote() {
     let noteTitleInput = $("#note-title-input").val();
