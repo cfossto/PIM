@@ -2,21 +2,24 @@ let notes = [];
 
 let lists = [];
 
+let files = [];
+
 function isUrl(txtStr) {
 
     // The most popular domain extensions
     var topDomains = ["com", "de", "org", "net", "us", "c", "edu", "gov", "biz", "za", "info", "cc", "ca", "cn", "fr", "ch", "au", "in", "jp", "be", "it", "nl", "uk", "mx", "no", "ru", "br", "se", "es", "at", "dk", "eu", "il"];
 
-    // The following will give a good enough answer for our assignment. We 
-    // allow a String without the 'http(s)://' beginning and also allowing 'http(s)://' 
+    // The following will give a good enough answer for our assignment. We
+    // allow a String without the 'http(s)://' beginning and also allowing 'http(s)://'
     // without a following 'www.'(so not strictly url:s in those cases).
+
 
     for (domExt of topDomains) {
         var pattStr = `^((https?:\\/\\/(((www)\\.)?)|((www)\\.))(\\w[-\\w]*\\w)\\.)${domExt}($|\\/)`;
         patt = new RegExp(pattStr, "i")
             if (txtStr.match(patt)) {
                 return true;
-            }    
+            }
         }
     return false;
 }
@@ -146,14 +149,18 @@ function displayNotes(pickedListId = 1) {
 
         if(pickedListId === note.list_id) {
             allNotes.append(`
-            <article class="note">
-                <a href="edit-note.html" onclick="saveId(${note.id},${note.list_id})"><h2>${note.title}</h2>
-                <p>${addHyperLinks(note.text)}</p></a>
-            </article>
-        `);
+                <article class="note">
+                    <a href="edit-note.html" onclick="saveId(${note.id},${note.list_id})">
+                        <h2>${note.title}</h2>
+                        <p>${addHyperLinks(note.text)}</p>
+                        <div class="note-images-${note.id}"></div>
+                    </a>
+                </article>
+            `);
+            displayImages(note.id);
         }
     }
-   //searchFunction()
+
 }
 
 function displayLists() {
@@ -207,12 +214,15 @@ function updateNote(){
             let noteListValue = $("#note-pick-list-edit").val(note.list_id);
             let noteBody = $("#note-text-input-edit").append(note.text);
 
+            displayImagesEditNote(note.id);
+
             // On click: update note to changed values
             $("#edit-note-button").click(function () {
+                addImage(note.id);
                 note.title = titleField.val();
                 note.list_id = parseInt(noteListValue.val());
                 note.text = noteBody.val();
-                
+
                 // Back-end-call
                 update_note(note);
             });
@@ -242,13 +252,80 @@ function updateListName(){
     }
 }
 
-function deleteNoteFunctionality(){
+// Adding Images
+function addImage(noteId) {
+    if( document.querySelector("#image-to-upload").files.length === 0 ){
+        console.log("no files selected");
+        return;
+    }
+    let files = document.querySelector('input[type=file]').files;
+    let formData = new FormData();
+
+    addImageRest(formData, files, noteId);
+}
+
+// creates place where images is shown on edit-note then calls displayImages()
+function displayImagesEditNote(noteId) {
+    if (window.location.href.indexOf("edit-note") > -1) {
+        let imagesInEditNote = $(".images-in-edit-note");
+        imagesInEditNote.empty();
+        imagesInEditNote.append(`<div class="note-images-${noteId}"></div>`);
+
+        for (let file of files) {
+            if(file.note_id === noteId) {
+                let splitImageName = file.name.split("/").join(".").split(".").join("-").split("-");
+                let altText = splitImageName[3];
+
+                $('.note-images-' + noteId).append(`
+                    <div class="img-wrap">
+                        <span class="delete-image-button close">&times;</span>
+                        <img src="${file.name}" height="200px" width="200px" alt="${altText}" id="${file.id}">
+                    </div>
+                `);
+            }
+        }
+    }
+}
+
+// displays image
+function displayImages(noteId) {
+    for (let file of files) {
+        if(file.note_id === noteId) {
+            let splitImageName = file.name.split("/").join(".").split(".").join("-").split("-");
+            let altText = splitImageName[3];
+
+            $('.note-images-' + noteId).append(`<img src="${file.name}" height="200px" width="200px" alt="${altText}">`);
+        }
+    }
+}
+
+function deleteImageFunctionality() {
+
+    $(document).on('click', '.delete-image-button', function(){
+        let imgWrap = this.parentElement;
+        console.log(imgWrap.children[1].id);
+        let fileIdToRemove = imgWrap.children[1].id;
+        imgWrap.parentElement.removeChild(imgWrap);
+        deleteFileRest(fileIdToRemove);
+    });
+}
+
+
+function changeWindow(){
+
+    alert("Anteckningen borttagen")
+    window.location.href="index.html"
+}
+
+
+
+function deleteNoteFunctionalty(){
 
     // Takes the stored id and parses it correctly
     let LocalStorageid = localStorage.getItem("id");
     let id = parseInt(LocalStorageid);
 
-    // Show confirmation window 
+    // Show confirmation window
     let confirmWindow = confirm("Är du säker?");
 
     // If user clicks ok - deletes entry in database
@@ -257,14 +334,14 @@ function deleteNoteFunctionality(){
         // REST-call
         delete_note(id);
 
-    // If user clicks cancel show an alert  
+    // If user clicks cancel show an alert
     } else {
         alert("Avbröt borttagning");
     }
 }
 
 function deleteListFunctionality () {
-    
+
     // Takes the stored id and parses it correctly
     let LocalStorageListid = localStorage.getItem("listid");
     let listId = parseInt(LocalStorageListid);
@@ -275,21 +352,21 @@ function deleteListFunctionality () {
     // If user clicks ok - list is removed from db.
     if (confirmWindow){
 
-        // loops through all notes 
+        // loops through all notes
         for (allNotes of notes){
             // finds all notes with current list_id
             if (listId === allNotes.list_id){
-                
+
                 delete_note(allNotes.id)
             }
         }
         delete_note_list(listId);
 
-    // If user clicks cancel show an alert  
+    // If user clicks cancel show an alert
     } else {
         alert("Avbröt borttagning");
     }
-    
+
 }
 
 
@@ -300,15 +377,18 @@ function searchTextField(){
 
         // Eventlistener on keyup - trigger search function
         field.addEventListener("keyup",function(){
+            $(".searchListElem").remove()
+            searchResult = []
             searchFunction()
         })
 
-        // Clear dropdown on key-down for refresh of search
-        field.addEventListener("keydown",function (){
-            document.querySelector(".drop-li").innerHTML=""
-        })
+            field.addEventListener("keydown", function (){
 
-    }
+               $(".listRow").remove()
+               searchResult = []
+            })
+
+}
 
 
 function searchFunction(){
@@ -323,38 +403,37 @@ function searchFunction(){
     // Define list-field
     let dropDown = document.querySelector(".drop-down-list");
 
+
+    // Search field cannot be empty
+    if (question != "" && question != " "){
+
     // Filter notes with RegExp
     var re = new RegExp(question, 'ig');
     let textsearch = notes.filter(n => n.text.match(re)); // regex and match() with help of Konstantin
     let titlesearch = notes.filter(n => n.title.match(re));
 
-    // Switch if title or text result
-    if (question != ""){
+    totalResult = [...textsearch,...titlesearch]
 
-        if (textsearch != ""){
+    searchResult = [...new Set(totalResult)]
 
-        // Loop through text in notes
-         for (let i = 0; i<textsearch.length; i++){
-    
-            console.log("Textresult " + (searchResult.length+1)+" "+textsearch[i].text)
+        // Loop through list and get each result
+        for (let result of searchResult){
 
-            searchResult.push(textsearch[i]) // push for experimental usage
-            dropDown.insertAdjacentHTML("afterend",`<li class="drop-li">${textsearch[i].text}</li>`)
+                // Resets list-rows and prints it out on screen.
+                $("searchListElem").remove()
+                dropDown.insertAdjacentHTML("afterend",`<a class="listRow" href="edit-note.html" onclick="saveId(${result.id},${result.list_id})">
+                <h2 class="searchListElem">Titel: ${result.title}</h2> <p><b>Note:</b> ${result.text}</p></a>`)
+
+                /*
+                    Here, you can reach each filtered post through 'result' in the for-loop.
+                    You can then send this to the proper <input>-instance.
+                */
+
+
+                searchResult = []
         }
-    }else{
-        // Loop through titles in notes
-        for (let i = 0; i<titlesearch.length; i++){
-    
-            console.log("Titelseach: "+titlesearch[i].title)
-            searchResult.push(titlesearch[i]) // push for experimental usage
-
-            dropDown.insertAdjacentHTML("afterend",`<li class="drop-li">${titlesearch[i].text}</li>`)
-        }  
     }
 }
-
-}
-
 
 
 showListsInCreateNote();
