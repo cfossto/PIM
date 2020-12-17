@@ -249,14 +249,17 @@ function deleteListFunctionality () {
 
 function searchTextField(){
 
-let field = document.querySelector("#textfield")
+        // Select textfield
+        let field = document.querySelector("#textfield")
 
+        // Eventlistener on keyup - trigger search function
         field.addEventListener("keyup",function(){
             searchFunction()
         })
 
+        // Clear dropdown on key-down for refresh of search
         field.addEventListener("keydown",function (){
-            document.querySelector(".drop-down-list").innerHTML=""
+            document.querySelector(".drop-li").innerHTML=""
         })
 
     }
@@ -271,32 +274,39 @@ function searchFunction(){
     let question = document.querySelector("#textfield").value
     question = question;
 
-    // Filter notes 
+    // Define list-field
+    let dropDown = document.querySelector(".drop-down-list");
+
+    // Filter notes with RegExp
     var re = new RegExp(question, 'ig');
     let textsearch = notes.filter(n => n.text.match(re)); // regex and match() with help of Konstantin
     let titlesearch = notes.filter(n => n.title.match(re));
 
-    console.log(textsearch);
-    console.log(titlesearch);
-
     // Switch if title or text result
-    if (titlesearch.length != null){
+    if (question != ""){
+
+        if (textsearch != ""){
 
         // Loop through text in notes
          for (let i = 0; i<textsearch.length; i++){
     
             console.log("Textresult " + (searchResult.length+1)+" "+textsearch[i].text)
 
-            searchResult.push(textsearch[i])
+            searchResult.push(textsearch[i]) // push for experimental usage
+            dropDown.insertAdjacentHTML("afterend",`<li class="drop-li">${textsearch[i].text}</li>`)
         }
     }else{
         // Loop through titles in notes
         for (let i = 0; i<titlesearch.length; i++){
     
-            console.log("Titelseach: "+textsearch[i].text)
-            searchResult.push(titlesearch[i])
+            console.log("Titelseach: "+titlesearch[i].title)
+            searchResult.push(titlesearch[i]) // push for experimental usage
+
+            dropDown.insertAdjacentHTML("afterend",`<li class="drop-li">${titlesearch[i].text}</li>`)
         }  
     }
+}
+
 }
 
 
