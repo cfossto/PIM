@@ -108,6 +108,14 @@ MAIN NOTES
 /*    float: right;*/
 /*}*/
 
+.hyper-link {
+    color: blue;
+}
+
+.hyper-link:hover {
+    text-decoration-line: underline;
+}
+
 .all-notes {
     display: flex;
     flex-wrap: wrap;

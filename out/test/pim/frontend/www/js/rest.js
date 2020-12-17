@@ -4,8 +4,8 @@ async function get_notes() {
     displayNotes();
     updateNote();
     displayLists();
-    //searchTextField()
-    //searchFunction();
+    searchTextField()
+    searchFunction();
 }
 
 async function create_note(note) {
@@ -43,7 +43,6 @@ async function delete_note(noteid) {
         body: JSON.stringify(deleteNote)
     })
     .then(function(){window.location.href="index.html"})
-    .then(alert("Anteckningen borttagen."));
 
 }
 
