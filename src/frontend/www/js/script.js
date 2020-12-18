@@ -202,7 +202,6 @@ function saveId(id,listId){
 
     localStorage.setItem("id",id)
     localStorage.setItem("listid",listId);
-
 }
 
 // Updates notes in database
@@ -230,6 +229,7 @@ function updateNote(){
                 note.title = titleField.val();
                 note.list_id = parseInt(noteListValue.val());
                 note.text = noteBody.val();
+                localStorage.setItem("listid", note.list_id);
                 
                 // Back-end-call
                 update_note(note);
