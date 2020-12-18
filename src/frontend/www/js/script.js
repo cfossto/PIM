@@ -136,7 +136,7 @@ function displayNotes() {
         sessionStorage.setItem("browserStarted", "true");
         localStorage.setItem("listid", 1);
     }
-    pickedListId = parseInt(localStorage.getItem("listid"))
+    pickedListId = parseInt(localStorage.getItem("listid"));
 
     let allNotes = $("#all-notes");
     allNotes.empty();
@@ -297,7 +297,6 @@ function deleteListFunctionality () {
     } else {
         alert("Avbröt borttagning");
     }
-    
 }
 
 
