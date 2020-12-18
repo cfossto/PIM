@@ -27,7 +27,7 @@ function isUrl(txtStr) {
 function addHyperLinks(noteText) {
     var strArr = noteText.split(/\s/);
     let noteTextAltered = "";
-    for (str of strArr) {
+    strArr.forEach(str => {
         let temp = "";
         // check if 'str' is a url and if it starts with https.
         if (isUrl(str) && str.match(/^https?:\/\/.+/i)) {
@@ -42,10 +42,9 @@ function addHyperLinks(noteText) {
         }
 
         noteTextAltered = noteTextAltered + temp;
-    }
+    });
     return noteTextAltered;
 }
-
 
 function addNote() {
     let noteTitleInput = $("#note-title-input").val();
@@ -133,14 +132,7 @@ function errorMessage(noteTitleInput, notePickList, noteTextInput) {
 }
 
 
-function displayNotes() {
-
-    if(sessionStorage.getItem("browserStarted") == null) {
-        sessionStorage.setItem("browserStarted", "true");
-        localStorage.setItem("listid", 1);
-    }
-    pickedListId = parseInt(localStorage.getItem("listid"));
-
+function displayNotes(pickedListId = 1) {
     let allNotes = $("#all-notes");
     allNotes.empty();
     let listTitle = $("#list-title-frontpage");
@@ -177,7 +169,7 @@ function displayLists() {
 
     for (let list of lists) {
         allLists.append(`
-            <a onclick="saveId(1, ${list.id}), displayNotes()">
+            <a onclick="displayNotes(${list.id}), saveId(1, ${list.id})">
                 <div class="list-item">
                     <div class="list-name">${list.name}</div>
                 <div class="notes-in-list">${countNotesInList(list.id)}</div>

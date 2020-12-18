@@ -1,10 +1,18 @@
 package backend.company.database;
 
 
+import backend.company.files.File;
 import backend.company.notePack.Note;
 import backend.company.notePack.NoteList;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import express.utils.Utils;
+import org.apache.commons.fileupload.FileItem;
+
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.sql.*;
 import java.time.LocalDateTime;
 import java.util.List;
@@ -26,6 +34,11 @@ Here is the usage:
     deleteNoteList(id)          - deletes a note list/group by id
     updateListName(id,name)     - updates the name of a list, identified by id
 
+    -- Files --
+    uploadImage()               - uploads a image to file system
+    getFiles()                  - return a list of files
+    getFileById()               - returns a file by id
+    deleteFile()                - deletes a file by id
 
  */
 
@@ -117,7 +130,7 @@ public class Database {
         List<NoteList> noteLists = null;
 
         try {
-            PreparedStatement stmt = conn.prepareStatement("INSERT INTO lists(name) values (?);");
+            PreparedStatement stmt = conn.prepareStatement("INSERT INTO lists(name) values (?)");
             stmt.setString(1,noteList.getName());
             stmt.executeUpdate();
         } catch (SQLException throwables) {
@@ -207,6 +220,97 @@ public class Database {
             stmt1.setInt(5,id);
             stmt1.executeUpdate();
 
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
+    }
+
+    // Add file in uploads
+    public String uploadImage(FileItem image) {
+        String imageUrl = "/uploads/" + image.getName();
+
+        try (var os = new FileOutputStream(Paths.get("src/frontend/www" + imageUrl).toString())) {
+            os.write(image.get());
+        } catch (Exception e) {
+            e.printStackTrace();
+            return null;
+        }
+
+        return imageUrl;
+    }
+
+    // Creates input in "files"-table
+    public void createFile(File file){
+
+        try {
+            PreparedStatement stmt1 = conn.prepareStatement("INSERT INTO files(note_id,category_id,name) VALUES(?,?,?)");
+
+            stmt1.setInt(1,file.getNote_id());
+            stmt1.setInt(2,file.getCategory_id());
+            stmt1.setString(3,file.getName());
+            stmt1.executeUpdate();
+
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
+    }
+
+    // Gets all information from "files"-table.
+    public List<File> getFiles(){
+        List<File> files = null;
+
+        try {
+            PreparedStatement stmt = conn.prepareStatement("SELECT * FROM files");
+            ResultSet rs = stmt.executeQuery();
+            File[] attFromRs = (File[]) Utils.readResultSetToObject(rs,File[].class);
+            files = List.of(attFromRs);
+
+        } catch (SQLException | JsonProcessingException throwables) {
+            throwables.printStackTrace();
+        }
+        return files;
+    }
+
+    // Gets file by id
+    public File getFileById(int id) {
+        File file = null;
+        String query = "SELECT * FROM Files WHERE id = ?";
+        try {
+            PreparedStatement stmt = conn.prepareStatement(query);
+            stmt.setInt(1, id);
+            ResultSet resultSet = stmt.executeQuery();
+
+            while (resultSet.next()) {
+                int fileId = resultSet.getInt("id");
+                int fileNoteId = resultSet.getInt("note_id");
+                int fileCategoryId = resultSet.getInt("category_id");
+                String fileName = resultSet.getString("name");
+                file = new File(fileId, fileNoteId, fileCategoryId, fileName);
+            }
+        } catch(Exception e) {
+            e.printStackTrace();
+        }
+        return file;
+    }
+
+    // Delete file
+    public void deleteFile(int id){
+
+        File file = getFileById(id);
+        String filepath = file.getName();
+        Path fullFilePath = Path.of("src/frontend/www" + filepath);
+
+        try {
+            Files.deleteIfExists(fullFilePath);
+        }
+        catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        try {
+            PreparedStatement stmt = conn.prepareStatement("DELETE FROM files WHERE id = ?");
+            stmt.setInt(1, id);
+            stmt.executeUpdate();
         } catch (SQLException throwables) {
             throwables.printStackTrace();
         }
