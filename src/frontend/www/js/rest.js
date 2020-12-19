@@ -60,7 +60,7 @@ async function create_note_list(noteList) {
         method: "POST",
         body: JSON.stringify(noteList)
     })
-    .then(function() {window.location.href="index.html"});
+    .then(function() { window.location.href="index.html"});
 }
 
 async function update_note_list(noteList) {

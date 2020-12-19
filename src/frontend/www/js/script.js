@@ -91,6 +91,10 @@ function addList() {
      
             lists.push(newList);
             create_note_list(newList);
+
+            // for (list of lists) {
+            //     alert(list.id);
+            // }
            
         } else {
             console.log("Fält får ej vara tomt");
@@ -99,15 +103,20 @@ function addList() {
 
 }
 
+
 function showListsInCreateNote() {
+    // Putting this here, because it's the first code to excecute
+    if(sessionStorage.getItem("browserStarted") == null) {
+        sessionStorage.setItem("browserStarted", "true");
+        localStorage.setItem("listid", 1);
+    }
     let allLists = $("#note-pick-list-edit");
     allLists.empty();
-
-    allLists.append('<option disabled selected>Välj Lista...</option>');
+    allLists.append(`<option></option>`);
 
     for (let list of lists) {
         allLists.append(`
-            <option value="${list.id}">${list.name}</option>
+            <option value="${list.id}" ${list.id == localStorage.getItem("listid") ? "selected" : ""}>${list.name}</option>
         `);
     }
 }
@@ -135,10 +144,6 @@ function errorMessage(noteTitleInput, notePickList, noteTextInput) {
 
 function displayNotes() {
 
-    if(sessionStorage.getItem("browserStarted") == null) {
-        sessionStorage.setItem("browserStarted", "true");
-        localStorage.setItem("listid", 1);
-    }
     pickedListId = parseInt(localStorage.getItem("listid"));
 
     let allNotes = $("#all-notes");
