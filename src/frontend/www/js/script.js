@@ -25,34 +25,48 @@ function isUrl(txtStr) {
 }
 
 function addHyperLinks(noteText) {
-    var strArr = noteText.split(/\s/);
+    noteText = replaceWeirdSymbols(noteText); // look for '<' and '>'
+
+    // Check if 'str' is a url and if it starts with https.
+    var strArr = noteText.split(/\40/);
     let noteTextAltered = "";
-    for (str of strArr) {
-        let temp = "";
-        // check if 'str' is a url and if it starts with https.
+    for (let str of strArr) {
+
         if (isUrl(str) && str.match(/^https?:\/\/.+/i)) {
-            temp = `<a href=${str} class="hyper-link">${str}</a> `;
+            str = `<a href=${str} class="hyper-link">${str}</a> `;
         }
-        // make sure url starts with 'https://' inside the tag. Won't be seen in the notes.
+        // Make sure url starts with 'https://' inside the tag. Won't be seen in the notes.
         else if (isUrl(str)) {
-            temp = `<a href=https://${str} class="hyper-link">${str}</a> `;
-        }
-        else {
-            temp = str + " ";
+            str = `<a href=https://${str} class="hyper-link">${str}</a> `;
         }
 
-        noteTextAltered = noteTextAltered + temp;
+        noteTextAltered = noteTextAltered + str + " ";
     }
     return noteTextAltered;
 }
 
+function replaceWeirdSymbols(str) {
+    // Replace '<' with its corresponding symbol notation in order to
+    // avoid bugs in the text
+    let rgx = /</g
+    str = str.replace(rgx,"&lt;");
+
+    // Replace '>' with its corresponding symbol notation in order to
+    // avoid bugs in the text
+    rgx = />/g
+    str = str.replace(rgx,"&gt;");
+
+    return str;
+}
 
 function addNote() {
     let noteTitleInput = $("#note-title-input").val();
     let notePickList = $("#note-pick-list-edit").val();
     let noteTextInput = $("#note-text-input").val();
-    let newNote = {};
+    // Need to check if the text have problematic symbols and replace them.
+    noteTextInput = replaceWeirdSymbols(noteTextInput);
 
+    let newNote = {};
     // errorMessage(noteTitleInput, notePickList, noteTextInput);
 
     if(noteTitleInput && notePickList && noteTextInput) {
@@ -228,7 +242,7 @@ function updateNote(){
         if (id === note.id){
             let titleField = $("#note-title-input-edit").val(note.title);
             let noteListValue = $("#note-pick-list-edit").val(note.list_id);
-            let noteBody = $("#note-text-input-edit").append(note.text);
+            let noteBody = $("#note-text-input-edit").append(replaceWeirdSymbols(note.text));
 
             displayImagesEditNote(note.id);
 
