@@ -2,10 +2,10 @@ async function get_notes() {
     let result = await fetch("/rest/notes");
     notes = await result.json();
     displayNotes();
-    updateNote();
     displayLists();
     searchTextField();
     searchFunction();
+    updateNote();
 }
 
 async function create_note(note) {

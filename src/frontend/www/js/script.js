@@ -102,8 +102,6 @@ function showListsInCreateNote() {
     let allLists = $("#note-pick-list-edit");
     allLists.empty();
 
-    allLists.append('<option disabled selected>Välj Lista...</option>');
-
     for (let list of lists) {
         allLists.append(`
             <option value="${list.id}">${list.name}</option>
@@ -254,11 +252,19 @@ function updateListName(){
 
 // Adding Images
 function addImage(noteId) {
-    if( document.querySelector("#image-to-upload").files.length === 0 ){
-        console.log("no files selected");
+    let files = document.querySelector('input[type=file]').files;
+
+    if(files.length === 0 ){
         return;
     }
-    let files = document.querySelector('input[type=file]').files;
+
+    if(files[0].size > 2_000_000){
+        alert("Filen är för stor (max 2MB)");
+        return;
+    } else {
+        alert("Bild uppladdad");
+    }
+
     let formData = new FormData();
 
     addImageRest(formData, files, noteId);
