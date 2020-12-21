@@ -135,6 +135,5 @@ async function deleteFileRest(fileId) {
 
 getFilesRest();
 get_note_lists();
-get_notes();
 deleteImageFunctionality();
 
