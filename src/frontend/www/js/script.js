@@ -100,7 +100,7 @@ function addList() {
     // errorMessage(noteListNameInput);
     
     $("#add-list-button").click(function() {
-        localStorage.setItem("justCreatedList", true);
+        // localStorage.setItem("justCreatedList", true);
         let noteListNameInput = $("#list-name-input").val();
         
         let newList = {};
@@ -125,7 +125,7 @@ function showListsInCreateNote() {
     if(sessionStorage.getItem("browserStarted") == null) {
         sessionStorage.setItem("browserStarted", "true");
         localStorage.setItem("listid", 1);
-        localStorage.setItem("justCreatedList", "false");
+        // localStorage.setItem("justCreatedList", "false");
     }
     let allLists = $("#note-pick-list-edit");
     allLists.empty();
@@ -160,15 +160,15 @@ function errorMessage(noteTitleInput, notePickList, noteTextInput) {
 
 
 function displayNotes() {
-    let lastIncrement;
-    for (list of lists) {
-        lastIncrement = list.id;
-    }
 
-    if (localStorage.getItem("justCreatedList") == "true") {
-        localStorage.setItem("justCreatedList", "false");
-        localStorage.setItem("listid", lastIncrement);
-    }
+    // for (list of lists) {
+    //     lastIncrement = list.id;
+    // }
+
+    // if (localStorage.getItem("justCreatedList") == "true") {
+    //     localStorage.setItem("justCreatedList", "false");
+    //     localStorage.setItem("listid", lastIncrement);
+    // }
     pickedListId = parseInt(localStorage.getItem("listid"));
 
     let allNotes = $("#all-notes");
@@ -476,7 +476,6 @@ function searchFunction(){
         }
     }
 }
-
 
 showListsInCreateNote();
 addList();

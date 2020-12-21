@@ -48,10 +48,12 @@ async function delete_note(noteid) {
 
 async function get_note_lists() {
     let result = await fetch("/rest/lists");
-    lists = await result.json();
-    displayLists();
-    showListsInCreateNote();
-    updateListName();
+    lists = await result.json()
+        
+        get_notes();
+        showListsInCreateNote();
+        updateListName();
+
 }
 
 async function create_note_list(noteList) {
