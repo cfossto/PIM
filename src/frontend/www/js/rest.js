@@ -48,10 +48,12 @@ async function delete_note(noteid) {
 
 async function get_note_lists() {
     let result = await fetch("/rest/lists");
-    lists = await result.json();
-    displayLists();
-    showListsInCreateNote();
-    updateListName();
+    lists = await result.json()
+        
+        get_notes();
+        showListsInCreateNote();
+        updateList();
+
 }
 
 async function create_note_list(noteList) {
@@ -60,7 +62,7 @@ async function create_note_list(noteList) {
         method: "POST",
         body: JSON.stringify(noteList)
     })
-    .then(function() {window.location.href="index.html"});
+    .then(function() { window.location.href="index.html"});
 }
 
 async function update_note_list(noteList) {
@@ -80,8 +82,10 @@ async function delete_note_list(listId) {
         body: JSON.stringify(listId)
 
     })
-    .then(function(){window.location.href="index.html"})
-    .then(alert("Listan borttagen."));
+    .then(function(){
+        saveId(1,1);
+        window.location.href="index.html"});
+    
 }
 
 // Adding Images in uploads and in database

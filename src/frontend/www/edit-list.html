@@ -7,7 +7,7 @@
 </head>
 <body>
     <header>
-        <h1><a href="index.html">PIMER</a></h1>
+        <h1><a href="index.html" onclick="saveId(1,1)">PIMER</a></h1>
     </header>
     <main>
         <nav class="all-lists">
@@ -18,7 +18,7 @@
             <h1>Redigera Lista</h1>
             <div class="form" id="edit-lists">
                 <label for="list-name-input-edit"></label>
-                <input placeholder="List Namn..." type="text" id="list-name-input-edit">
+                <input type="text" id="list-name-input-edit">
                 <div class="error-no-name errorMessage"></div>
                 <button id="edit-list-button">Spara</button>
                 <button id="delete-list-button" onclick="deleteListFunctionality()">Ta bort</button>

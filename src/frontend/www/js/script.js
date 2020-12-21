@@ -25,36 +25,59 @@ function isUrl(txtStr) {
 }
 
 function addHyperLinks(noteText) {
-    var strArr = noteText.split(/\s/);
+
+    // Check if 'str' is a url and if it starts with https.
     let noteTextAltered = "";
-    strArr.forEach(str => {
-        let temp = "";
-        // check if 'str' is a url and if it starts with https.
-        if (isUrl(str) && str.match(/^https?:\/\/.+/i)) {
-            temp = `<a href=${str} class="hyper-link">${str}</a> `;
-        }
-        // make sure url starts with 'https://' inside the tag. Won't be seen in the notes.
-        else if (isUrl(str)) {
-            temp = `<a href=https://${str} class="hyper-link">${str}</a> `;
-        }
-        else {
-            temp = str + " ";
+    var strArray = noteText.split(/\n/);
+    for (txt of strArray) {
+        var strArr = txt.split(/\40/);
+        for (let str of strArr) {
+
+            if (isUrl(str) && str.match(/^https?:\/\/.+/i)) {
+                str = `<a href=${str} class="hyper-link">${str}</a> `;
+            }
+            // Make sure url starts with 'https://' inside the tag. Won't be seen in the notes.
+            else if (isUrl(str)) {
+                str = `<a href=https://${str} class="hyper-link">${str}</a> `;
+            }
+            else {
+                // If the word is not a url, then we replace all the tag-symbols with
+                // its corresponding html entities.
+                str = replaceProblematicSymbols(str);
+            }
+
+            noteTextAltered = noteTextAltered + str + " ";
         }
 
-        noteTextAltered = noteTextAltered + temp;
-    });
+        noteTextAltered = noteTextAltered + "\n";
+    }
     return noteTextAltered;
+}
+
+function replaceProblematicSymbols(str) {
+    // Replace '<' with its corresponding symbol notation in order to
+    // avoid bugs in the text
+    let rgx = /</g
+    str = str.replace(rgx,"&lt;");
+
+    // Replace '>' with its corresponding symbol notation in order to
+    // avoid bugs in the text
+    rgx = />/g
+    str = str.replace(rgx,"&gt;");
+
+    return str;
 }
 
 function addNote() {
     let noteTitleInput = $("#note-title-input").val();
     let notePickList = $("#note-pick-list-edit").val();
     let noteTextInput = $("#note-text-input").val();
+    // Need to check if the text and title have problematic symbols and replace them.
+    
     let newNote = {};
-
     // errorMessage(noteTitleInput, notePickList, noteTextInput);
 
-    if(noteTitleInput && notePickList && noteTextInput) {
+    if(noteTitleInput.match(/\w+/) && notePickList.match(/\w+/) && noteTextInput.match(/\w+/)) {
         newNote = {
             title: noteTitleInput,
             list_id: notePickList,
@@ -75,38 +98,43 @@ function addNote() {
 
 function addList() {
     
-    // errorMessage(noteListNameInput);
-    
     $("#add-list-button").click(function() {
-
+        saveId(1,1);
         let noteListNameInput = $("#list-name-input").val();
         
         let newList = {};
         
-        if(noteListNameInput) {
+        if(noteListNameInput.match(/\w+/)) {
             newList = {
                 name: noteListNameInput
             }
      
             lists.push(newList);
             create_note_list(newList);
-           
         } else {
             console.log("Fält får ej vara tomt");
         }
-    })
+    });
 
 }
 
+
 function showListsInCreateNote() {
+    // Putting this here, because it's the first code to excecute
+    if(sessionStorage.getItem("browserStarted") == null) {
+        sessionStorage.setItem("browserStarted", "true");
+        localStorage.setItem("listid", 1);
+        // localStorage.setItem("justCreatedList", "false");
+    }
     let allLists = $("#note-pick-list-edit");
     allLists.empty();
+    allLists.append(`<option></option>`);
 
     allLists.append('<option disabled selected>Välj Lista...</option>');
 
     for (let list of lists) {
         allLists.append(`
-            <option value="${list.id}">${list.name}</option>
+            <option value="${list.id}" ${list.id == localStorage.getItem("listid") ? "selected" : ""}>${replaceProblematicSymbols(list.name)}</option>
         `);
     }
 }
@@ -132,26 +160,28 @@ function errorMessage(noteTitleInput, notePickList, noteTextInput) {
 }
 
 
-function displayNotes(pickedListId = 1) {
+function displayNotes() {
+
+    pickedListId = parseInt(localStorage.getItem("listid"));
+
     let allNotes = $("#all-notes");
-    allNotes.empty();
     let listTitle = $("#list-title-frontpage");
 
     for (let list  of lists) {
         if (pickedListId === list.id) {
             listTitle.empty();
-            listTitle.append(list.name);
+            listTitle.append(replaceProblematicSymbols(list.name));
         }
     }
 
-
+    allNotes.empty();
     for (let note of notes) {
-
+        
         if(pickedListId === note.list_id) {
             allNotes.append(`
                 <article class="note">
                     <a href="edit-note.html" onclick="saveId(${note.id},${note.list_id})">
-                        <h2>${note.title}</h2>
+                        <h2>${replaceProblematicSymbols(note.title)}</h2>
                         <p>${addHyperLinks(note.text)}</p>
                         <div class="note-images-${note.id}"></div>
                     </a>
@@ -166,12 +196,12 @@ function displayNotes(pickedListId = 1) {
 function displayLists() {
     let allLists = $("#all-lists");
     allLists.empty();
-
+    
     for (let list of lists) {
         allLists.append(`
-            <a onclick="displayNotes(${list.id}), saveId(1, ${list.id})">
+            <a onclick="saveId(1, ${list.id}), displayNotes()">
                 <div class="list-item">
-                    <div class="list-name">${list.name}</div>
+                    <div class="list-name">${replaceProblematicSymbols(list.name)}</div>
                 <div class="notes-in-list">${countNotesInList(list.id)}</div>
             </div>
             </a>
@@ -212,7 +242,7 @@ function updateNote(){
         if (id === note.id){
             let titleField = $("#note-title-input-edit").val(note.title);
             let noteListValue = $("#note-pick-list-edit").val(note.list_id);
-            let noteBody = $("#note-text-input-edit").append(note.text);
+            let noteBody = $("#note-text-input-edit").val(note.text);
 
             displayImagesEditNote(note.id);
 
@@ -223,15 +253,20 @@ function updateNote(){
                 note.list_id = parseInt(noteListValue.val());
                 note.text = noteBody.val();
                 
-                // Back-end-call
-                update_note(note);
+                if(note.title.match(/\w+/) && note.text.match(/\w+/)) {
+                    // Back-end-call
+                    update_note(note);
+                }
+                else {
+                    console.log("Fält får ej vara tomt");
+                }
             });
         }
     }
 }
 
 // Updates notes in database
-function updateListName(){
+function updateList(){
 
     // Takes the stored id and parses it correctly
     let listId = parseInt(localStorage.getItem("listid"));
@@ -244,8 +279,12 @@ function updateListName(){
             // On click: update lists to changed values
             $("#edit-list-button").click(function () {
                 list.name = noteListName.val();
-                update_note_list(list);
-                console.log("Uppdaterat");
+                if (list.name.match(/\w+/)) {
+                    update_note_list(list);
+                }
+                else {
+                            console.log("Fält får ej vara tomt");
+                    }
 
             });
         }
@@ -314,7 +353,7 @@ function deleteImageFunctionality() {
 
 function changeWindow(){
 
-    alert("Anteckningen borttagen")
+    ("Anteckningen borttagen")
     window.location.href="index.html"
 }
 
@@ -335,7 +374,7 @@ function deleteNoteFunctionalty(){
         // REST-call
         delete_note(id);
 
-    // If user clicks cancel show an alert
+    // If user clicks cancel show an 
     } else {
         alert("Avbröt borttagning");
     }
@@ -439,7 +478,6 @@ function searchFunction(){
         }
     }
 }
-
 
 showListsInCreateNote();
 addList();
