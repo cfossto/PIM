@@ -34,11 +34,11 @@ function addHyperLinks(noteText) {
         for (let str of strArr) {
 
             if (isUrl(str) && str.match(/^https?:\/\/.+/i)) {
-                str = `<a href=${str} class="hyper-link">${str}</a> `;
+                str = `<a href=${str} target="_blank" class="hyper-link">${str}</a> `;
             }
             // Make sure url starts with 'https://' inside the tag. Won't be seen in the notes.
             else if (isUrl(str)) {
-                str = `<a href=https://${str} class="hyper-link">${str}</a> `;
+                str = `<a href=https://${str} target="_blank" class="hyper-link">${str}</a> `;
             }
             else {
                 // If the word is not a url, then we replace all the tag-symbols with
