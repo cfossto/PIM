@@ -25,7 +25,6 @@ function isUrl(txtStr) {
 }
 
 function addHyperLinks(noteText) {
-    noteText = replaceWeirdSymbols(noteText); // look for '<' and '>'
 
     // Check if 'str' is a url and if it starts with https.
     var strArr = noteText.split(/\40/);
@@ -45,7 +44,7 @@ function addHyperLinks(noteText) {
     return noteTextAltered;
 }
 
-function replaceWeirdSymbols(str) {
+function replaceProblematicSymbols(str) {
     // Replace '<' with its corresponding symbol notation in order to
     // avoid bugs in the text
     let rgx = /</g
@@ -63,9 +62,8 @@ function addNote() {
     let noteTitleInput = $("#note-title-input").val();
     let notePickList = $("#note-pick-list-edit").val();
     let noteTextInput = $("#note-text-input").val();
-    // Need to check if the text have problematic symbols and replace them.
-    noteTextInput = replaceWeirdSymbols(noteTextInput);
-
+    // Need to check if the text and title have problematic symbols and replace them.
+    
     let newNote = {};
     // errorMessage(noteTitleInput, notePickList, noteTextInput);
 
@@ -125,7 +123,7 @@ function showListsInCreateNote() {
 
     for (let list of lists) {
         allLists.append(`
-            <option value="${list.id}" ${list.id == localStorage.getItem("listid") ? "selected" : ""}>${list.name}</option>
+            <option value="${list.id}" ${list.id == localStorage.getItem("listid") ? "selected" : ""}>${replaceProblematicSymbols(list.name)}</option>
         `);
     }
 }
@@ -170,19 +168,19 @@ function displayNotes() {
     for (let list  of lists) {
         if (pickedListId === list.id) {
             listTitle.empty();
-            listTitle.append(list.name);
+            listTitle.append(replaceProblematicSymbols(list.name));
         }
     }
 
 
     for (let note of notes) {
-
+        
         if(pickedListId === note.list_id) {
             allNotes.append(`
                 <article class="note">
                     <a href="edit-note.html" onclick="saveId(${note.id},${note.list_id})">
-                        <h2>${note.title}</h2>
-                        <p>${addHyperLinks(note.text)}</p>
+                        <h2>${replaceProblematicSymbols(note.title)}</h2>
+                        <p>${replaceProblematicSymbols(addHyperLinks(note.text))}</p>
                         <div class="note-images-${note.id}"></div>
                     </a>
                 </article>
@@ -196,12 +194,12 @@ function displayNotes() {
 function displayLists() {
     let allLists = $("#all-lists");
     allLists.empty();
-
+    
     for (let list of lists) {
         allLists.append(`
             <a onclick="saveId(1, ${list.id}), displayNotes()">
                 <div class="list-item">
-                    <div class="list-name">${list.name}</div>
+                    <div class="list-name">${replaceProblematicSymbols(list.name)}</div>
                 <div class="notes-in-list">${countNotesInList(list.id)}</div>
             </div>
             </a>
@@ -242,7 +240,7 @@ function updateNote(){
         if (id === note.id){
             let titleField = $("#note-title-input-edit").val(note.title);
             let noteListValue = $("#note-pick-list-edit").val(note.list_id);
-            let noteBody = $("#note-text-input-edit").append(replaceWeirdSymbols(note.text));
+            let noteBody = $("#note-text-input-edit").append(replaceProblematicSymbols(note.text));
 
             displayImagesEditNote(note.id);
 
