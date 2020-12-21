@@ -77,7 +77,7 @@ function addNote() {
     let newNote = {};
     // errorMessage(noteTitleInput, notePickList, noteTextInput);
 
-    if(noteTitleInput && notePickList && noteTextInput) {
+    if(noteTitleInput.match(/\w+/) && notePickList.match(/\w+/) && noteTextInput.match(/\w+/)) {
         newNote = {
             title: noteTitleInput,
             list_id: notePickList,
@@ -97,15 +97,14 @@ function addNote() {
 }
 
 function addList() {
-    // errorMessage(noteListNameInput);
     
     $("#add-list-button").click(function() {
-        // localStorage.setItem("justCreatedList", true);
+        saveId(1,1);
         let noteListNameInput = $("#list-name-input").val();
         
         let newList = {};
         
-        if(noteListNameInput) {
+        if(noteListNameInput.match(/\w+/)) {
             newList = {
                 name: noteListNameInput
             }
@@ -115,7 +114,7 @@ function addList() {
         } else {
             console.log("Fält får ej vara tomt");
         }
-    })
+    });
 
 }
 
@@ -164,7 +163,6 @@ function displayNotes() {
     pickedListId = parseInt(localStorage.getItem("listid"));
 
     let allNotes = $("#all-notes");
-    allNotes.empty();
     let listTitle = $("#list-title-frontpage");
 
     for (let list  of lists) {
@@ -174,7 +172,7 @@ function displayNotes() {
         }
     }
 
-
+    allNotes.empty();
     for (let note of notes) {
         
         if(pickedListId === note.list_id) {
@@ -242,7 +240,7 @@ function updateNote(){
         if (id === note.id){
             let titleField = $("#note-title-input-edit").val(note.title);
             let noteListValue = $("#note-pick-list-edit").val(note.list_id);
-            let noteBody = $("#note-text-input-edit").append(replaceProblematicSymbols(note.text));
+            let noteBody = $("#note-text-input-edit").val(note.text);
 
             displayImagesEditNote(note.id);
 
@@ -253,15 +251,20 @@ function updateNote(){
                 note.list_id = parseInt(noteListValue.val());
                 note.text = noteBody.val();
                 
-                // Back-end-call
-                update_note(note);
+                if(note.title.match(/\w+/) && note.text.match(/\w+/)) {
+                    // Back-end-call
+                    update_note(note);
+                }
+                else {
+                    console.log("Fält får ej vara tomt");
+                }
             });
         }
     }
 }
 
 // Updates notes in database
-function updateListName(){
+function updateList(){
 
     // Takes the stored id and parses it correctly
     let listId = parseInt(localStorage.getItem("listid"));
@@ -274,8 +277,12 @@ function updateListName(){
             // On click: update lists to changed values
             $("#edit-list-button").click(function () {
                 list.name = noteListName.val();
-                update_note_list(list);
-                console.log("Uppdaterat");
+                if (list.name.match(/\w+/)) {
+                    update_note_list(list);
+                }
+                else {
+                            console.log("Fält får ej vara tomt");
+                    }
 
             });
         }

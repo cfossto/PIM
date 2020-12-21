@@ -52,7 +52,7 @@ async function get_note_lists() {
         
         get_notes();
         showListsInCreateNote();
-        updateListName();
+        updateList();
 
 }
 
