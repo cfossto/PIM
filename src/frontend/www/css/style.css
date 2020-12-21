@@ -48,7 +48,7 @@ NAV ALL LISTS
 *******************/
 .all-lists {
     background-color: var(--secondary);
-    width: 15%;
+    width: 17vw;
     color: var(--text);
     padding: 10px;
     display: flex;
@@ -126,7 +126,7 @@ MAIN NOTES
 .note {
     background-color: white;
     width: 30%;
-    min-width: 200px;
+    min-width: 300px;
     margin: 10px;
     padding: 40px 10px 80px 10px;
     border-radius: 20px;
