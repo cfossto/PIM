@@ -27,19 +27,29 @@ function isUrl(txtStr) {
 function addHyperLinks(noteText) {
 
     // Check if 'str' is a url and if it starts with https.
-    var strArr = noteText.split(/\40/);
     let noteTextAltered = "";
-    for (let str of strArr) {
+    var strArray = noteText.split(/\n/);
+    for (txt of strArray) {
+        var strArr = txt.split(/\40/);
+        for (let str of strArr) {
 
-        if (isUrl(str) && str.match(/^https?:\/\/.+/i)) {
-            str = `<a href=${str} class="hyper-link">${str}</a> `;
-        }
-        // Make sure url starts with 'https://' inside the tag. Won't be seen in the notes.
-        else if (isUrl(str)) {
-            str = `<a href=https://${str} class="hyper-link">${str}</a> `;
+            if (isUrl(str) && str.match(/^https?:\/\/.+/i)) {
+                str = `<a href=${str} class="hyper-link">${str}</a> `;
+            }
+            // Make sure url starts with 'https://' inside the tag. Won't be seen in the notes.
+            else if (isUrl(str)) {
+                str = `<a href=https://${str} class="hyper-link">${str}</a> `;
+            }
+            else {
+                // If the word is not a url, then we replace all the tag-symbols with
+                // its corresponding html entities.
+                str = replaceProblematicSymbols(str);
+            }
+
+            noteTextAltered = noteTextAltered + str + " ";
         }
 
-        noteTextAltered = noteTextAltered + str + " ";
+        noteTextAltered = noteTextAltered + "\n";
     }
     return noteTextAltered;
 }
@@ -180,7 +190,7 @@ function displayNotes() {
                 <article class="note">
                     <a href="edit-note.html" onclick="saveId(${note.id},${note.list_id})">
                         <h2>${replaceProblematicSymbols(note.title)}</h2>
-                        <p>${replaceProblematicSymbols(addHyperLinks(note.text))}</p>
+                        <p>${addHyperLinks(note.text)}</p>
                         <div class="note-images-${note.id}"></div>
                     </a>
                 </article>

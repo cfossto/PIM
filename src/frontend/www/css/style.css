@@ -136,6 +136,11 @@ MAIN NOTES
     padding-bottom: 20px;
 }
 
+.note p {
+    white-space: pre-wrap;
+    word-wrap:break-word;
+}
+
 /*******************
 CREATE NOTES FORM
 *******************/
