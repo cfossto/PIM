@@ -161,14 +161,6 @@ function errorMessage(noteTitleInput, notePickList, noteTextInput) {
 
 function displayNotes() {
 
-    // for (list of lists) {
-    //     lastIncrement = list.id;
-    // }
-
-    // if (localStorage.getItem("justCreatedList") == "true") {
-    //     localStorage.setItem("justCreatedList", "false");
-    //     localStorage.setItem("listid", lastIncrement);
-    // }
     pickedListId = parseInt(localStorage.getItem("listid"));
 
     let allNotes = $("#all-notes");
@@ -292,11 +284,19 @@ function updateListName(){
 
 // Adding Images
 function addImage(noteId) {
-    if( document.querySelector("#image-to-upload").files.length === 0 ){
-        console.log("no files selected");
+    let files = document.querySelector('input[type=file]').files;
+
+    if(files.length === 0 ){
         return;
     }
-    let files = document.querySelector('input[type=file]').files;
+
+    if(files[0].size > 2_000_000){
+        alert("Filen är för stor (max 2MB)");
+        return;
+    } else {
+        alert("Bild uppladdad");
+    }
+
     let formData = new FormData();
 
     addImageRest(formData, files, noteId);

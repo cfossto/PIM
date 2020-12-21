@@ -1,5 +1,6 @@
 *.db
 /out/production/PIM/frontend/www
+out/
 
 # Mobile Tools for Java (J2ME)
 .mtj.tmp/
