@@ -89,33 +89,31 @@ async function delete_note_list(listId) {
 }
 
 // Adding Images in uploads and in database
-async function addImageRest(formData, files, noteId) {
+async function addImageRest(file, noteId) {
+    let formData = new FormData();
+    let filename = "/uploads/" + Date.now() + "-" + file.name;
 
-    for(let file of files) {
-        formData.append('files', file, Date.now() + "-" + file.name);
+    let fileObject = {
+        note_id: noteId,
+        category_id: 1,
+        name: filename
     }
+
+    // Sends file name for the database
+    let result = await fetch("/rest/files", {
+        method: "POST",
+        body: JSON.stringify(fileObject)
+    });
+
+    formData.append('files', file, filename);
+
+    files.push(fileObject);
 
     // Sends file to be added in uploads folder
     let uploadResult = await fetch('/rest/file-upload', {
         method: 'POST',
         body: formData
     });
-
-    let imageUrl = await uploadResult.text();
-    let file = {
-        note_id: noteId,
-        category_id: 1,
-        name: imageUrl
-    }
-
-    // Sends file name for the database
-    let result = await fetch("/rest/files", {
-        method: "POST",
-        body: JSON.stringify(file)
-    });
-
-    files.push(file);
-    console.log(await result.text());
 }
 
 async function getFilesRest() {

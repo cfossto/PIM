@@ -295,13 +295,17 @@ function updateList(){
 function addImage(noteId) {
     let files = document.querySelector('input[type=file]').files;
 
-    if(files.length === 0 ){
+    if(files.length === 0){
         return;
     }
 
-    let formData = new FormData();
-
-    addImageRest(formData, files, noteId);
+    for(let file of files) {
+        if(file.size > 2000000){
+            alert("File is too big!");
+        } else {
+            addImageRest(file, noteId);
+        }
+    }
 }
 
 // creates place where images is shown on edit-note then calls displayImages()

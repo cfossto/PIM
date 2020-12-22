@@ -227,7 +227,7 @@ public class Database {
 
     // Add file in uploads
     public String uploadImage(FileItem image) {
-        String imageUrl = "/uploads/" + image.getName();
+        String imageUrl = image.getName();
 
         try (var os = new FileOutputStream(Paths.get("src/frontend/www" + imageUrl).toString())) {
             os.write(image.get());

@@ -92,9 +92,7 @@ public class NoteServer {
             } catch (Exception e) {
                 System.out.println("No Image Uploaded");
             }
-
-
-            res.send(imageUrl);
+            res.send("ok");
         });
 
         // Adding file to db
