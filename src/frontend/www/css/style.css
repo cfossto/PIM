@@ -181,6 +181,10 @@ a {
 /*******************
 IMAGES IN EDIT-NOTE WITH DELETE
 *******************/
+img {
+    object-fit: cover;
+    object-position: center;
+}
 
 .img-wrap {
     position: relative;
@@ -207,6 +211,38 @@ IMAGES IN EDIT-NOTE WITH DELETE
 .img-wrap:hover .close {
     opacity: 1;
 }
+
+/*******************
+FILES
+*******************/
+.file-wrap {
+    color: var(--primary);
+    border: 1px solid var(--primary);
+    padding: 5px;
+    margin: 5px;
+}
+
+.file-wrap-edit {
+    display: flex;
+    justify-content: space-between;
+}
+
+.file-wrap-start {
+    display: flex;
+    justify-content: center;
+}
+
+.file-wrap a {
+    text-decoration-line: underline;
+    text-align: center;
+}
+
+.file-wrap .delete-image-button {
+    cursor: pointer;
+    align-self: start;
+}
+
+
 /*******************
 SEARCH FIELD
 *******************/

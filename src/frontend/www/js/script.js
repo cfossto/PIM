@@ -313,15 +313,29 @@ function displayImagesEditNote(noteId) {
 
         for (let file of files) {
             if(file.note_id === noteId) {
+
+                let fileType = file.name.split(".");
+                let fileName = file.name.split("/");
+
+                let validImageTypes = ["gif", "jpeg", "png", "jpg"];
                 let splitImageName = file.name.split("/").join(".").split(".").join("-").split("-");
                 let altText = splitImageName[3];
 
-                $('.note-images-' + noteId).append(`
-                    <div class="img-wrap">
-                        <span class="delete-image-button close">&times;</span>
-                        <img src="${file.name}" height="200px" width="200px" alt="${altText}" id="${file.id}">
-                    </div>
-                `);
+                if (validImageTypes.includes(fileType[1])) {
+                    $('.note-images-' + noteId).append(`
+                        <div class="img-wrap">
+                            <span class="delete-image-button close">&times;</span>
+                            <img src="${file.name}" height="auto" width="200px" alt="${altText}" id="${file.id}">
+                        </div>
+                    `);
+                } else {
+                    $('.note-images-' + noteId).append(`
+                        <div class="file-wrap file-wrap-edit">
+                                <span class="delete-image-button close">&times;</span>
+                            <a href="${file.name}" id="${file.id}" download>${fileName[2]}</a>
+                        </div>
+                    `);
+                }
             }
         }
     }
@@ -331,10 +345,21 @@ function displayImagesEditNote(noteId) {
 function displayImages(noteId) {
     for (let file of files) {
         if(file.note_id === noteId) {
+            let fileType = file.name.split(".");
+            let fileName = file.name.split("/");
+            let validImageTypes = ["gif", "jpeg", "png", "jpg"];
+
             let splitImageName = file.name.split("/").join(".").split(".").join("-").split("-");
             let altText = splitImageName[3];
-
-            $('.note-images-' + noteId).append(`<img src="${file.name}" height="200px" width="200px" alt="${altText}">`);
+            if (validImageTypes.includes(fileType[1])) {
+                $('.note-images-' + noteId).append(`<img src="${file.name}" height="auto" width="200px" alt="${altText}">`);
+            } else {
+                $('.note-images-' + noteId).append(`
+                    <div class="file-wrap file-wrap-start">
+                        <a href="${file.name}" id="${file.id}" download>${fileName[2]}</a>
+                    </div>
+                `);
+            }
         }
     }
 }
