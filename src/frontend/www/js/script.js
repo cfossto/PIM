@@ -321,7 +321,7 @@ function displayImagesEditNote(noteId) {
                 let splitImageName = file.name.split("/").join(".").split(".").join("-").split("-");
                 let altText = splitImageName[3];
 
-                if (validImageTypes.includes(fileType[1])) {
+                if (validImageTypes.includes(fileType[1].toLowerCase())) {
                     $('.note-images-' + noteId).append(`
                         <div class="img-wrap">
                             <span class="delete-image-button close">&times;</span>
@@ -351,7 +351,7 @@ function displayImages(noteId) {
 
             let splitImageName = file.name.split("/").join(".").split(".").join("-").split("-");
             let altText = splitImageName[3];
-            if (validImageTypes.includes(fileType[1])) {
+            if (validImageTypes.includes(fileType[1].toLowerCase())) {
                 $('.note-images-' + noteId).append(`<img src="${file.name}" height="auto" width="200px" alt="${altText}">`);
             } else {
                 $('.note-images-' + noteId).append(`
