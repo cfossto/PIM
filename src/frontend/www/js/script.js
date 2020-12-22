@@ -75,7 +75,7 @@ function addNote() {
     // Need to check if the text and title have problematic symbols and replace them.
     
     let newNote = {};
-    // errorMessage(noteTitleInput, notePickList, noteTextInput);
+    errorMessage(noteTitleInput, notePickList, noteTextInput);
 
     if(noteTitleInput.match(/\w+/) && notePickList.match(/\w+/) && noteTextInput.match(/\w+/)) {
         newNote = {
@@ -374,15 +374,6 @@ function deleteImageFunctionality() {
         deleteFileRest(fileIdToRemove);
     });
 }
-
-
-function changeWindow(){
-
-    ("Anteckningen borttagen")
-    window.location.href="index.html"
-}
-
-
 
 function deleteNoteFunctionalty(){
 

@@ -53,6 +53,7 @@ NAV ALL LISTS
     padding: 10px;
     display: flex;
     flex-direction: column;
+    flex-wrap: wrap;
 }
 
 .list-item {
@@ -132,8 +133,15 @@ MAIN NOTES
     border-radius: 20px;
 }
 
+.notes-in-list {
+    padding-left: 5px;
+    color: rgb(114, 106, 106);
+}
+
 .note h2 {
     padding-bottom: 20px;
+    white-space: pre-wrap;
+    word-wrap:break-word;
 }
 
 .note p {
